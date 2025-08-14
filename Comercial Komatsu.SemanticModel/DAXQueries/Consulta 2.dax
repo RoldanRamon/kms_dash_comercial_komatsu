@@ -1,0 +1,26 @@
+EVALUATE
+VAR _base = 
+	FILTER(
+		fPedido,
+		CONTAINSSTRING(fPedido[DIM_ITEM_ID],"EQ") &&
+		NOT (CONTAINSSTRING(fPedido[CLIENTE],"KOMATSU")) &&
+		fPedido[POS_PDV] = "Atendido Total" &&
+		fPedido[TP_DIVISAO_VENDAS] = "Máquinas" &&
+		NOT (CONTAINSSTRING(fPedido[DESC_DIVISAO_VENDA],"LOG MAX")) &&
+		fPedido[NF_DATA] >= DATE(2025,07,01)
+		
+	)
+
+VAR _colunasSelecionadas = 
+SELECTCOLUMNS(_base,
+			"NF", fPedido[NF_NUM],
+			"Pedido", fPedido[NR_PEDIDO],
+			"EQ", fPedido[DIM_ITEM_ID],
+			"Cliente", fPedido[CLIENTE],
+			"Pos PDV", fPedido[POS_PDV],
+			"Divisao Venda", fPedido[DESC_DIVISAO_VENDA],
+			"NF_DATA", fPedido[NF_DATA]
+			)
+
+RETURN _colunasSelecionadas
+ORDER BY [NF_DATA] ASC

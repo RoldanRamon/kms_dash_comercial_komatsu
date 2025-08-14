@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Comercial Komatsu"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3518d253-ac71-4a24-9d16-135685c0ad9c"
+  }
+}

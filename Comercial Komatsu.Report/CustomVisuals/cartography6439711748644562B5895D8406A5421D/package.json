@@ -1,0 +1,29 @@
+{
+  "version": "1.0.3",
+  "author": {
+    "name": "Data Khi",
+    "email": "jimmy.denis@datakhi.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/cartography6439711748644562B5895D8406A5421D.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "cartography6439711748644562B5895D8406A5421D",
+    "name": "FranceChoropleth",
+    "displayName": "France Drilldown Choropleth",
+    "version": "1.0.3",
+    "description": "Color map of France with drilldown functionality and ease of use.",
+    "supportUrl": "https://datakhi.fr",
+    "gitHubUrl": "",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}
