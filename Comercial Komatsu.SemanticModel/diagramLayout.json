@@ -106,30 +106,6 @@
         },
         {
           "location": {
-            "x": 2560.0700386396911,
-            "y": 0
-          },
-          "nodeIndex": "MEDIDAS NOTAS",
-          "size": {
-            "height": 187,
-            "width": 254
-          },
-          "zIndex": 19
-        },
-        {
-          "location": {
-            "x": 2266.0700386396911,
-            "y": 0
-          },
-          "nodeIndex": "MEDIDAS PEDIDOS",
-          "size": {
-            "height": 187,
-            "width": 254
-          },
-          "zIndex": 20
-        },
-        {
-          "location": {
             "x": 2515.9819792886569,
             "y": 227
           },
