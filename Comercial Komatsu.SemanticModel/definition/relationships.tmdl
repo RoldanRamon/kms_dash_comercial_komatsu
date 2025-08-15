@@ -234,13 +234,6 @@ relationship 43160941-53f5-41ec-8d56-71f0b2ca1c57
 	fromColumn: fPedido.DIM_ITEM_ID
 	toColumn: dItem.CD_ITEM
 
-relationship 6a9483ef-2ef1-4fc2-a18f-6f2213e6d288
-	isActive: false
-	crossFilteringBehavior: bothDirections
-	toCardinality: many
-	fromColumn: dRepresentante.Estabelecimento
-	toColumn: fVenda.DIM_EMPRESA_ID
-
 relationship cfbca38f-f441-43e7-b1fd-fe53425463e3
 	fromColumn: xfMachinesControl.Emissão
 	toColumn: dCalendario.DT_DATA
@@ -259,13 +252,6 @@ relationship 236296c7-5671-4b9d-998a-d06bc1e343d5
 	toCardinality: many
 	fromColumn: fPedido.NR_PEDIDO
 	toColumn: fPedidoItemMaq.NR_PEDIDO
-
-relationship 57a00e66-8b33-4e11-80e7-4c472af09704
-	isActive: false
-	crossFilteringBehavior: bothDirections
-	toCardinality: many
-	fromColumn: dItem.COD_C4
-	toColumn: dModeloItem.GE
 
 relationship 3b015b6a-f60b-486b-82b6-59870542f88d
 	fromColumn: fPedidoItemMaq.COD_MODELO
@@ -330,11 +316,6 @@ relationship aec65d06-9346-4f1a-8d74-47a8ec0d165a
 
 relationship ded59466-c5bb-47f7-8e06-4db3aa034342
 	fromColumn: fRecebimento.DIM_ITEM_ID
-	toColumn: dItem.CD_ITEM
-
-relationship a61e6c41-1da5-4ac8-8072-7bd3bb571d8e
-	isActive: false
-	fromColumn: dItemFornecedor.DIM_ITEM_ID
 	toColumn: dItem.CD_ITEM
 
 relationship 93373a83-cf99-4484-a43f-3b43a66a92bb

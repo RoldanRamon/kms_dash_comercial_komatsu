@@ -31,11 +31,11 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.142.928.0 (25.04)+de52df9f0bb74ad93a80d89c52d63fe6d07e0e1b
 
-annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dMunicipio","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","MEDIDAS NOTAS","MEDIDAS PEDIDOS","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dEmitente","dSyncron","dMoeda","Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","dMotivoCancelamento"]
+annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dMunicipio","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dEmitente","dSyncron","dMoeda","Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","dMotivoCancelamento"]
 
 annotation __TEdtr = 1
 
-annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
+annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop","TMDLView_Desktop","TMDL-Extension"]
 
 ref table dCliente
 ref table dCondicaoPagamento
@@ -47,8 +47,6 @@ ref table dCalendario
 ref table fPedido
 ref table fVenda
 ref table dTipoNota
-ref table 'MEDIDAS NOTAS'
-ref table 'MEDIDAS PEDIDOS'
 ref table CENARIOS
 ref table fVendasDevolucao
 ref table dItem
