@@ -1,0 +1,36 @@
+table dUnidadeDeNegocio
+	lineageTag: 1d0393d0-3cf9-4805-ac90-d4c14ab6b2af
+
+	column COD_UNID_NEGOC
+		dataType: string
+		lineageTag: 0e72bd7f-7a7a-4fbd-97cf-9f8ae202bc77
+		summarizeBy: none
+		sourceColumn: COD_UNID_NEGOC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unid. Negocio'
+		dataType: string
+		lineageTag: a6df373d-3590-44ce-bd5a-65eee6af317e
+		summarizeBy: none
+		sourceColumn: Unid. Negocio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dUnidadeDeNegocio-51c501eb-c6b0-4ac5-998b-cd9ef6f58323 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				     Fonte = Sql.Databases("10.105.40.196\powerbi"),
+				    idba_komatsu = Fonte{[Name="idba_komatsu"]}[Data],
+				    dbo_DIM_PORTADOR_BI= idba_komatsu{[Schema="dbo",Item="DIM_UNID_NEGOC_BI"]}[Data],
+				    #"Colunas Removidas" = Table.RemoveColumns(dbo_DIM_PORTADOR_BI,{"column3"}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Removidas", "Unid. Negocio", each Text.Combine({[COD_UNID_NEGOC], [NM_UNID_NEGOC]}, " - "), type text)
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Coluna Mesclada Inserida",{"NM_UNID_NEGOC"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

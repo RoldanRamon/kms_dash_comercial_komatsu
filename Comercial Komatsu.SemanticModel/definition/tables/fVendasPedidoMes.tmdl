@@ -1,0 +1,149 @@
+table fVendasPedidoMes
+	lineageTag: 2682117e-580b-48f5-8cd8-75790374d607
+
+	column 'VL Liquido'
+		lineageTag: cee14b75-6302-4814-9639-5b9ca41a4095
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [VL Liquido]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PEDIDO
+		lineageTag: 65031de0-3ab1-441a-8f06-4878f62d5a3e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[PEDIDO]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_DIVISAO_VENDA_ID
+		lineageTag: 9128f6d7-93d1-4b73-b2a9-8cc948addfe1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[DIM_DIVISAO_VENDA_ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_DATA
+		formatString: dd/mm/yyyy
+		lineageTag: 8808c8f4-a999-4880-b69d-d64676f1d688
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dCalendario[DT_DATA]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column TP_DIVISAO_VENDA
+		lineageTag: e788f6a1-4d67-4f1e-9162-6ce25b409ba4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dDivisaoVendas[TP_DIVISAO_VENDA]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATA_PEDIDO
+		formatString: dd/mm/yyyy
+		lineageTag: 5d6c34a1-b66b-4ec0-9fd1-9dd19d452790
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[DATA_PEDIDO]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Faturamento Dentro Mês' =
+			
+			SWITCH(
+			        TRUE(),
+			        fVendasPedidoMes[Mes e Ano NF] = fVendasPedidoMes[Mes e Ano Pedido], 1,0)
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e3f701e-ce3a-43ea-a573-dd997b057955
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes e Ano NF' = MONTH(fVendasPedidoMes[DT_DATA]) & YEAR(fVendasPedidoMes[DT_DATA])
+		lineageTag: d2a6bb11-605c-45cd-8cb3-c13bf253827e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mes e Ano Pedido' = MONTH(fVendasPedidoMes[DATA_PEDIDO]) & YEAR(fVendasPedidoMes[DATA_PEDIDO])
+		lineageTag: d7d0988f-9d4f-41ad-912d-693c07c8caf0
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CLIENTE
+		lineageTag: 0d31770b-dd1a-4620-bc44-f13f6dac8631
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dCliente[COD_CLIENTE]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VL Pedido'
+		lineageTag: 4d4ef6a7-f5bc-4bd2-b07f-e21146e8ed2e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [VL Pedido]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COD_ITEM
+		lineageTag: 6119bdc5-1d75-4896-9043-bc52ebfcedfb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[COD_ITEM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_PEDIDO
+		lineageTag: 2b560c06-e0fa-4acf-bf8e-8a0360476a3e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[ID_PEDIDO]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'STATUS PEDIDO'
+		lineageTag: f6374b1f-0eff-44ab-b5d4-e5492f1a17e9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fVenda[STATUS PEDIDO]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVendasPedidoMes-ad701d32-d00b-4b60-a4f1-d4b494e0dabb = calculated
+		mode: import
+		source = ```
+				
+				               FILTER( SUMMARIZE(fVenda,
+				                            fVenda[PEDIDO],
+				                            fVenda[DIM_DIVISAO_VENDA_ID],
+				                            dCalendario[DT_DATA],
+				                            'dDivisaoVendas'[TP_DIVISAO_VENDA],
+				                            fVenda[COD_ITEM],
+				                            fVenda[DATA_PEDIDO],
+				                            dCliente[COD_CLIENTE],
+				                            fVenda[ID_PEDIDO],
+				                            fVenda[STATUS PEDIDO],
+				                            "VL Liquido",SUMX(fVenda,[Faturamento Liquido Total]),
+				                            "VL Pedido",[VALOR LIQUIDO PDV]),'dDivisaoVendas'[TP_DIVISAO_VENDA] = "Peças" || 'dDivisaoVendas'[TP_DIVISAO_VENDA] = "Vendas Ativas")
+				```
+
+	annotation PBI_Id = 4df2699fb9db4564843d59e0e39caa1c
+

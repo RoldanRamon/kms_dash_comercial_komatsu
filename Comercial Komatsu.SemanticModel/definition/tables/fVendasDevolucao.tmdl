@@ -1,0 +1,167 @@
+table fVendasDevolucao
+	lineageTag: 2cf49cee-0dbb-4495-97b8-0de7b2208b8b
+
+	/// sumx('fVendasDevolucao','fVendasDevolucao'[VLR_LIQ])+0
+	measure 'Valor Dev. TK' = sumx('fVendasDevolucao','fVendasDevolucao'[VLR_LIQ])+0
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: f13fbde3-a79c-4e43-bb77-e73d59d655d5
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DIM_CLIENTE_ID
+		dataType: string
+		lineageTag: 0a3a9ef4-64ea-498d-ac83-7672e042524b
+		summarizeBy: none
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: 9395e4a1-60d5-478a-9f4b-ec8ad3cd97bd
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_LOCAL_ID
+		dataType: string
+		lineageTag: 71c01f5a-a1dc-448f-a2ad-eff3088087fd
+		summarizeBy: none
+		sourceColumn: DIM_LOCAL_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_COND_PAGTO_ID
+		dataType: string
+		lineageTag: d7317529-9a4b-43f1-baf7-e0ed30fa9733
+		summarizeBy: none
+		sourceColumn: DIM_COND_PAGTO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: string
+		lineageTag: 5abcaf02-b161-4333-ab6c-e2b43615714e
+		summarizeBy: none
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TIPO_NOTA_ID
+		dataType: string
+		lineageTag: 9471c405-a5d8-424a-ab90-9c7f3b92a871
+		summarizeBy: none
+		sourceColumn: DIM_TIPO_NOTA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TRANSPORTADORA_ID
+		dataType: string
+		lineageTag: db8e450c-2535-47d8-b988-1111be950c68
+		summarizeBy: none
+		sourceColumn: DIM_TRANSPORTADORA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: string
+		lineageTag: 8d2bccf2-2909-415c-a921-7178cf8acc5f
+		summarizeBy: none
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 39554a3b-83f0-4446-ad6e-87f1c4080421
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_NFS
+		dataType: string
+		lineageTag: 0cb3dd9e-1e04-43a9-9089-0d911eac762a
+		summarizeBy: none
+		sourceColumn: NUM_NFS
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTDE_DEVOLUCAO
+		dataType: double
+		lineageTag: d77a797f-2a94-4858-9f5a-fe3c2fd84c64
+		summarizeBy: sum
+		sourceColumn: QTDE_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_LIQ
+		dataType: double
+		lineageTag: dda01d95-c5dd-4690-ae56-a521893f2797
+		summarizeBy: sum
+		sourceColumn: VLR_LIQ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NUM_NFE
+		dataType: string
+		lineageTag: 7acd1f13-c0ad-438c-974d-d92aa0974d29
+		summarizeBy: none
+		sourceColumn: NUM_NFE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_ENT_NFE
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d9073789-39c2-4af0-841f-f1c9f402ef3c
+		summarizeBy: none
+		sourceColumn: DT_ENT_NFE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DIM_UNID_NEGOC_ID
+		dataType: string
+		lineageTag: a628ad0a-81ef-4960-b7b0-24246a6a2c14
+		summarizeBy: none
+		sourceColumn: DIM_UNID_NEGOC_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERIE_NFS
+		dataType: string
+		lineageTag: 66f551cd-2e5a-40b1-80cd-fa2fda015423
+		summarizeBy: none
+		sourceColumn: SERIE_NFS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVendasDevolucao-237f5887-8909-4283-a41b-4f7f8109dfef = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				      Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_FATO_VENDA_DEV_BI = Fonte{[Schema="dbo",Item="FATO_VENDA_DEV_BI"]}[Data],
+				    #"Duplicatas Removidas" = Table.Distinct(dbo_FATO_VENDA_DEV_BI, {"FATO_VENDA_DEV_ID"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Duplicatas Removidas",{{"DT_ENT_NFE", type date}, {"DT_EMIS_NFE", type date}, {"NUM_NFE", type text}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado1", "NFE_TXT", each Text.PadStart([NUM_NFE],7,"0")),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"NUM_NFS", type text}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado", "NFS_TXT", each Text.PadStart([NUM_NFS],7,"0")),
+				    #"Removed Columns" = Table.RemoveColumns(#"Personalização Adicionada1",{"FATO_VENDA_DEV_ID"})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Removed Columns",{"PRECO_UNIT","NFE_TXT","NFS_TXT","VLR_BRUTO","VLR_ICMS","VLR_COFINS","VLR_IPI","VLR_PIS","DT_EMIS_NFS","DT_DEVOLUCAO","DT_EMIS_NFE","QTDE_SAIDA","TP_FRETE_NFE","DIM_MOT_DEV_ID","DIM_MASCARA_ID","TP_FRETE_NFS","column37","VLR_DESC","VLR_FRETE_PESO","PESO_LIQ","PESO_BRT","PERC_COMIS","VLR_FRETE"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

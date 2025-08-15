@@ -1,0 +1,61 @@
+table fMetasEstab
+	lineageTag: c095b551-00e6-4422-93e1-81e1e3a2d323
+
+	column Código
+		dataType: string
+		lineageTag: 5b971d34-cc68-46cb-bf5c-1f1baa0e4b05
+		summarizeBy: none
+		sourceColumn: Código
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c9ac55fe-4f72-4287-bb93-fe5cf75604db
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Meta
+		dataType: int64
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 59d6e174-c65b-4cbc-a85b-c609754ed64d
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	column TIPO_VENDA
+		dataType: string
+		lineageTag: dc188d34-4913-4f5e-9672-681963965ba9
+		summarizeBy: none
+		sourceColumn: TIPO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fMetasEstab-472440b0-f9b4-415b-9441-592181ad91ba = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				//Ótimizamos script para pegar direto do sharepoint e não mais da pasta sincronizada.
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/", [ApiVersion = 15]),
+				    #"Metas Estabelecimento xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Metas Estabelecimento.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Metas Estabelecimento xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    #"METAS-ESTAB_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="METAS-ESTAB",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"METAS-ESTAB_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Código", type text}, {"Mês", type date}, {"Meta", Int64.Type}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"Código", "Mês", "Meta", "TIPO_VENDA"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,101 @@
+table fForecastBudget
+	lineageTag: ccb34e5a-b1e3-4c03-bab5-f1480f3b0433
+
+	column Valor
+		dataType: int64
+		formatString: 0
+		lineageTag: 27fc507c-feca-494e-be04-c3b60c72ea1a
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Qtd
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f7819b4-67e7-464d-8e94-6fe9713c315a
+		summarizeBy: sum
+		sourceColumn: Qtd
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Máquina (Fernando)'
+		dataType: string
+		lineageTag: cb54a4ea-e949-4f2c-b497-718b1404a6a8
+		summarizeBy: none
+		sourceColumn: Máquina (Fernando)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Modelo Totvs'
+		dataType: string
+		lineageTag: 3b43df7c-933f-43ed-b12c-d821e63ec9c3
+		summarizeBy: none
+		sourceColumn: Modelo Totvs
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		dataType: string
+		lineageTag: e8cf070d-a5ad-4750-9634-4c37bd4fb3eb
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 524ca69d-6d42-48f9-8015-06844622317b
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5160fc51-e75f-4b56-ba3f-8be8f9e4fc32
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Consultor
+		dataType: string
+		lineageTag: 23c2ab75-7d41-4cd3-8757-a1555976319c
+		summarizeBy: none
+		sourceColumn: Consultor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estado
+		dataType: string
+		lineageTag: edd0b5a3-e5af-4090-80df-accc37c7c1c2
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fForecastBudget-88d13d64-4a83-492a-96ce-8f41fdb153c2 = m
+		mode: import
+		queryGroup: 'Budget Machines'
+		source =
+				let
+				    //Atualizado 24.Out para pegar direto do sharepoint
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Linhas Filtradas" = Table.SelectRows(Fonte, each Text.Contains([Name], "ForecastBudgetMaquinas.xlsx")),
+				    #"ForecastBudgetMaquinas xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = #"Linhas Filtradas"{[Name="ForecastBudgetMaquinas.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"ForecastBudgetMaquinas xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    Sheet1_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Estado", type text}, {"Consultor", type text}, {"Data", type date}, {"Quarter", type text}, {"Tipo", type text}, {"Modelo Totvs", type text}, {"Máquina (Fernando)", type text}, {"Qtd", Int64.Type}, {"Valor", Int64.Type}, {"Column10", type any}, {"Column11", type any}}),
+				    #"Outras Colunas Removidas" = Table.SelectColumns(#"Tipo Alterado",{"Valor", "Qtd", "Máquina (Fernando)", "Modelo Totvs", "Tipo", "Quarter", "Data", "Consultor", "Estado"})
+				in
+				    #"Outras Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

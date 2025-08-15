@@ -1,0 +1,46 @@
+table fPedidoOrdemManutencao
+	lineageTag: 8706f088-a478-4625-a73b-c301bd40141a
+
+	column nr-ord-produ
+		dataType: int64
+		formatString: 0
+		lineageTag: 50a681b1-6ebc-4e37-9c5d-ab7351cc8bd9
+		summarizeBy: none
+		sourceColumn: nr-ord-produ
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod-sit-ped
+		dataType: string
+		lineageTag: 3e4f7840-7f88-4499-8c50-3e376b8636dc
+		summarizeBy: none
+		sourceColumn: cod-sit-ped
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod-matr
+		dataType: string
+		lineageTag: d272578e-a4c1-4cdd-8d45-599675772bca
+		summarizeBy: none
+		sourceColumn: cod-matr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fPedidoOrdemManutencao-28aac349-0915-41e0-83a4-17d416b7749c = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\POWERBI", "IDBA_KOMATSU"),
+				    dbo_FATO_VENDA_ORDEM_MANUT = Fonte{[Schema="dbo",Item="FATO_VENDA_ORDEM_MANUT"]}[Data],
+				    #"Consultas Mescladas" = Table.NestedJoin(dbo_FATO_VENDA_ORDEM_MANUT, {"nr-pedcli"}, fVenda, {"PEDIDO_CLIENTE"}, "fVenda", JoinKind.LeftOuter),
+				    #"fVenda Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "fVenda", {"DT_EMIS", "ID_NOTA", "NOTA", "VALOR_LIQUIDO"}, {"fVenda.DT_EMIS", "fVenda.ID_NOTA", "fVenda.NOTA", "fVenda.VALOR_LIQUIDO"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"fVenda Expandido",{{"fVenda.DT_EMIS", type date}}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Tipo Alterado", {"nr-ord-produ"})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Duplicatas Removidas",{"nr-pedcli","fVenda.VALOR_LIQUIDO","fVenda.ID_NOTA","fVenda.NOTA","nome-abrev","fVenda.DT_EMIS"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

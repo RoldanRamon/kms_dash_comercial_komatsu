@@ -1,0 +1,41 @@
+table fNFVendaDev
+	lineageTag: a0fcb36d-502c-4837-83f4-21f6634c5079
+
+	column NUM_NFE
+		dataType: string
+		lineageTag: d61bba93-bb14-4733-b04c-41b9d511c401
+		summarizeBy: none
+		sourceColumn: NUM_NFE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO
+		dataType: string
+		lineageTag: 148ee491-abe4-40f5-907e-27afd1dce45c
+		summarizeBy: none
+		sourceColumn: TIPO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NF VENDAS'
+		type: calculated
+		lineageTag: 4dac0d2b-bba8-4f77-9f9f-18cb02e529e7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fNFVendaDev-c6285b25-f6ac-452d-abf1-62703627c4dc = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_FATO_NF_VENDA_DEV = Fonte{[Schema="dbo",Item="FATO_NF_VENDA_DEV"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_FATO_NF_VENDA_DEV,{"FATO_NF_VENDA_DEV_ID"})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Removed Columns",{"SERIE_NFE","DIM_TEMPO_ID","DIM_EMPRESA_ID"})
+				in
+				    #"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

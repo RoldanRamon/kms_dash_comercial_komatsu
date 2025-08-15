@@ -1,0 +1,49 @@
+table xMachinesForecastQty
+	lineageTag: a76ea942-6da2-4882-9994-64d19939a401
+
+	column xMachinesForecast
+		lineageTag: 6bc000d6-b3d4-4666-bd93-273940567ff6
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'xMachinesForecast Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'xMachinesForecast Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'xMachinesForecast Campos'
+		isHidden
+		lineageTag: d5a90ed9-2df6-4c42-a31c-17cc82e9521e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'xMachinesForecast Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'xMachinesForecast Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 8dbb2734-03c4-4cb1-b87d-37d0818cb2da
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xMachinesForecastQty-cc0bd572-509c-47fd-b2ff-529f26537ea7 = calculated
+		mode: import
+		source =
+				{
+				    ("Forecast", NAMEOF('_Medidas'[Valor Qtde Maquinas Forecast]), 0),
+				    ("Budget", NAMEOF('_Medidas'[Qtde Maquinas Budget]), 1),
+				    ("MYO", NAMEOF('_Medidas'[Valor Qtde Maquinas MYO]), 2)
+				}
+
+	annotation PBI_Id = 502bc436ff404d2eb6472c1de7397146
+

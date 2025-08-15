@@ -1,0 +1,166 @@
+table dCliente
+	lineageTag: 959c086f-c05a-40a4-9b78-8d177ea2b7fa
+
+	column DIM_CLIENTE_ID
+		dataType: string
+		lineageTag: ce84cb26-6122-4fea-b064-9eb8f878446f
+		summarizeBy: none
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CLIENTE
+		dataType: string
+		lineageTag: bf74e53e-3164-4a02-8cf3-f0182fe92d34
+		summarizeBy: none
+		sourceColumn: COD_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CLIENTE
+		dataType: string
+		lineageTag: b275502e-b536-4f6d-b3a4-e71b200776d3
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CNPJ
+		dataType: string
+		lineageTag: c43d0c71-7c35-4144-826c-8f067b61ffba
+		summarizeBy: none
+		sourceColumn: CNPJ
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Matriz CNPJ' = LEFT(dCliente[CNPJ],8)
+		lineageTag: dd61d8f0-58c5-42d2-9376-a99f317a0bc5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Matriz
+		dataType: string
+		lineageTag: 0e501892-e000-485f-a724-876be792055f
+		summarizeBy: none
+		sourceColumn: Matriz
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: bafdc6d9-bd3c-4861-99af-9621ad3fc195
+		summarizeBy: none
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO
+		dataType: string
+		lineageTag: 95b9085b-2a10-427b-a351-8dadac65ebf0
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Cidade/Estado'
+		dataType: string
+		lineageTag: 56ce3176-d1dc-417c-80a8-4970021a2624
+		summarizeBy: none
+		sourceColumn: ID Cidade/Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MATRIZ 2'
+		dataType: string
+		lineageTag: ffdfdc27-4d9a-4606-ba0d-3627a4a89721
+		summarizeBy: none
+		sourceColumn: MATRIZ 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DESC MATRIZ'
+		dataType: string
+		lineageTag: a103f62e-3a06-4c47-92a3-25b8d1124b39
+		summarizeBy: none
+		sourceColumn: DESC MATRIZ
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'COD DESC'
+		dataType: string
+		lineageTag: 8af48f87-d1e5-4afc-bc96-1ce899ef4b0d
+		summarizeBy: none
+		sourceColumn: COD DESC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Classificação
+		dataType: string
+		lineageTag: a642571c-902d-4b5b-98cd-301c9b8e9797
+		summarizeBy: none
+		sourceColumn: Classificação
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'COD DESC END'
+		dataType: string
+		lineageTag: 1c1fc158-e551-4805-8dcb-d7aa177e1fee
+		summarizeBy: none
+		sourceColumn: COD DESC END
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TIPO DE CONTA'
+		dataType: string
+		lineageTag: 582ecbf8-3255-4d74-9bdd-5448abda57d0
+		summarizeBy: none
+		sourceColumn: TIPO DE CONTA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCliente-eca569ea-0c80-490c-8220-7c582c346235 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				        Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu", [Query="SELECT A.*, B.[TIPO DE CONTA] FROM DIM_CLIENTE_BI A#(lf)LEFT JOIN DIM_EMITENTE_BI B ON B.DIM_EMITENTE_ID = A.DIM_CLIENTE_ID"]),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(Fonte,{{"CLIENTE", "NOME ABREV"}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Renomeadas3", "Cod - Desc. Cliente", each Text.Combine({Text.From([COD_CLIENTE], "pt-BR"), [CLIENTE]}, " - "), type text),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Coluna Mesclada Inserida", "NOME ABREV", "CLIENTE - Copiar"),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Coluna Duplicada", "CLIENTE - Copiar", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"CLIENTE - Copiar.1", "CLIENTE - Copiar.2", "CLIENTE - Copiar.3", "CLIENTE - Copiar.4", "CLIENTE - Copiar.5"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Dividir Coluna por Delimitador",{{"CLIENTE - Copiar.1", type text}, {"CLIENTE - Copiar.2", type text}, {"CLIENTE - Copiar.3", type text}, {"CLIENTE - Copiar.4", type text}, {"CLIENTE - Copiar.5", Int64.Type}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Tipo Alterado",{{"CIDADE", RemoveAcento, type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Texto em Maiúscula",{"CLIENTE - Copiar.2", "CLIENTE - Copiar.3", "CLIENTE - Copiar.4", "CLIENTE - Copiar.5", "Cod - Desc. Cliente"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas",{{"CLIENTE - Copiar.1", "Matriz"}}),
+				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Colunas Renomeadas", "Mesclado", each Text.Combine({[CIDADE], ", ", [ESTADO], ", BR"}), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Mesclada Inserida1",{{"Mesclado", "ID Cidade/Estado"}}),
+				    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Colunas Renomeadas1",{{"ID Cidade/Estado", Text.Proper, type text}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Colocar Cada Palavra Em Maiúscula","ç","c",Replacer.ReplaceText,{"ID Cidade/Estado"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído",null,"",Replacer.ReplaceValue,{"ESTADO"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1",null,"",Replacer.ReplaceValue,{"CIDADE"}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Valor Substituído2",{{"NOME ABREV", "CLIENTE"}}),
+				    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Colunas Renomeadas2", {{"CIDADE", ""}}),
+				    #"Erros Substituídos1" = Table.ReplaceErrorValues(#"Erros Substituídos", {{"ID Cidade/Estado", ""}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Erros Substituídos1",{{"Matriz", "Matriz"}, {"MATRIZ", "MATRIZ 2"}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns", "Matriz", "Matriz - Copy"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"Matriz - Copy"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Removed Columns",null,"",Replacer.ReplaceValue,{"MATRIZ 2"}),
+				    #"Added Custom" = Table.AddColumn(#"Valor Substituído4", "DESC MATRIZ", each Text.Combine(List.RemoveItems(Text.ToList([MATRIZ 2]),{"0".."9"}))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"DESC MATRIZ", type text}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "Merged", each Text.Combine({[COD_CLIENTE], " - ", [CLIENTE]}), type text),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Inserted Merged Column",{{"Merged", "COD DESC"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns1", "Classificação", each if [Matriz] = "BRACELL" then "Key Account" else if [Matriz] = "CENIBRA" then "Key Account" else if [Matriz] = "DURATEX" then "Key Account" else if [Matriz] = "DEXCO" then "Key Account" else if [Matriz] = "ELDORADO" then "Key Account" else if [Matriz] = "KLABIN" then "Key Account" else if [Matriz] = "LD" then "Key Account" else if [Matriz] = "SUZANO" then "Key Account" else if [Matriz] = "SYLVAMO" then "Key Account" else if [Matriz] = "VERACEL" then "Key Account" else if [Matriz] = "WESTROCK" then "Key Account" else "Retail", type text),
+				    #"Added Custom1" = Table.AddColumn(#"Added Conditional Column", "COD DESC END", each [COD DESC] & " " & [#"ID Cidade/Estado"])
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Added Custom1",{"CIDADE","TIPO_CLIENTE","condicao_pagamento","SEGMENTO_MERCADO","ins-banc","COD_SEG_MERCADO","CREDITO","IDENTIFIC","AVALIACAO_CREDITO","LIMITE_CREDITO","DATA_LIMITE_CREDITO","COD_COND_PAG","port-prefer","portador","tp-rec-padrao","LIMITE_ADICIONAL"})
+				,
+				#"Columns removed by Measure Killer 2"= Table.RemoveColumns(#"Columns removed by Measure Killer",{"PAIS","FL_GRANDES_CONTAS"})
+				in
+				#"Columns removed by Measure Killer 2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,17 @@
+table d_trimestre_ano
+	lineageTag: 7eaf723f-57b6-4ac1-bd39-ab70fc18cdad
+
+	column Trimestre/Ano
+		lineageTag: 8614dd18-aab9-42b9-8a6d-dfba5d65afcd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dCalendario[Trimestre/Ano]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_trimestre_ano-cc23d925-580c-437e-8019-700344e7ead6 = calculated
+		mode: import
+		source = FILTER(VALUES(dCalendario[Trimestre/Ano]),NOT(ISBLANK([Trimestre/Ano])))
+
+	annotation PBI_Id = 09a661389c4f48818c8d691d7bd27cdf
+

@@ -1,0 +1,35 @@
+table dMoeda
+	lineageTag: 127c474c-73d0-43de-a30c-86aac7e7e1eb
+
+	column DESCRICAO_MOEDA
+		dataType: string
+		lineageTag: 7e6cf248-c2a6-4d56-a3c5-228593cdc7fd
+		summarizeBy: none
+		sourceColumn: DESCRICAO_MOEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_COTAC
+		dataType: double
+		lineageTag: b0f745fd-5b00-4f9f-9d0d-2f4d5b733c1b
+		summarizeBy: none
+		sourceColumn: VALOR_COTAC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dMoeda = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				//Incluimos valor da cotação para usar na aba machines Backlog
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu", [Query="SELECT A.MOEDA, A.DESCRICAO_MOEDA ,A.VALOR_COTAC#(lf)FROM [idba_komatsu].[dbo].[DIM_MOEDA_COTACAO] A#(lf)WHERE CONVERT(DATE, DATA_COTAC) = CONVERT(DATE, GETDATE() - 1)"])
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    Fonte,{"MOEDA"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

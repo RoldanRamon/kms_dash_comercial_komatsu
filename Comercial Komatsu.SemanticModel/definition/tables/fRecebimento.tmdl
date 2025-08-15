@@ -1,0 +1,383 @@
+table fRecebimento
+	lineageTag: abb35c42-ddb0-42b6-ac5d-925faaaec06b
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 6455b889-b8c0-4a29-8ddd-edbee0140a6c
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERIE_DOCTO
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: f9cefb1e-b6f5-4be9-873a-543a0c44693c
+		summarizeBy: none
+		sourceColumn: SERIE_DOCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NRO_DOCTO
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: 782e9b89-d25d-413e-aee0-e8bec711f6b8
+		summarizeBy: none
+		sourceColumn: NRO_DOCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_FORNECEDOR_ID
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6472a1b7-eead-45e0-9ad7-1b64ac1fea68
+		summarizeBy: count
+		sourceColumn: DIM_FORNECEDOR_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_TRANS
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime
+		lineageTag: 9a96da88-77a4-4a8c-adf4-b82d5451eff3
+		summarizeBy: none
+		sourceColumn: DT_TRANS
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_EMISSAO
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime
+		lineageTag: 4fcb49b8-8be3-4565-96a3-0a3629e943cb
+		summarizeBy: none
+		sourceColumn: DT_EMISSAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_ATUALIZA
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime
+		lineageTag: 570fe2f8-98a0-4263-8d2f-e9270d436bc0
+		summarizeBy: none
+		sourceColumn: DT_ATUALIZA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_ENTR_MERC
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime
+		lineageTag: 80811378-f654-42e4-bb58-986b9a962e30
+		summarizeBy: none
+		sourceColumn: DT_ENTR_MERC
+
+		annotation SummarizationSetBy = Automatic
+
+	column HR_ATUALIZA
+		dataType: string
+		sourceProviderType: varchar(16)
+		lineageTag: 3f554f9e-f651-48e9-bcc7-e9633d90274e
+		summarizeBy: none
+		sourceColumn: HR_ATUALIZA
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESP_DOCTO
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2d1d0825-7336-4b61-9a07-7c4f621b4ca0
+		summarizeBy: sum
+		sourceColumn: ESP_DOCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_OPERAC
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d3fdb70d-7c44-446e-924f-1ca73cbcd5d3
+		summarizeBy: sum
+		sourceColumn: TIPO_OPERAC
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_NOTA
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bd08f419-7bbf-4419-900a-5f307f69274c
+		summarizeBy: sum
+		sourceColumn: TIPO_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_DOCTO
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 50210d8e-5ec1-4bf7-8bfa-86b7c98eb709
+		summarizeBy: sum
+		sourceColumn: TIPO_DOCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NF_ELETRO
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 75ad444a-cda3-4922-8410-3ef30dc3fcc4
+		summarizeBy: sum
+		sourceColumn: NF_ELETRO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SIT_DOCUM
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c0b78dbf-20d0-49e6-8d66-1407009ab802
+		summarizeBy: sum
+		sourceColumn: SIT_DOCUM
+
+		annotation SummarizationSetBy = Automatic
+
+	column SIT_ATUAL
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2dcad8cd-f8aa-4a8e-b796-4ffe9acb5bac
+		summarizeBy: sum
+		sourceColumn: SIT_ATUAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column NRO_PROC_ENT
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f3e26dbb-ae6b-41a0-9065-42e3d6e1ac30
+		summarizeBy: sum
+		sourceColumn: NRO_PROC_ENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column NRO_PROC_SAI
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 28f129a5-2331-4ef7-b0a2-76515cc84160
+		summarizeBy: sum
+		sourceColumn: NRO_PROC_SAI
+
+		annotation SummarizationSetBy = Automatic
+
+	column REC_FISICO
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 410fe54f-8957-4300-923d-f8e7ce095551
+		summarizeBy: none
+		sourceColumn: REC_FISICO
+
+		annotation SummarizationSetBy = Automatic
+
+	column USUARIO
+		dataType: string
+		sourceProviderType: varchar(24)
+		lineageTag: e659066b-b87c-4441-ab36-3f0e9fd9a280
+		summarizeBy: none
+		sourceColumn: USUARIO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COTACAO_DIA
+		dataType: double
+		sourceProviderType: decimal(23, 8)
+		lineageTag: e607f74d-3719-4186-a828-0bd430abe379
+		summarizeBy: sum
+		sourceColumn: COTACAO_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ATUALIZA_CR
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 93710ac7-9698-4fbb-abd0-d6341c316fa2
+		summarizeBy: none
+		sourceColumn: ATUALIZA_CR
+
+		annotation SummarizationSetBy = Automatic
+
+	column CE_ATUAL
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 0be4f773-afa1-4c9a-bd7d-b1d89e05d50f
+		summarizeBy: none
+		sourceColumn: CE_ATUAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column CP_ATUAL
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: fa3a02ff-68e6-49c6-92b2-570da30596da
+		summarizeBy: none
+		sourceColumn: CP_ATUAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column CR_ATUAL
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: a05e1e32-7af3-447e-b71d-5791564e51b3
+		summarizeBy: none
+		sourceColumn: CR_ATUAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: b04e3015-be43-4683-b260-d996dbb65040
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROC_IMP
+		dataType: string
+		sourceProviderType: varchar(24)
+		lineageTag: 2cafc0ae-6442-4d5f-a97e-606df89ceddf
+		summarizeBy: none
+		sourceColumn: PROC_IMP
+
+		annotation SummarizationSetBy = Automatic
+
+	column OP_CODIGO
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f9ded814-0e6a-49da-b0ed-f6b33664b165
+		summarizeBy: sum
+		sourceColumn: OP_CODIGO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORIGEM
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 974b6a38-1934-4271-b70d-865c488fc775
+		summarizeBy: sum
+		sourceColumn: ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUMERO_ORDEM
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a66df9f0-cb26-4663-b908-cde18edb482c
+		summarizeBy: sum
+		sourceColumn: NUMERO_ORDEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column PARCELA
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 27370346-155f-4a40-9b99-080fe24ced7f
+		summarizeBy: sum
+		sourceColumn: PARCELA
+
+		annotation SummarizationSetBy = Automatic
+
+	column QUANTIDADE
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: b161ba98-37c1-49ac-b1e1-c3885350a73e
+		summarizeBy: sum
+		sourceColumn: QUANTIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QT_SALDO
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 716877e4-c6a0-4435-9f5f-6bf31a35ecb7
+		summarizeBy: sum
+		sourceColumn: QT_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QT_FORNE
+		dataType: double
+		sourceProviderType: decimal(19, 4)
+		lineageTag: 299160a0-ed9e-4e5c-879a-b025716b9a0b
+		summarizeBy: sum
+		sourceColumn: QT_FORNE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRECO_TOTAL
+		dataType: double
+		sourceProviderType: decimal(17, 2)
+		lineageTag: 91e2d0cb-4841-43b8-89af-5091c4c45c73
+		summarizeBy: sum
+		sourceColumn: PRECO_TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PR_TOTAL
+		dataType: double
+		sourceProviderType: decimal(17, 2)
+		lineageTag: 603a2927-0199-4ab0-8de8-6a1357994d32
+		summarizeBy: sum
+		sourceColumn: PR_TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_ICM
+		dataType: double
+		lineageTag: 0bcfd736-8302-4d0d-bb88-afaabe394b9e
+		summarizeBy: sum
+		sourceColumn: VALOR_ICM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fRecebimento-bac6579b-1255-4cb6-a480-103b5b1c3ba3 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu", [Query="SELECT [DIM_EMPRESA_ID]#(lf)      ,[SERIE_DOCTO]#(lf)      ,[NRO_DOCTO]#(lf)      ,[DIM_FORNECEDOR_ID]#(lf)      ,[DT_TRANS]#(lf)      ,[DT_EMISSAO]#(lf)      ,[DT_ATUALIZA]#(lf)      ,[DT_ENTR_MERC]#(lf)      ,[HR_ATUALIZA]#(lf)      ,[ESP_DOCTO]#(lf)      ,[TIPO_OPERAC]#(lf)      ,[TIPO_NOTA]#(lf)      ,[TIPO_DOCTO]#(lf)      ,[NF_ELETRO]#(lf)      ,[SIT_DOCUM]#(lf)      ,[SIT_ATUAL]#(lf)      ,[NRO_PROC_ENT]#(lf)      ,[NRO_PROC_SAI]#(lf)      ,[REC_FISICO]#(lf)      ,[USUARIO]#(lf)      ,[COTACAO_DIA]#(lf)      ,[ATUALIZA_CR]#(lf)      ,[CE_ATUAL]#(lf)      ,[CP_ATUAL]#(lf)      ,[CR_ATUAL]#(lf)      ,[DIM_ITEM_ID]#(lf)      ,[PROC_IMP]#(lf)      ,[OP_CODIGO]#(lf)      ,[ORIGEM]#(lf)      ,[NUMERO_ORDEM]#(lf)      ,[PARCELA]#(lf)      ,[QUANTIDADE]#(lf)      ,[QT_SALDO]#(lf)      ,[QT_FORNE]#(lf)      ,[PRECO_TOTAL]#(lf)      ,[PR_TOTAL]#(lf)      ,[VALOR_ICM]#(lf)  FROM [idba_komatsu].[dbo].[FATO_RECEBIMENTO_BI]#(lf)  WHERE DT_EMISSAO > '2021-01-01 00:00:00.000'#(lf)  AND   ESP_DOCTO = 21#(lf)  AND   NUMERO_ORDEM <> 0"])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

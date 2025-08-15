@@ -1,0 +1,481 @@
+relationship 0873ed01-23ff-472b-bb38-644577c9c322
+	fromColumn: fPedido.DIM_CLIENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
+
+relationship fc69a89a-a84a-4887-ad51-4ab866ece3b1
+	fromColumn: fPedido.DIM_COND_PAGTO_ID
+	toColumn: dCondicaoPagamento.DIM_COND_PAGTO_ID
+
+relationship 3df5f004-153d-4667-923c-47d8542f3e3e
+	fromColumn: fPedido.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship d1eeb50c-3090-41af-92ee-b6ad4f0c2108
+	isActive: false
+	fromColumn: fPedido.DIM_REPRESENTANTE_ID
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship f17afb86-99a4-4484-8453-3b5e7a54a033
+	fromColumn: fPedido.DIM_TIPO_NOTA_ID
+	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
+
+relationship 75933b15-3bad-4f7e-9224-31c56a8351af
+	fromColumn: fVendasDevolucao.DIM_CLIENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
+
+relationship e95148f7-b0c6-44e9-97f1-6acc85d6921c
+	fromColumn: fVendasDevolucao.DIM_COND_PAGTO_ID
+	toColumn: dCondicaoPagamento.DIM_COND_PAGTO_ID
+
+relationship f7471110-2838-4eff-8228-39ee0fab452a
+	fromColumn: fVendasDevolucao.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship 89be6417-fa7d-4851-ba92-0ea3a3a7e2ed
+	fromColumn: fVendasDevolucao.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship 1da55eea-b8fd-407b-8f6e-e84a88bdddbb
+	isActive: false
+	fromColumn: fVendasDevolucao.DIM_REPRESENTANTE_ID
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship 0fc8b044-f32c-496c-8783-6c6284eb6fd0
+	fromColumn: fVendasDevolucao.DIM_TIPO_NOTA_ID
+	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
+
+relationship df7efb2b-97f4-4ee8-a058-edb3df19d242
+	fromColumn: fVenda.DIM_CLIENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
+
+relationship f173c349-fcd1-4fa0-9ea2-c705b24c72ad
+	fromColumn: fVenda.DIM_COND_PAGTO_ID
+	toColumn: dCondicaoPagamento.DIM_COND_PAGTO_ID
+
+relationship a59322cd-cec7-4cec-b4c1-24eb26bcf0dc
+	fromColumn: fVenda.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship 655525e7-a32a-42da-8dd1-8a9a8f0efb54
+	fromColumn: fVenda.DIM_TIPO_NOTA_ID
+	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
+
+relationship f2128816-4578-4499-a674-685fb41688d9
+	fromColumn: fVenda.DT_EMIS
+	toColumn: dCalendario.DT_DATA
+
+relationship 8d0953f1-3d94-4234-ba3e-6ad740526856
+	fromColumn: fVendasDevolucao.DIM_LOCAL_ID
+	toColumn: dLocal.DIM_CIDADE_ID
+
+relationship 4625ed77-29de-4952-a2c0-a16b47cfcbc5
+	fromColumn: fVendasDevolucao.DT_ENT_NFE
+	toColumn: dCalendario.DT_DATA
+
+relationship c422cf21-e273-48cc-bc7f-b0ae58aef9c0
+	fromColumn: fPedido.DIM_TRANSPORTADORA_ID
+	toColumn: dTransportadora.DIM_TRANSPORTADORA_ID
+
+relationship 20c25051-02d5-4393-8cc1-e394bc5e6f3a
+	fromColumn: fVendasDevolucao.DIM_TRANSPORTADORA_ID
+	toColumn: dTransportadora.DIM_TRANSPORTADORA_ID
+
+relationship 78200ad4-e248-4850-a0ee-5a2ba377977a
+	fromColumn: fVenda.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship b18077e7-5a26-45c0-aa7e-8f39a3155aa7
+	fromColumn: FMetas.Mês
+	toColumn: dCalendario.DT_DATA
+
+relationship 10246cb8-9ece-4994-9c52-9217599471ca
+	fromColumn: fPedido.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship 2aad20ee-9122-47dc-996c-72ebb13dcf82
+	fromColumn: fMetasEstab.Mês
+	toColumn: dCalendario.DT_DATA
+
+relationship f5c72db9-c7e6-4d92-bd78-cc0cc281a750
+	crossFilteringBehavior: bothDirections
+	fromColumn: fMetasEstab.Código
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship 62dcd96b-b19e-4e58-b553-9a32d67b6970
+	fromColumn: fVendasDevolucao.DIM_UNID_NEGOC_ID
+	toColumn: dUnidadeDeNegocio.COD_UNID_NEGOC
+
+relationship 0236cfa4-d41d-44f6-9e0d-e37152250c29
+	fromColumn: fPedido.DIM_UNID_NEGOC_ID
+	toColumn: dUnidadeDeNegocio.COD_UNID_NEGOC
+
+relationship 29d1e890-5941-4252-9624-561ff68388e9
+	fromColumn: fVenda.DIM_UNID_NEGOC_ID
+	toColumn: dUnidadeDeNegocio.COD_UNID_NEGOC
+
+relationship 4843b014-27c8-4994-8a63-b3aeff5fe8b3
+	fromColumn: fPedido.DT_EMISSAO
+	toColumn: dCalendario.DT_DATA
+
+relationship 67a6ab99-7bbb-4b4c-acbf-6501a2c7ddfc
+	toCardinality: many
+	fromColumn: fVenda.NOTA
+	toColumn: fNFVendaDev.NUM_NFE
+
+relationship f81bc0e8-3c16-4b06-83e6-e839f13a9cf0
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fVendasDevolucao.NUM_NFS
+	toColumn: fNFVendaDev.NUM_NFE
+
+relationship 9f3feb0d-27dc-48f4-872a-c915d4f958e5
+	fromColumn: fForecastQty.Data
+	toColumn: dCalendario.DT_DATA
+
+relationship 1c995abb-8b5a-40d0-a63d-6ebd0a975fc3
+	fromColumn: dCliente.'ID Cidade/Estado'
+	toColumn: dMunicipio.Localização
+
+relationship 507e84e6-4286-4acb-aea2-90d01b9f842d
+	fromColumn: fForecastQty.MACHINES
+	toColumn: dModeloItem.DES_MODELO
+
+relationship 54ec0d42-fa47-4562-8b63-deadc7d2cd13
+	toCardinality: many
+	fromColumn: fPedido.NR_PEDIDO
+	toColumn: fPedidosNrPed.NR_PEDIDO
+
+relationship c90c32d9-eead-4cac-b094-a80e61d45c46
+	crossFilteringBehavior: bothDirections
+	fromColumn: dItem.COD_C4
+	toColumn: dGrupoEstoque.COD_C4
+
+relationship 5dc6a747-9dfd-48af-9115-67109c34e65e
+	isActive: false
+	fromColumn: fPedido.DT_ENTREGA
+	toColumn: dCalendario.DT_DATA
+
+relationship bc451683-bcb1-4d99-95f5-9bba621ab5a6
+	fromColumn: dItemFornecedor.DIM_FORNECEDOR_ID
+	toColumn: dFornecedor.DIM_FORNECEDOR_ID
+
+relationship 652a3b66-8b20-4892-a2a2-fdda4b47609a
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fPedido.'ID Estab'
+	toColumn: fSaldoEstoque.IDEstab
+
+relationship 84d5bf30-be53-48d8-9084-b582867a64ea
+	fromColumn: fMetasServicos.data
+	toColumn: dCalendario.DT_DATA
+
+relationship e0e29fde-af44-4657-8cdf-94fbe81d7ae3
+	toCardinality: many
+	fromColumn: fMetasServicos.Estabelecimento
+	toColumn: dEmpresa.'Regional Serviços'
+
+relationship 962e8ae6-a014-4f70-a761-0b8dc05c8d05
+	fromColumn: fPedidoHistorico.DIM_CLIENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
+
+relationship d4fa8e25-bf9e-4347-bb5e-7dbf78066d2b
+	fromColumn: fPedidoHistorico.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship f8c699f2-4389-4e9b-8051-7e188f230bfd
+	fromColumn: fPedidoHistorico.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship b692b79c-1b44-4e30-b6f4-d43e5f2f7f4a
+	fromColumn: fPedidoHistorico.'DT HISTORICO'
+	toColumn: dCalendario.DT_DATA
+
+relationship 2428ca2e-7f89-4c9e-a7cc-091b8c1332b2
+	isActive: false
+	fromColumn: fPedido.'DT EMISSAO OTIF LOG'
+	toColumn: dCalendario.DT_DATA
+
+relationship 877a66a1-ee64-42d4-8fe2-9b223bd32ab7
+	fromColumn: fForecastQty.'Grupo de Estoque'
+	toColumn: dGrupoEstoque.COD_C4
+
+relationship cdd760de-3a5f-42e2-bf80-5f8d2ab8144d
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dCliente.DIM_CLIENTE_ID
+	toColumn: dClienteModulo.CODIGO
+
+relationship 44da8d06-2b49-4ba1-8209-76dfde73cdbd
+	isActive: false
+	fromColumn: fPedido.NF_DATA
+	toColumn: dCalendario.DT_DATA
+
+relationship 485d5891-6f1c-4972-bb48-ddeea7f72917
+	crossFilteringBehavior: bothDirections
+	fromColumn: dCliente.DIM_REPRESENTANTE_ID
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship f69b5e88-397b-46fb-940e-31aabb48b633
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fPedidoItemMaq.NR_PEDIDO
+	toColumn: fVenda.PEDIDO
+
+relationship e50c36dd-ccc7-4cbe-8697-7e309388a13d
+	fromColumn: FMetas.Código
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship 8be30a37-c0b5-44a3-b527-dd6ec565c19d
+	fromColumn: fVenda.COD_ITEM
+	toColumn: dItem.CD_ITEM
+
+relationship 43160941-53f5-41ec-8d56-71f0b2ca1c57
+	fromColumn: fPedido.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship 6a9483ef-2ef1-4fc2-a18f-6f2213e6d288
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: dRepresentante.Estabelecimento
+	toColumn: fVenda.DIM_EMPRESA_ID
+
+relationship cfbca38f-f441-43e7-b1fd-fe53425463e3
+	fromColumn: xfMachinesControl.Emissão
+	toColumn: dCalendario.DT_DATA
+
+relationship 36ecba7e-ebd9-40dd-960f-9d33aa6df10e
+	isActive: false
+	fromColumn: fPedidoItemMaq.'DT EMISS VENDA'
+	toColumn: dCalendario.DT_DATA
+
+relationship ebfc298d-7f03-4ca6-8e06-67a55c0cb66b
+	fromColumn: xfMachinesControl.Equipment
+	toColumn: dModeloItem.DES_MODELO
+
+relationship 236296c7-5671-4b9d-998a-d06bc1e343d5
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fPedido.NR_PEDIDO
+	toColumn: fPedidoItemMaq.NR_PEDIDO
+
+relationship 57a00e66-8b33-4e11-80e7-4c472af09704
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: dItem.COD_C4
+	toColumn: dModeloItem.GE
+
+relationship 3b015b6a-f60b-486b-82b6-59870542f88d
+	fromColumn: fPedidoItemMaq.COD_MODELO
+	toColumn: dModeloItem.COD_MODELO
+
+relationship 1fe4dd48-d8a3-476f-8ece-bf688c5fad1e
+	toCardinality: many
+	fromColumn: fVenda.GE
+	toColumn: dModeloItem.GE
+
+relationship 3cb5a03d-fc8e-4bf2-8f16-716bdac02df1
+	fromColumn: fForecastVendedor.Group
+	toColumn: dModeloItem.COD_MODELO
+
+relationship e7d30ea6-4559-49b4-b979-6b7ec853ea3d
+	fromColumn: fForecastMYO.Data
+	toColumn: dCalendario.DT_DATA
+
+relationship 80d57693-8dc1-45a7-9c69-f802c5dcfda1
+	fromColumn: xfMachinesControl.REPRESENTANTE
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship cc5de73e-e3d0-451a-8ff0-d668efa1dde3
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fVendasPedidoMes.PEDIDO
+	toColumn: fPedido.NR_PEDIDO
+
+relationship 650b8d2f-438c-4d6a-8133-5ca23097753f
+	fromColumn: fVendasPedidoMes.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship 5c4f23c7-9437-4e53-8d79-31095dc0f82e
+	fromColumn: fVendasPedidoMes.DT_DATA
+	toColumn: dCalendario.DT_DATA
+
+relationship 11f88f32-dbb8-466e-bba8-9baa1c9b09bc
+	isActive: false
+	fromColumn: fVendasPedidoMes.DATA_PEDIDO
+	toColumn: dCalendario.DT_DATA
+
+relationship fa520066-590e-47f1-a078-732c674d8dba
+	fromColumn: fVendasPedidoMes.COD_CLIENTE
+	toColumn: dCliente.COD_CLIENTE
+
+relationship 69ef93c4-c433-4afc-9386-d8a2e9033263
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: dRepresentante.Estabelecimento
+	toColumn: fVendasDevolucao.DIM_EMPRESA_ID
+
+relationship 67091671-af7c-412c-b14c-03bfd204deed
+	isActive: false
+	fromColumn: fVenda.REPRESENTANTE_ESTAB
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship aec65d06-9346-4f1a-8d74-47a8ec0d165a
+	fromColumn: dTabelaPreco.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship ded59466-c5bb-47f7-8e06-4db3aa034342
+	fromColumn: fRecebimento.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship a61e6c41-1da5-4ac8-8072-7bd3bb571d8e
+	isActive: false
+	fromColumn: dItemFornecedor.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship 93373a83-cf99-4484-a43f-3b43a66a92bb
+	isActive: false
+	fromColumn: fSaldoEstoque.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship 8e5e39a8-3351-4f1a-a50c-4b41b63f4411
+	fromColumn: dItem.DIM_FORNECEDOR_ID
+	toColumn: dFornecedor.DIM_FORNECEDOR_ID
+
+relationship 10b1bdba-7966-4e18-8098-99bf6add4f08
+	fromColumn: fForecastVendedor.'Cod Representante'
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship c216a17c-845e-44a3-a6c9-8df9ad5b4f42
+	fromColumn: dCalendario.Trimestre/Ano
+	toColumn: dCalendarioForecast.PERIODO
+
+relationship 321f2921-c314-4b28-8767-c9b4f9701a55
+	fromColumn: fForecastVendedor.PERIODO
+	toColumn: dCalendarioForecast.PERIODO
+
+relationship 8eea2a07-fc72-46f3-a6b9-88dd0947bb35
+	fromColumn: fForecastVendedor.Quarter/Year
+	toColumn: d_trimestre_ano.Trimestre/Ano
+
+relationship b6e9538b-da24-4cec-8053-98c21f8597c7
+	crossFilteringBehavior: bothDirections
+	fromColumn: dCalendario.Trimestre/Ano
+	toColumn: d_trimestre_ano.Trimestre/Ano
+
+relationship 67abdc27-920e-45c1-ae3e-83f07ced4bbb
+	fromColumn: fVendaAssistencia.DIM_CLIENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
+
+relationship 33a9b4d2-6a72-4237-ad8c-e3eca1627644
+	fromColumn: fVendaAssistencia.DIM_DIVISAO_VENDA_ID
+	toColumn: dDivisaoVendas.DIM_DIVISAO_VENDA_ID
+
+relationship 0ca3be40-4f2f-416c-a5b2-8e1fd63105ff
+	fromColumn: fVendaAssistencia.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship 758d360f-d485-4f37-9f16-68c553f1e2a9
+	isActive: false
+	fromColumn: fVendaAssistencia.DIM_REPRESENTANTE_ID
+	toColumn: dRepresentante.DIM_REPRESENTANTE_ID
+
+relationship c4b8d236-0c77-4a42-a51c-e515323370b0
+	fromColumn: fVendaAssistencia.DIM_TIPO_NOTA_ID
+	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
+
+relationship 133ca22a-b7f6-421b-863c-e15df4728e92
+	crossFilteringBehavior: bothDirections
+	fromColumn: fVendaAssistencia.nr-ord-produ
+	toColumn: fPedidoOrdemManutencao.nr-ord-produ
+
+relationship 0c8a22b5-d0a4-4774-b6cb-a1377b7a23d0
+	fromColumn: fVendaAssistencia.DT_EMIS
+	toColumn: dCalendario.DT_DATA
+
+relationship b8b3eb04-2aed-44f4-b1b2-d3ff3e141489
+	crossFilteringBehavior: bothDirections
+	fromColumn: fVendaAssistencia.nr-ord-produ
+	toColumn: fApontamentoOrdemTecnico.nr-ord-produ
+
+relationship c12241f4-ff05-4466-a38d-ca1871c49b30
+	fromColumn: fOrdemManutencao.DIM_EMITENTE_ID
+	toColumn: dEmitente.DIM_EMITENTE_ID
+
+relationship bdee0154-a280-4d27-9df4-6e4089bb38b2
+	fromColumn: fVendaAssistencia.DIM_CLIENTE_ID
+	toColumn: dEmitente.DIM_EMITENTE_ID
+
+relationship 2f9d201c-33a8-4de9-86ce-d10eb47ce05f
+	fromColumn: fPedido.DESCRICAO_MOEDA
+	toColumn: dMoeda.DESCRICAO_MOEDA
+
+relationship 6e049d76-08f6-4e5b-874b-c704a3f4b91a
+	isActive: false
+	fromColumn: fPedidoItemMaq.DESCRICAO_MOEDA
+	toColumn: dMoeda.DESCRICAO_MOEDA
+
+relationship 0cc28033-e9b5-4c96-936b-3812ede52104
+	fromColumn: fVendasDevolucao.DIM_ITEM_ID
+	toColumn: dItem.CD_ITEM
+
+relationship AutoDetected_7a75d2a3-b963-4f9a-a3de-0e17a72a0ff3
+	isActive: false
+	fromColumn: fPedidoItemMaq.DIM_ITEM_ID
+	toColumn: dItem.DIM_ITEM_ID
+
+relationship AutoDetected_99733776-d805-4987-9dfa-ab9cfe895907
+	fromColumn: fPedidoHistorico.DIM_ITEM_ID
+	toColumn: dItem.DIM_ITEM_ID
+
+relationship AutoDetected_7a9a2a89-749b-4453-b903-5e6b3ca504ca
+	fromColumn: fVendaAssistencia.DIM_ITEM_ID
+	toColumn: dItem.DIM_ITEM_ID
+
+relationship e8f9c624-30a5-4fd1-b6c0-eb5ee7d5a618
+	crossFilteringBehavior: bothDirections
+	fromColumn: dSyncron.ID_CodEmpresa_ItemCode
+	toColumn: xItemDemandType.ID_CodEmpresa_ItemCode
+
+relationship 1312ffc8-7738-44ef-8a46-69fa8c178634
+	crossFilteringBehavior: bothDirections
+	fromColumn: fPedido.ID_CodEmpresa_ItemCode
+	toColumn: xItemDemandType.ID_CodEmpresa_ItemCode
+
+relationship de0f8290-c256-5413-a919-d8fae44c4b21
+	isActive: false
+	fromColumn: fPedido.DT_CANCELA_ITEM
+	toColumn: dCalendario.DT_DATA
+
+relationship eaa814f8-25e3-db5b-6314-b4e43f52f0bb
+	fromColumn: fVenda.DIM_EMPRESA_ID
+	toColumn: dEmitente.COD_EMITENTE
+
+relationship AutoDetected_a1962625-2b6d-433d-a61d-26827bdfa6dc
+	fromColumn: fCotação.DIM_EMPRESA_ID
+	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship AutoDetected_4fb54b5d-2eaf-45f5-ac5a-2d4eb288af31
+	fromColumn: fCotação.DIM_TIPO_NOTA_ID
+	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
+
+relationship AutoDetected_9f001f64-97f5-45c3-8db7-e01de6d6968c
+	fromColumn: fCotação.DIM_ITEM_ID
+	toColumn: dItem.DIM_ITEM_ID
+
+relationship 9087c3c6-c42a-51b8-b291-d81cc4367fd8
+	fromColumn: fCotação.DIM_MOTIVO_ID
+	toColumn: dMotivoCancelamento.DIM_MOTIVO_ID
+
+relationship a1b2ca7f-f1b8-5ffd-4dd2-c6674d6ebaa5
+	fromColumn: fForecastBudget.Data
+	toColumn: dCalendario.DT_DATA
+
+relationship a274475a-c953-a685-cdc7-c5a6b7e250aa
+	fromColumn: fForecastBudget.'Modelo Totvs'
+	toColumn: dModeloItem.COD_MODELO
+

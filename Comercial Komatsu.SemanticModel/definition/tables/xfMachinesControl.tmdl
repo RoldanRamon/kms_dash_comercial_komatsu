@@ -1,0 +1,448 @@
+table xfMachinesControl
+	lineageTag: a2758ce0-acab-491b-b8cc-c01a8ed317d6
+
+	column 'Serial Number'
+		dataType: string
+		lineageTag: 4bfb401a-1c21-4db5-83ef-856d716dde1a
+		summarizeBy: none
+		sourceColumn: Serial Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column Est
+		dataType: int64
+		formatString: 0
+		lineageTag: df19f299-ffbc-4809-85cc-f3b448470d74
+		summarizeBy: sum
+		sourceColumn: Est
+
+		annotation SummarizationSetBy = Automatic
+
+	column Serie
+		dataType: int64
+		formatString: 0
+		lineageTag: 2469854d-7a4c-4a96-836f-aae6a1a117fe
+		summarizeBy: sum
+		sourceColumn: Serie
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nr.Nota'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cdab172-cace-4eb4-a2e8-3765092635b3
+		summarizeBy: sum
+		sourceColumn: Nr.Nota
+
+		annotation SummarizationSetBy = Automatic
+
+	column Emit
+		dataType: string
+		lineageTag: 597caefd-b358-4f62-8aaf-92eb2205c4be
+		summarizeBy: none
+		sourceColumn: Emit
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome
+		dataType: string
+		lineageTag: c888ec08-251c-4107-ac34-c867e67dc0d3
+		summarizeBy: none
+		sourceColumn: Nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Emissão
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 993f63e6-b167-45f0-ba90-88138777a277
+		summarizeBy: none
+		sourceColumn: Emissão
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Item
+		dataType: string
+		lineageTag: ab3a193d-022d-42a1-9e29-a5615241830b
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descrição
+		dataType: string
+		lineageTag: 12223fe9-083c-48c0-b0a6-3b3a78f98484
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnidNeg
+		dataType: string
+		lineageTag: 2b068ae9-12d7-4982-a6df-2bb53b66df33
+		summarizeBy: none
+		sourceColumn: UnidNeg
+
+		annotation SummarizationSetBy = Automatic
+
+	column Units
+		dataType: int64
+		formatString: 0
+		lineageTag: 05cac5a1-ffd3-4ab4-b239-6de69590cd7e
+		summarizeBy: sum
+		sourceColumn: Units
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Base ICMS'
+		dataType: double
+		lineageTag: e2b445ee-5efe-4ec7-88a0-8f341395dec8
+		summarizeBy: sum
+		sourceColumn: Base ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column %ICMS
+		dataType: double
+		lineageTag: 080fcc1a-505c-4fed-abf3-98fd05d595eb
+		summarizeBy: sum
+		sourceColumn: %ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ICMS
+		dataType: double
+		lineageTag: 59f9513b-fe54-47f4-ad46-43aca2f43383
+		summarizeBy: sum
+		sourceColumn: ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Base IPI'
+		dataType: double
+		lineageTag: 474fc720-8691-4d14-9809-807bfa1e9af0
+		summarizeBy: sum
+		sourceColumn: Base IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column %IPI
+		dataType: double
+		lineageTag: ac120ac5-a870-4c88-a47b-275808c59876
+		summarizeBy: sum
+		sourceColumn: %IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IPI
+		dataType: double
+		lineageTag: f4c4ce94-dee0-4a50-97c9-2f86a66e79e0
+		summarizeBy: sum
+		sourceColumn: IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Base PIS'
+		dataType: double
+		lineageTag: bc7d24a7-1173-4ced-9745-2e7d717be625
+		summarizeBy: sum
+		sourceColumn: Base PIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column %PIS
+		dataType: double
+		lineageTag: dc88cee7-e400-4b75-b4ea-3f4d63f48951
+		summarizeBy: sum
+		sourceColumn: %PIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PIS
+		dataType: double
+		lineageTag: 9d7471be-9d9a-4f35-88ff-03a02113d91f
+		summarizeBy: sum
+		sourceColumn: PIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Base COFINS'
+		dataType: double
+		lineageTag: 3b69ba90-3700-448e-8027-4c5d0a237aeb
+		summarizeBy: sum
+		sourceColumn: Base COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% COFINS'
+		dataType: double
+		lineageTag: 9ee511f8-c6f4-4f2a-b35a-683c97ff17a2
+		summarizeBy: sum
+		sourceColumn: % COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COFINS
+		dataType: double
+		lineageTag: 0d06084e-f450-4d44-b58b-d94d6075b1a3
+		summarizeBy: sum
+		sourceColumn: COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ICMS-ST
+		dataType: int64
+		formatString: 0
+		lineageTag: 31f2a425-3f15-46b7-828a-b3dc0605b23e
+		summarizeBy: sum
+		sourceColumn: ICMS-ST
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ICMS Part. Origem'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e746da0-a79b-439f-aa21-6d9ee35ee0f8
+		summarizeBy: sum
+		sourceColumn: ICMS Part. Origem
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ICMS Part. Destino'
+		dataType: double
+		lineageTag: 1e559581-da05-416c-831c-60ae94d916e5
+		summarizeBy: sum
+		sourceColumn: ICMS Part. Destino
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CanalVenda
+		dataType: int64
+		formatString: 0
+		lineageTag: f7cd7395-3f45-4181-abf7-0a79cf44ca21
+		summarizeBy: sum
+		sourceColumn: CanalVenda
+
+		annotation SummarizationSetBy = Automatic
+
+	column CFOP
+		dataType: int64
+		formatString: 0
+		lineageTag: b414555d-ac66-42dc-a29c-42c921716a77
+		summarizeBy: sum
+		sourceColumn: CFOP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Taxes
+		dataType: double
+		lineageTag: d6e33a14-ec48-4311-9276-b286bb108cba
+		summarizeBy: sum
+		sourceColumn: Taxes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GrossSales
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: b3343f3b-86b8-45bf-998c-f1563b0baceb
+		summarizeBy: sum
+		sourceColumn: GrossSales
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column NetSales
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 1c0e1318-1704-4991-8957-b79266dd515c
+		summarizeBy: sum
+		sourceColumn: NetSales
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Direct Mat Costs'
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: bf287f09-1c22-485c-8619-a9289635e643
+		summarizeBy: sum
+		sourceColumn: Direct Mat Costs
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Customer
+		dataType: string
+		lineageTag: a13b6508-d861-49d4-979a-6e0107b0e914
+		summarizeBy: none
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7ac92e8f-dd5a-480a-ba01-c0bf7d6f83c6
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Cond
+		dataType: string
+		lineageTag: 2e05c324-260f-4bb6-97d3-4c82ab7e850f
+		summarizeBy: none
+		sourceColumn: Cond
+
+		annotation SummarizationSetBy = Automatic
+
+	column Equipment
+		dataType: string
+		lineageTag: e2388b0a-ef6f-481f-9962-3a347e4f79f7
+		summarizeBy: none
+		sourceColumn: Equipment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Código Obsolescência de Máquina'
+		dataType: string
+		lineageTag: 953ba2fb-51dd-4f39-88f4-892d10b898ac
+		summarizeBy: none
+		sourceColumn: Código Obsolescência de Máquina
+
+		annotation SummarizationSetBy = Automatic
+
+	column Obsolescence
+		dataType: double
+		lineageTag: 801155ff-7dbd-4861-9362-162313313f04
+		summarizeBy: sum
+		sourceColumn: Obsolescence
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Freight
+		dataType: double
+		lineageTag: 82d42130-8d13-44cd-a62f-2889f9bb73f9
+		summarizeBy: sum
+		sourceColumn: Freight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Comission
+		dataType: double
+		lineageTag: f2e83fdd-44c4-42f7-9c83-1bccc56befcf
+		summarizeBy: sum
+		sourceColumn: Comission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Bonus Parts'
+		dataType: double
+		lineageTag: 52da0546-6ea1-4c27-9915-c743271fbf98
+		summarizeBy: sum
+		sourceColumn: Bonus Parts
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Detail
+		dataType: string
+		lineageTag: 1f960241-3b3d-4237-afd5-1bdd431c16cc
+		summarizeBy: none
+		sourceColumn: Detail
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_NOTA
+		dataType: string
+		lineageTag: ba642b9f-73a6-4e43-96fd-7c832d9480ba
+		summarizeBy: none
+		sourceColumn: ID_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column REPRESENTANTE = ```
+			
+			MINX(FILTER(fVenda,fVenda[ID_NOTA] = xfMachinesControl[ID_NOTA]),fVenda[DIM_REPRESENTANTE_ID])
+			
+			```
+		lineageTag: 04e9f376-5ea9-48d2-a451-5a2a8d280864
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xfMachinesControl-cda3cfc6-1182-4ff2-b9e4-c0935c9c21cf = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("\\brpin-inf012\Trabalho\Fin\Controladoria\2022\ACTUAL 2022\MONTHLY RESULTS\RECEITA\KFBR\Bases de Receita\Base Máquinas FY2022 KFBR.xlsm"), null, true),
+				    Database_Sheet = Fonte{[Item="Database",Kind="Sheet"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Database_Sheet,{{"Column1", type any}, {"Column2", type any}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type text}, {"Column8", type any}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}, {"Column15", type any}, {"Column16", type any}, {"Column17", type any}, {"Column18", type any}, {"Column19", type any}, {"Column20", type any}, {"Column21", type any}, {"Column22", type any}, {"Column23", type any}, {"Column24", type any}, {"Column25", type any}, {"Column26", type any}, {"Column27", type any}, {"Column28", type any}, {"Column29", type any}, {"Column30", type any}, {"Column31", type any}, {"Column32", type any}, {"Column33", type any}, {"Column34", type text}, {"Column35", type any}, {"Column36", type text}, {"Column37", type text}, {"Column38", type text}, {"Column39", type any}, {"Column40", type any}, {"Column41", type any}, {"Column42", type any}, {"Column43", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Column1"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Removidas", each ([Column2] <> null and [Column2] <> "Database Machines KFBR - FY2022")),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Linhas Filtradas",{{"Column2", type text}, {"Column3", type text}}),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Tipo Alterado1", [PromoteAllScalars=true]),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Serial Number", type text}, {"Est", Int64.Type}, {"Serie", Int64.Type}, {"Nr.#(lf)Nota", Int64.Type}, {"Emit", Int64.Type}, {"Nome", type text}, {"Emissão", type date}, {"Item", type text}, {"Descrição", type text}, {"Unid#(lf)Neg", type text}, {"Units", Int64.Type}, {"Base ICMS", type number}, {"%#(lf)ICMS", type number}, {"ICMS", type number}, {"Base IPI", type number}, {"%#(lf)IPI", type number}, {"IPI", type number}, {"Base PIS", type number}, {"%#(lf)PIS", type number}, {"PIS", type number}, {"Base COFINS", type number}, {"% COFINS", type number}, {"COFINS", type number}, {"ICMS#(lf)-ST", Int64.Type}, {"ICMS Part. Origem", Int64.Type}, {"ICMS Part. Destino", type number}, {"Canal#(lf)Venda", Int64.Type}, {"CFOP", Int64.Type}, {"Taxes", type number}, {"Gross#(lf)Sales", type number}, {"Net#(lf)Sales", type number}, {"Direct Mat Costs", type number}, {"Customer", type text}, {"Date", type date}, {"Cond", type text}, {"Equipment", type text}, {"Código Obsolescência de Máquina", type text}, {"Obsolescence", type number}, {"Freight", type number}, {"Comission", type number}, {"Bonus Parts", type number}, {"Detail", type text}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Tipo Alterado2", "ID_NOTA", each Text.Combine({Text.From([Est], "pt-BR"), Text.From([#"Nr.#(lf)Nota"], "pt-BR")}, ""), type text),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Coluna Mesclada Inserida"," ","",Replacer.ReplaceText,{"Equipment"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Valor Substituído", {"Serial Number"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

@@ -1,0 +1,150 @@
+table fForecastQty
+	lineageTag: 915a41e0-476e-4075-ad21-f543614b82ae
+
+	column 'Grupo de Estoque'
+		dataType: string
+		lineageTag: df5940e9-e5ce-43ae-a73d-a91cfa22d0bc
+		summarizeBy: none
+		sourceColumn: Grupo de Estoque
+
+		annotation SummarizationSetBy = Automatic
+
+	column MACHINES
+		dataType: string
+		lineageTag: 973edc45-b630-45e4-ab53-9a8713342ad6
+		summarizeBy: none
+		sourceColumn: MACHINES
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VL UNIT'
+		dataType: double
+		lineageTag: 07319784-19d1-4f24-b5af-f2dc28219d94
+		summarizeBy: sum
+		sourceColumn: VL UNIT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6c92de52-d408-4b8c-bc1c-5d1d8b52d4e7
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Valor
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a7d7e4f-a454-4b83-9fec-9394ba6202d8
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+	column GE
+		dataType: string
+		lineageTag: 346fcd74-69df-406f-a436-43e269581256
+		summarizeBy: none
+		sourceColumn: GE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vl Real'
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 588a521f-5c31-4f60-82e5-a3f6797afadc
+		summarizeBy: sum
+		sourceColumn: Vl Real
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'VL UNIT 22'
+		dataType: double
+		lineageTag: 5b0b3c7e-8aaa-4752-b6eb-41634004d7f0
+		summarizeBy: sum
+		sourceColumn: VL UNIT 22
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID
+		dataType: string
+		lineageTag: 5106696d-cb89-483e-a6d1-ecc67a16e079
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ANO
+		dataType: int64
+		formatString: 0
+		lineageTag: 30d86361-76d2-47ba-a4bb-99630f0b1879
+		summarizeBy: sum
+		sourceColumn: ANO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vlr Real Máquinas' = ```
+			
+			
+			         IF( fForecastQty[Valor] > 50,
+			             fForecastQty[Valor]*1000,
+			             0)
+			         
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: fac5a361-c97e-4ef2-9d9b-76238ab60efe
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	partition fForecastQty-7f237303-565e-4bd3-801e-2f14a4469a31 = m
+		mode: import
+		queryGroup: 'Budget Machines'
+		source =
+				let
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Mkt_Possibilities-BP21-Relatorio_BI csv_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Mkt_Possibilities-BP21-Relatorio_BI.csv",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"CSV Importado" = Csv.Document(#"Mkt_Possibilities-BP21-Relatorio_BI csv_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/",[Delimiter=";", Columns=40, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Tipo Alterado4" = Table.TransformColumnTypes(#"CSV Importado",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}, {"Column6", type text}, {"Column7", type text}, {"Column8", type text}, {"Column9", type text}, {"Column10", type text}, {"Column11", type text}, {"Column12", type text}, {"Column13", type text}, {"Column14", type text}, {"Column15", type text}, {"Column16", type text}, {"Column17", type text}, {"Column18", type text}, {"Column19", type text}, {"Column20", type text}, {"Column21", type text}, {"Column22", type text}, {"Column23", type text}, {"Column24", type text}, {"Column25", type text}, {"Column26", type text}, {"Column27", type text}, {"Column28", type text}, {"Column29", type text}, {"Column30", type text}, {"Column31", type text}, {"Column32", type text}, {"Column33", type text}, {"Column34", type text}, {"Column35", type text}, {"Column36", type text}, {"Column37", type text}, {"Column38", type text}, {"Column39", type text}, {"Column40", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Tipo Alterado4", [PromoteAllScalars=true]),
+				    #"Outras Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Promoted Headers", {"Grupo de Estoque", "MACHINES", "VL UNIT","VL UNIT 22"}, "Atributo", "Valor"),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Outras Colunas Não Dinâmicas",{{"Grupo de Estoque", type text}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado2", "Valor", "Valor - Copiar"),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Duplicada",{"Valor - Copiar"}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Removidas", "Mesclado", each Text.Combine({"0", [Grupo de Estoque]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "GE"}}),
+				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Colunas Renomeadas", "Mesclado", each Text.Combine({[GE], "-", [MACHINES]}), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Mesclada Inserida1",{{"Mesclado", "ID"}, {"Atributo", "Data"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Colunas Renomeadas1",{{"Data", type date}, {"VL UNIT", type number}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"Valor", Int64.Type}, {"VL UNIT 22", type number}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Changed Type2", "Personalizar", each if ([Data] >=  #date(2021,03,31) and [Data] <= #date(2022,03,01)) then "2021" else
+				if ([Data] >=  #date(2022,03,31) and [Data] <= #date(2023,03,01)) then "2022" else "2023"),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"Personalizar", Int64.Type}}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Tipo Alterado",{{"Personalizar", "ANO"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas2", "Vl Real", each if [ANO] = 2021 then ([VL UNIT] *1000)* [Valor]
+				else if [ANO] = 2022 then ([VL UNIT 22]*1000) * [Valor]
+				else 0),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"Vl Real", type number}}),
+				    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Tipo Alterado1", {{"Valor", null}}),
+				    #"Erros Substituídos1" = Table.ReplaceErrorValues(#"Erros Substituídos", {{"Vl Real", null}}),
+				    #"Erros Substituídos2" = Table.ReplaceErrorValues(#"Erros Substituídos1", {{"VL UNIT 22", null}}),
+				    #"Erros Substituídos3" = Table.ReplaceErrorValues(#"Erros Substituídos2", {{"VL UNIT", null}})
+				in
+				    #"Erros Substituídos3"
+
+	annotation PBI_ResultType = Table
+

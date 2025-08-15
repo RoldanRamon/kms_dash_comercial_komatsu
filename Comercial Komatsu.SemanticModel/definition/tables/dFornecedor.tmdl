@@ -1,0 +1,95 @@
+table dFornecedor
+	lineageTag: 30d6e3b9-44de-4883-9974-9d1f3195f90c
+
+	column DIM_FORNECEDOR_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b466995-a9ef-4a1e-99c9-a8aded0f76ac
+		summarizeBy: none
+		sourceColumn: DIM_FORNECEDOR_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CODIGO
+		dataType: int64
+		formatString: 0
+		lineageTag: 060f0c6a-f54b-4783-bc59-91e17ca0f9d5
+		summarizeBy: sum
+		sourceColumn: CODIGO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESCRICAO
+		dataType: string
+		lineageTag: 0cdf559e-5caf-4f21-b3d7-16a654eac70f
+		summarizeBy: none
+		sourceColumn: DESCRICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_FORNECEDOR
+		dataType: string
+		lineageTag: bb2a077d-4f5f-4134-bf0b-bb85e7f3a267
+		summarizeBy: none
+		sourceColumn: TIPO_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column column5
+		dataType: string
+		lineageTag: a5cdbe42-0a30-40cb-87a6-c617471514e7
+		summarizeBy: none
+		sourceColumn: column5
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GRUPO_FORNECEDOR
+		dataType: string
+		lineageTag: 818c904f-1b64-4889-9ff9-ef5d27ab1471
+		summarizeBy: none
+		sourceColumn: COD_GRUPO_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column NATUREZA
+		dataType: string
+		lineageTag: 0f14129f-bd63-485a-90e5-c83ebf50a5d7
+		summarizeBy: none
+		sourceColumn: NATUREZA
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATRIZ
+		dataType: string
+		lineageTag: c230fe09-e70d-448d-86c4-9bfc4ac79402
+		summarizeBy: none
+		sourceColumn: MATRIZ
+
+		annotation SummarizationSetBy = Automatic
+
+	column CNPJ
+		dataType: string
+		lineageTag: 700b6277-8b7b-4177-9544-a4e4155551ee
+		summarizeBy: none
+		sourceColumn: CNPJ
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'COD DESC' = dFornecedor[CODIGO] & " - " & dFornecedor[DESCRICAO]
+		lineageTag: fb36233c-8827-4095-8f4b-2fad241fead3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dFornecedor-1ac7a473-3af5-4f83-a37f-36fa38f7cb84 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_FORNECEDOR_BI = Fonte{[Schema="dbo",Item="DIM_FORNECEDOR_BI"]}[Data]
+				in
+				    dbo_DIM_FORNECEDOR_BI
+
+	annotation PBI_ResultType = Exception
+

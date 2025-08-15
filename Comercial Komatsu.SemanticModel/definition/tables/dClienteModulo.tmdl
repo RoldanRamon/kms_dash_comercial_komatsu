@@ -1,0 +1,36 @@
+table dClienteModulo
+	lineageTag: 12df393f-7d01-4377-bc1a-b6ca7f431e1a
+
+	column CODIGO
+		dataType: string
+		lineageTag: 6b0028a3-071f-4ccc-a581-9c333192fb33
+		summarizeBy: none
+		sourceColumn: CODIGO
+
+		annotation SummarizationSetBy = Automatic
+
+	column MODULO
+		dataType: string
+		lineageTag: 8dd356ec-8058-493b-acfc-bfdc342ef1a5
+		summarizeBy: none
+		sourceColumn: MODULO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dClienteModulo-2d208a6e-9bef-4d8b-8d4e-8cabcc70fb43 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				//Mudamos fonte no dia 2.10.2023 para pegar direto do sharepoint e não mais do arquivo local
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Clientes-Modulos csv_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Clientes-Modulos.csv",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"CSV Importado" = Csv.Document(#"Clientes-Modulos csv_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/",[Delimiter=";", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"CSV Importado", [PromoteAllScalars=true])
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Cabeçalhos Promovidos",{"NOME"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

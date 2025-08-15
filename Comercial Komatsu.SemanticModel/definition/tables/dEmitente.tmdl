@@ -1,0 +1,202 @@
+table dEmitente
+	lineageTag: d70aae1b-834d-4f10-a0e5-9f7b1054147d
+
+	column DIM_EMITENTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 75495162-84a2-4fb3-86e7-a6b34d8e906b
+		summarizeBy: none
+		sourceColumn: DIM_EMITENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TIPO DE CONTA'
+		dataType: string
+		lineageTag: 545b8219-eed1-4315-a2f9-326729a21fdb
+		summarizeBy: none
+		sourceColumn: TIPO DE CONTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column CLASSE
+		dataType: string
+		lineageTag: 4cc240f2-67f8-40a8-bfd1-10c5b3736755
+		summarizeBy: none
+		sourceColumn: CLASSE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMITENTE
+		dataType: string
+		lineageTag: c502534e-3dc4-4f6a-b39c-4143adabd5b8
+		summarizeBy: none
+		sourceColumn: COD_EMITENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOME
+		dataType: string
+		lineageTag: 5251c8c9-9c6e-4af4-a5fc-36d1b1fcb25c
+		summarizeBy: none
+		sourceColumn: NOME
+
+		annotation SummarizationSetBy = Automatic
+
+	column MATRIZ
+		dataType: string
+		lineageTag: 685d77e9-6bb7-4e02-883a-373b3e4a8559
+		summarizeBy: none
+		sourceColumn: MATRIZ
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GR_CLIENTE
+		dataType: int64
+		formatString: 0
+		lineageTag: d997891d-f6da-4bfc-a1e1-7ad4660c367d
+		summarizeBy: sum
+		sourceColumn: COD_GR_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GRUPO_FORNECEDOR
+		dataType: int64
+		formatString: 0
+		lineageTag: 27f211e6-20ad-4ad0-bc62-8528f874fe04
+		summarizeBy: sum
+		sourceColumn: COD_GRUPO_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEGMENTO_MERCADO
+		dataType: string
+		lineageTag: f89f2a94-5d57-42e4-a8d7-064fcd4d9cc3
+		summarizeBy: none
+		sourceColumn: SEGMENTO_MERCADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_FORNECEDOR
+		dataType: string
+		lineageTag: dde3ff4a-f46f-4da1-bbc6-b8bae2b473c9
+		summarizeBy: none
+		sourceColumn: TIPO_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column CNPJ
+		dataType: string
+		lineageTag: 07796660-858c-4625-a46d-dc8faf03d6f4
+		summarizeBy: none
+		sourceColumn: CNPJ
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: a4817532-4137-4924-b9ac-998bc48f7daf
+		summarizeBy: count
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CIDADE
+		dataType: string
+		lineageTag: 90aad6dd-c7eb-475d-beb9-0d842cf3aecd
+		summarizeBy: none
+		sourceColumn: CIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO
+		dataType: string
+		lineageTag: 281ba329-c24b-4231-b752-e7754364f557
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NATUREZA
+		dataType: string
+		lineageTag: c17a2bb1-5170-412e-8d4d-f49eb671e1a4
+		summarizeBy: none
+		sourceColumn: NATUREZA
+
+		annotation SummarizationSetBy = Automatic
+
+	column condicao_pagamento
+		dataType: string
+		lineageTag: d76dab66-384d-40df-b833-d29cda104dce
+		summarizeBy: none
+		sourceColumn: condicao_pagamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_COND_PAG
+		dataType: int64
+		formatString: 0
+		lineageTag: 08d2dd15-643f-493a-8633-38d670afb8a1
+		summarizeBy: sum
+		sourceColumn: COD_COND_PAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAIS
+		dataType: string
+		lineageTag: f33355d9-2be1-4ad9-9496-6572b93da979
+		summarizeBy: none
+		sourceColumn: PAIS
+
+		annotation SummarizationSetBy = Automatic
+
+	column RAZAO_SOCIAL
+		dataType: string
+		lineageTag: 55994d42-f210-45cd-8572-10eabf10b307
+		summarizeBy: none
+		sourceColumn: RAZAO_SOCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMITENTE_NOME
+		dataType: string
+		lineageTag: 815dafaa-b4a8-4cb7-9987-ab59c73fceaa
+		summarizeBy: none
+		sourceColumn: COD_EMITENTE_NOME
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DATA DE CADASTRO'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 26267044-dd49-40d1-9f4e-f56fed94e824
+		summarizeBy: none
+		sourceColumn: DATA DE CADASTRO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OBSERVACAO
+		dataType: string
+		lineageTag: 910e8a44-3f6d-4379-bbe8-7d189cada6d0
+		summarizeBy: none
+		sourceColumn: OBSERVACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dEmitente = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\POWERBI", "IDBA_KOMATSU"),
+				    dbo_DIM_EMITENTE_BI = Fonte{[Schema="dbo",Item="DIM_EMITENTE_BI"]}[Data],
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(dbo_DIM_EMITENTE_BI, "Mesclado", each Text.Combine({Text.From([COD_EMITENTE], "pt-BR"), " - ", [NOME]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "COD_EMITENTE_NOME"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"COD_EMITENTE", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

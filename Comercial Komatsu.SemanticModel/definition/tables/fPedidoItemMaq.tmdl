@@ -1,0 +1,209 @@
+table fPedidoItemMaq
+	lineageTag: d8c1009c-c423-4491-8de4-bb4c0387527a
+
+	column NOME_ABREV
+		dataType: string
+		lineageTag: 73ce44d3-af37-4a8d-8a9c-3448bb349935
+		summarizeBy: none
+		sourceColumn: NOME_ABREV
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_MODELO
+		dataType: string
+		lineageTag: 4012a3b9-83ce-42ff-a4eb-9357287bef3f
+		summarizeBy: none
+		sourceColumn: COD_MODELO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: ab2286e0-1c62-4299-a8e1-e973d89d2f4b
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column NR_PEDIDO
+		dataType: string
+		lineageTag: 65d18625-195f-4e5b-8ad7-660baa720a3e
+		summarizeBy: none
+		sourceColumn: NR_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VL_LIQ_IT
+		dataType: double
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 60550b19-d6cb-45f1-8611-62a6f40d1588
+		summarizeBy: sum
+		sourceColumn: VL_LIQ_IT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column NOTA_FISCAL
+		dataType: string
+		lineageTag: c3929a6b-3c83-4676-8394-acd639f7e833
+		summarizeBy: none
+		sourceColumn: NOTA_FISCAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: string
+		lineageTag: eb9e31fd-44a9-4792-b0e5-518400607e64
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pedido e Sequencia'
+		dataType: string
+		lineageTag: 33a6ac73-b4fc-488f-a63c-4ca9fcc20a02
+		summarizeBy: none
+		sourceColumn: Pedido e Sequencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DT EMISS VENDA'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ed9c173b-7b61-41cc-a973-e2b2368bc393
+		summarizeBy: none
+		sourceColumn: DT EMISS VENDA
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column mo-codigo
+		dataType: int64
+		formatString: 0
+		lineageTag: 95b83411-8475-48ce-a833-0b96c5eddc98
+		summarizeBy: sum
+		sourceColumn: mo-codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESCRICAO_MOEDA
+		dataType: string
+		lineageTag: bfe9fab6-aa7c-40f6-9afb-0fd28fdb2531
+		summarizeBy: none
+		sourceColumn: DESCRICAO_MOEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_COTAC
+		dataType: double
+		lineageTag: 9e5808e7-eb7e-4f91-97e2-22d5ce2fc545
+		summarizeBy: sum
+		sourceColumn: VALOR_COTAC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VL_LIQ_IT_REAL = IF(fPedidoItemMaq[mo-codigo] =0,fPedidoItemMaq[VL_LIQ_IT],fPedidoItemMaq[VL_LIQ_IT] * fPedidoItemMaq[VALOR_COTAC])
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: db13fc91-1271-43d5-8aa1-48eccbee378b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	column VLR_NET_BR
+		dataType: double
+		lineageTag: 8e4b86c5-a2aa-4147-aa64-07f8f2f41300
+		summarizeBy: sum
+		sourceColumn: VLR_NET_BR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_GROSS_BR
+		dataType: double
+		lineageTag: 950ad3e2-f3c8-4ea8-b18c-9a9d8a91c9d1
+		summarizeBy: sum
+		sourceColumn: VLR_GROSS_BR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_NET_US
+		dataType: double
+		lineageTag: bc80f856-7086-4db8-9091-502e0c288b25
+		summarizeBy: sum
+		sourceColumn: VLR_NET_US
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_GROSS_US
+		dataType: double
+		lineageTag: 777b1bbb-4396-4764-9012-e42918203581
+		summarizeBy: sum
+		sourceColumn: VLR_GROSS_US
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column serie
+		dataType: string
+		lineageTag: db6f812c-8fe7-4654-b4bd-f8ace7ac5447
+		summarizeBy: none
+		sourceColumn: serie
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fPedidoItemMaq-4de24952-dfee-4a6b-bd6a-c88e27b8029e = m
+		mode: import
+		queryGroup: FATO
+		source = ```
+				let
+				//Incluimos o valor da cotação para aba calculos na aba Machines Backlog
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu", [Query="SELECT A.*, B.""mo-codigo"",C.DESCRICAO_MOEDA,C.VALOR_COTAC#(lf)FROM [idba_komatsu].[dbo].[FATO_PEDIDO_ITEM_MAQ] A#(lf)LEFT JOIN FATO_PEDIDO_BI B ON B.NR_PEDIDO = A.NR_PEDIDO#(lf)LEFT JOIN (SELECT A.MOEDA, A.DESCRICAO_MOEDA ,A.VALOR_COTAC FROM idba_komatsu.dbo.DIM_MOEDA_COTACAO A WHERE CONVERT(DATE, DATA_COTAC) = CONVERT(DATE, GETDATE() - 1)) C ON C.MOEDA = B.""mo-codigo"""]),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(Fonte, "Mesclado", each Text.Combine({[NOTA_FISCAL], " - ", [COD_MODELO]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "ID"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"NR_PEDIDO", type text}, {"DIM_REPRESENTANTE_ID", type text}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "Pedido e Sequencia", 
+				each Text.Combine({
+				Text.From([NR_PEDIDO],"pt-BR"),
+				Text.From([NR_SEQUENCIA],"pt-BR")
+				}),type text),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Added Custom", each true),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Linhas Filtradas", {"NR_PEDIDO"}, fVenda, {"PEDIDO"}, "VENDA", JoinKind.LeftOuter),
+				    #"VENDA Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "VENDA", {"DT_EMIS", "NOTA", "VALOR_LIQUIDO", "DIM_DIVISAO_VENDA_ID"}, {"VENDA.DT_EMIS", "VENDA.NOTA", "VENDA.VALOR_LIQUIDO", "VENDA.DIM_DIVISAO_VENDA_ID"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"VENDA Expandido", {"VENDA.DIM_DIVISAO_VENDA_ID"}, dDivisaoVendas, {"COD_DIVISAO_VENDA"}, "DIVISAO VENDA", JoinKind.LeftOuter),
+				    #"DIVISAO VENDA Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "DIVISAO VENDA", {"DESC_AGRUP_DIVISAO_VENDA"}, {"DIVISAO VENDA.DESC_AGRUP_DIVISAO_VENDA"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"DIVISAO VENDA Expandido", {"Pedido e Sequencia"}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Duplicatas Removidas",{{"DIVISAO VENDA.DESC_AGRUP_DIVISAO_VENDA", "EMPRESA"}, {"VENDA.DIM_DIVISAO_VENDA_ID", "CANAL VENDA"}, {"VENDA.NOTA", "NOTA"}, {"VENDA.DT_EMIS", "DT EMISS VENDA"}, {"VENDA.VALOR_LIQUIDO", "VLR LIQUIDO NF"}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Renomeadas1", "NF REAL", each if [NOTA] <> null then [NOTA] else [NOTA_FISCAL]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"NF REAL", type text}, {"NR_SEQUENCIA", type text}}),
+				    //Esta personalização busca criar uma chave para vincular com a f_pedidos para trazer as colunas DT_ENTREGA e POS_PDV
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado", "chave", each [NR_PEDIDO] & [NR_SEQUENCIA]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"chave", type text}}),
+				    #"Consultas Mescladas2" = Table.NestedJoin(#"Tipo Alterado1", {"chave"}, fPedido, {"chave"}, "PEDIDO", JoinKind.LeftOuter),
+				    #"PEDIDO Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas2", "PEDIDO", {"POS_PDV", "DT_ENTREGA", "DATA_ENTREGA_PED"}, {"PEDIDO.POS_PDV", "PEDIDO.DT_ENTREGA", "PEDIDO.DATA_ENTREGA_PED"}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"PEDIDO Expandido",{{"PEDIDO.POS_PDV", "POS_PDV"}, {"PEDIDO.DT_ENTREGA", "DT_ENTREGA"}, {"PEDIDO.DATA_ENTREGA_PED", "DATA_ENTREGA_PED"}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas2",{"chave","NR_PEDCLI","NF REAL","DESCRICAO","NOTA","VLR LIQUIDO NF","POS_PDV","CANAL VENDA","NR_SEQUENCIA","EMPRESA","DATA_EMISSAO","DATA_ENTREGA_PED","DT_ENTREGA","DIM_CLIENTE_ID"})
+				,
+				#"Columns removed by Measure Killer 2"= Table.RemoveColumns(#"Columns removed by Measure Killer",{"DIM_REPRESENTANTE_ID"})
+				in
+				#"Columns removed by Measure Killer 2"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

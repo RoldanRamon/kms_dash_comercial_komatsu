@@ -1,0 +1,55 @@
+table fMetasServicos
+	lineageTag: 851977ec-e797-4a7d-bc7f-b38bbd0221e2
+
+	column Estabelecimento
+		dataType: string
+		lineageTag: fd61f5a1-1b47-4a66-b823-2aabb8438188
+		summarizeBy: none
+		sourceColumn: Estabelecimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column data
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: c1c689ff-0d1c-4392-86f8-f7c9b962e7da
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column valor
+		dataType: double
+		lineageTag: 98afdf6b-bccf-49b4-b651-f1c0db94e27e
+		summarizeBy: sum
+		sourceColumn: valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fMetasServicos-5164cfa6-a6a5-4c22-9964-d73c92c46b37 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				//Mudamos fonte no dia 24.10.2023 para pegar direto do sharepoint e não mais do arquivo local
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/BIFKBR-ASSISTNCIATCNICA", [ApiVersion = 15]),
+				    // Mudamos fonte no dia 24.10.2023 para pegar direto do sharepoint e não mais do arquivo local
+				    #"homologação - Metas Serviços1 xlsx_https://komatsuforest sharepoint com/sites/BIFKBR-ASSISTNCIATCNICA/Delade dokument/General/" = Fonte{[Name="homologação - Metas Serviços1.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/BIFKBR-ASSISTNCIATCNICA/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"homologação - Metas Serviços1 xlsx_https://komatsuforest sharepoint com/sites/BIFKBR-ASSISTNCIATCNICA/Delade dokument/General/"),
+				    Planilha1_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="Planilha1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Estabelecimento", type text}, {"data", type date}, {"valor", type number}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}, {"Column8", type any}, {"Column9", type any}, {"Column10", type any}, {"Column11", type any}, {"Column12", type any}, {"Column13", type any}, {"Column14", type any}}),
+				    Personalizar1 = Table.SelectColumns(#"Tipo Alterado", {"Estabelecimento","data","valor"})
+				in
+				    Personalizar1
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

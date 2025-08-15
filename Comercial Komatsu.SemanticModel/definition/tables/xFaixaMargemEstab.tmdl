@@ -1,0 +1,48 @@
+table xFaixaMargemEstab
+	lineageTag: 9f961c38-403c-43c3-a910-31982247c347
+
+	column Parâmetro
+		lineageTag: 5c4f146e-3a43-4a8f-affc-f3b02c485aa0
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parâmetro Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Parâmetro Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Campos'
+		isHidden
+		lineageTag: f8c18472-33e7-406a-90a5-9ab5e493b1eb
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parâmetro Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parâmetro Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: daae9ca6-749e-46cc-98f8-b6b411f5b60d
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xFaixaMargemEstab-b67e269f-fd02-4c45-857e-616c6d242c91 = calculated
+		mode: import
+		source =
+				{
+				    ("Estabelecimento", NAMEOF('dEmpresa'[Estabelecimento]), 0),
+				    ("Faixa de Margem", NAMEOF('fVenda'[Faixa de Margem]), 1)
+				}
+
+	annotation PBI_Id = 79e04ad3c7874e239ad977cfb738cea6
+

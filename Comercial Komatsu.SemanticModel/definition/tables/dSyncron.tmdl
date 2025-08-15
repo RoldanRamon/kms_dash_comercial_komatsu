@@ -1,0 +1,36 @@
+table dSyncron
+	lineageTag: 25e60683-d224-45ec-9fde-fd48169792e4
+
+	column ID_CodEmpresa_ItemCode
+		dataType: string
+		lineageTag: 6275d89f-f02c-489a-9a8c-75cb7fb6c222
+		summarizeBy: none
+		sourceColumn: ID_CodEmpresa_ItemCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Demand_Type_2
+		dataType: string
+		lineageTag: 4aebaaa5-8d28-4ad2-ae93-b03231178988
+		summarizeBy: none
+		sourceColumn: Demand_Type_2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dSyncron = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/BIKFBR-Logstica", [ApiVersion = 15]),
+				    #"Base Syncron xlsx_https://komatsuforest.sharepoint.com/sites/BIKFBR-Logstica/Delade dokument/General/" = Fonte{[Name="PBI_base_tratada_syncron.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/BIKFBR-Logstica/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Base Syncron xlsx_https://komatsuforest.sharepoint.com/sites/BIKFBR-Logstica/Delade dokument/General/"),
+				    Sheet1_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="Sheet1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true])
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Cabeçalhos Promovidos",{"Item_Code","Warehouse name","VAU class","Vau_Class_2"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

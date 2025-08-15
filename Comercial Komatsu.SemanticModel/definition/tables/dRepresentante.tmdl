@@ -1,0 +1,124 @@
+table dRepresentante
+	lineageTag: c2926df9-4514-48ea-97b1-66c2505132e8
+
+	column DIM_REPRESENTANTE_ID
+		dataType: string
+		lineageTag: 83a30d84-ed7e-426e-ab28-6d5addfa8cb9
+		summarizeBy: none
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_REPRESENTANTE
+		dataType: string
+		lineageTag: 4fc94ff5-7871-4506-a617-a8f01b62fe61
+		summarizeBy: none
+		sourceColumn: COD_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column REPRESENTANTE
+		dataType: string
+		lineageTag: 47903aba-9a2f-4458-9663-1d07cb740a5d
+		summarizeBy: none
+		sourceColumn: REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regiao = ```
+			
+			SWITCH(
+			        TRUE(),
+			        dRepresentante[COD_REPRESENTANTE] = "25", "Rio Grande do Sul",
+			        dRepresentante[COD_REPRESENTANTE] = "26", "Centro Oeste",
+			        dRepresentante[COD_REPRESENTANTE] = "24", "Minas Gerais/Nordeste",
+			        dRepresentante[COD_REPRESENTANTE] = "27", "Santa Catarina",
+			        dRepresentante[COD_REPRESENTANTE] = "23", "Paraná/São Paulo",
+			        dRepresentante[COD_REPRESENTANTE] = "21", "Grandes Contas", 
+			        dRepresentante[COD_REPRESENTANTE] = "4", "Paraná",
+			        dRepresentante[COD_REPRESENTANTE] = "3", "Paraná",
+			        dRepresentante[COD_REPRESENTANTE] = "5", "São Paulo",
+			        dRepresentante[COD_REPRESENTANTE] = "8", "Rio Grande do Sul",
+			        dRepresentante[COD_REPRESENTANTE] = "18", "Minas Gerais",
+			        dRepresentante[COD_REPRESENTANTE] = "17", "Santa Catarina",
+			        "Outros"
+			
+			      )
+			```
+		lineageTag: 1d18fb0c-d3ba-4189-82df-a13feef8c018
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estabelecimento
+		dataType: string
+		lineageTag: 8d08e5f2-83ee-469a-8297-1acbf8dc154c
+		summarizeBy: none
+		sourceColumn: Estabelecimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOME
+		dataType: string
+		lineageTag: a6ed0854-4bbb-40e7-897d-f5022a6150f5
+		summarizeBy: none
+		sourceColumn: NOME
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NOME AGRUPADO' =
+			
+			SWITCH(
+			        TRUE(),
+			        dRepresentante[COD_REPRESENTANTE] = "5", "ANDERSON OLIVEIRA/DIEGO ALMEIDA",
+			        dRepresentante[COD_REPRESENTANTE] = "44", "EDSON SOUZA",
+			        dRepresentante[COD_REPRESENTANTE] = "12", "JEFFERSON MARÇAL/APARECIDO SOUZA",
+			        dRepresentante[COD_REPRESENTANTE] = "20", "GABRIEL SIQUEIRA",
+			        dRepresentante[COD_REPRESENTANTE] = "4", "NIVALDO",
+			        dRepresentante[COD_REPRESENTANTE] = "51", "NIVALDO",
+			        dRepresentante[NOME])
+		lineageTag: 875df6a6-6557-415e-9d51-ea19c9a7499b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estabelecimento Consolidado' =
+			
+			SWITCH(
+			    TRUE(),
+			    dRepresentante[COD_REPRESENTANTE] == "34", "119",
+			    dRepresentante[COD_REPRESENTANTE] == "18", "110/133",
+			    dRepresentante[COD_REPRESENTANTE] == "47", "110/133",
+			    dRepresentante[COD_REPRESENTANTE] == "42", "113/134",
+			    dRepresentante[Estabelecimento])
+		lineageTag: 2daf3a52-fd3c-45a4-94c5-f59862a1698b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO
+		dataType: string
+		lineageTag: 8e0d0b44-0354-4575-b106-a9ca856e74d8
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dRepresentante-a855ae1a-a845-4d0b-8f0d-0940f1e3a8a8 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_REPRESENTANTE_BI= Fonte{[Schema="dbo",Item="DIM_REPRESENTANTE_BI"]}[Data],
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(dbo_DIM_REPRESENTANTE_BI, "Personalizar", each if [REPRESENTANTE] = "JEFFERSON DE SOUZA MARCAL" then 115 else if [REPRESENTANTE] = "BRENO SOUZA VIANA" then 999 else if [REPRESENTANTE] = "GENILDO VIEIRA DA SILVA" then 999 else if [REPRESENTANTE] = "BRUNO DIAS DOS REIS" then 123 else if [COD_REPRESENTANTE] = "5" then 113 else if [COD_REPRESENTANTE] = "46" then 115 else null),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Condicional Adicionada",{{"Personalizar", "Estabelecimento"}}),
+				    #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Colunas Renomeadas", "Personalizar", each let splitREPRESENTANTE = Splitter.SplitTextByDelimiter(" ", QuoteStyle.None)([REPRESENTANTE]), splitREPRESENTANTE2 = List.Reverse(Splitter.SplitTextByDelimiter(" ", QuoteStyle.None)([REPRESENTANTE])) in Text.Combine({splitREPRESENTANTE{0}?, " ", splitREPRESENTANTE2{0}?}), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Personalizada Adicionada",{{"Personalizar", "NOME"}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas1",{"SUPERIOR"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

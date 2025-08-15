@@ -1,0 +1,26 @@
+table dTransportadora
+	lineageTag: 9435dee5-98e5-41c6-b96c-8592e6a6c1ff
+
+	column DIM_TRANSPORTADORA_ID
+		dataType: string
+		lineageTag: 1346bcc4-6803-447d-97f8-9f52b1df0024
+		summarizeBy: none
+		sourceColumn: DIM_TRANSPORTADORA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dTransportadora-c42413ce-369f-4d5d-8ce3-f17589b15069 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_TRANSPORTADORA_BI = Fonte{[Schema="dbo",Item="DIM_TRANSPORTADORA_BI"]}[Data],
+				    #"Colunas Removidas" = Table.RemoveColumns(dbo_DIM_TRANSPORTADORA_BI,{"DT_CADASTRO", "column6"})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Removidas",{"TRANSPORTADORA","COD_TRANSPORTADORA","CNPJ","ATIVO"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

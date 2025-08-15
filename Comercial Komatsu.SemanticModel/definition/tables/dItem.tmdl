@@ -1,0 +1,229 @@
+table dItem
+	lineageTag: b70b149f-b2e3-4899-9df6-23639035b115
+
+	column %REPRES_VENDAS =
+			
+			VAR LucroTotalFixo = CALCULATE([TOTAL VLR VENDAS LIQ], ALL('dItem'))
+			VAR LucroAtual = [TOTAL VLR VENDAS LIQ]
+			VAR LucroAcumulado =
+			IF(
+			    LucroAtual > 0,
+			    CALCULATE(
+			        [TOTAL VLR VENDAS LIQ],
+			        FILTER(
+			            'dItem',
+			            [TOTAL VLR VENDAS LIQ] >= LucroAtual
+			        )
+			    )
+			)
+			RETURN
+			DIVIDE(LucroAcumulado, LucroTotalFixo)
+		lineageTag: 6fe4307b-7bd2-43f6-a40b-35f0affeff5a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DESC_C1
+		dataType: string
+		lineageTag: 02ba3807-45d8-486b-ba36-542d3cbb9ba3
+		summarizeBy: none
+		sourceColumn: DESC_C1
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_C4
+		dataType: string
+		lineageTag: c87862a5-0ffb-46f1-9096-d5193d41c73a
+		summarizeBy: none
+		sourceColumn: DESC_C4
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_C1
+		dataType: string
+		lineageTag: 9dbefaea-30e9-42c8-b689-d8121a4d7360
+		summarizeBy: none
+		sourceColumn: COD_C1
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_C4
+		dataType: string
+		lineageTag: 0403aec0-30d5-415b-99d2-6ac6f5ae0500
+		summarizeBy: none
+		sourceColumn: COD_C4
+
+		annotation SummarizationSetBy = Automatic
+
+	column CD_ITEM
+		dataType: string
+		lineageTag: cfadbc8f-6e13-4ecc-9a6d-7529839f1bdf
+		summarizeBy: none
+		sourceColumn: CD_ITEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column NM_ITEM
+		dataType: string
+		lineageTag: d2343540-b3dc-43b3-aa44-6f8bf1ccc885
+		summarizeBy: none
+		sourceColumn: NM_ITEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cod e Descricao'
+		dataType: string
+		lineageTag: 6376ba7d-ea49-4932-9836-d1c1ac7de176
+		summarizeBy: none
+		sourceColumn: Cod e Descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRECO_UL_ENT
+		dataType: double
+		lineageTag: 56aa4fc3-4f5d-4d65-b5ad-8fa7c8de7a72
+		summarizeBy: sum
+		sourceColumn: PRECO_UL_ENT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Margem Familia'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1df3c278-18cd-49c8-b177-005181226a2b
+		summarizeBy: sum
+		sourceColumn: Margem Familia
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fornecedor 100%' = LOOKUPVALUE(dFornecedor[COD DESC],dFornecedor[CODIGO],'dItem'[DIM_FORNECEDOR_ID])
+		lineageTag: 6de2cc04-dda3-4bfb-b5f6-85c88a704c91
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Max Entrada' =
+			
+			CALCULATE(
+			            LASTNONBLANKVALUE(fRecebimento[DT_EMISSAO],SELECTEDVALUE(fRecebimento[DT_EMISSAO])),
+			            FILTER(fRecebimento,fRecebimento[DIM_ITEM_ID] = 'dItem'[CD_ITEM])
+			    )
+		formatString: Short Date
+		lineageTag: 005da5c9-7161-458b-ab03-bed33bebc984
+		summarizeBy: none
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_FORNECEDOR_ENTRADA =
+			
+			CALCULATE(
+			            LASTNONBLANKVALUE(fRecebimento[DT_EMISSAO],SELECTEDVALUE(fRecebimento[DIM_FORNECEDOR_ID])),
+			            FILTER(fRecebimento,fRecebimento[DIM_ITEM_ID] = 'dItem'[CD_ITEM])
+			    )
+		formatString: 0
+		lineageTag: ce642534-bc49-4b65-9794-4a05fa0931cf
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fornecedor Entrada' = LOOKUPVALUE(dFornecedor[COD DESC],dFornecedor[CODIGO],'dItem'[DIM_FORNECEDOR_ENTRADA])
+		lineageTag: e87e3fb4-8b13-47fc-aeb5-1dce61cb6ddb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VALOR ULT ENTRADA' =
+			
+			CALCULATE(
+			            LASTNONBLANKVALUE(fRecebimento[DT_EMISSAO],
+			            (
+			                   DIVIDE(
+			                           SELECTEDVALUE(fRecebimento[PRECO_TOTAL])-SELECTEDVALUE(fRecebimento[VALOR_ICM]),SELECTEDVALUE(fRecebimento[QUANTIDADE])))),
+			            FILTER(fRecebimento,fRecebimento[DIM_ITEM_ID] = 'dItem'[CD_ITEM])
+			    )
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 665702c0-082c-4d5a-b217-396b7e2b5fda
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DIM_FORNECEDOR_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: a4df2681-de71-4ee6-a955-67912c17b09b
+		summarizeBy: none
+		sourceColumn: DIM_FORNECEDOR_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: bd57c783-4841-4129-b4fc-b4f96044f871
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContemEQouM
+		dataType: string
+		lineageTag: 1ab9e93d-36c2-432b-b096-65c499255a36
+		summarizeBy: none
+		sourceColumn: ContemEQouM
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dItem-fe5c6498-63d6-48b0-b006-c1a1f0bf1a83 = m
+		mode: import
+		queryGroup: DIM
+		source = ```
+				let
+				    Fonte = Sql.Database("BRPIN-DBS008\PowerBI", "idba_komatsu", [Query="SELECT I.[DIM_ITEM_ID]#(lf)      ,I.[CD_ITEM]#(lf)      ,I.[NM_ITEM]#(lf)      ,I.[DESC_C1]#(lf)      ,I.[DESC_C2]#(lf)      ,I.[DESC_C3]#(lf)      ,I.[DESC_C4]#(lf)      ,I.[COD_C1]#(lf)      ,I.[COD_C2]#(lf)      ,I.[COD_C3]#(lf)      ,I.[COD_C4]#(lf)      ,I.[NM_CD_UM_ITEM]#(lf)      ,I.[DATA_CAD]#(lf)      ,I.[ALIQ_PIS]#(lf)      ,I.[ALIQ_COFINS]#(lf)      ,I.[ID_ITEM_FAB]#(lf)      ,I.[ID_ITEM_COMPRADO]#(lf)      ,I.[PRECO_UL_ENT]#(lf)      ,I.[TIPO_CONTROLE]#(lf)      ,I.[TEMPO_RESSUPRIMENTO]#(lf)      ,I.[FM_CODIGO]#(lf)#(tab)  ,CASE #(lf)        WHEN LEFT(I.[NM_ITEM], 2) IN ('M-', 'EQ') THEN 'Sim'#(lf)        ELSE 'Não'#(lf)    END AS [ContemEQouM]#(lf)  FROM [idba_komatsu].[dbo].[DIM_ITEM_BI] I"]),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(Fonte, "Mesclado", each Text.Combine({[CD_ITEM], " / ", [NM_ITEM]}), type text),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"Coluna Mesclada Inserida", {"DIM_ITEM_ID"}, dItemFornecedor, {"DIM_ITEM_ID"}, "dItemFornecedor", JoinKind.LeftOuter),
+				    #"dItemFornecedor Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "dItemFornecedor", {"DIM_FORNECEDOR_ID"}, {"dItemFornecedor.DIM_FORNECEDOR_ID"}),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"dItemFornecedor Expandido",{{"dItemFornecedor.DIM_FORNECEDOR_ID", "DIM_FORNECEDOR_ID"}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Renomeadas2",{{"Mesclado", "Cod e Descricao"}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Renomeadas", {"COD_C1"}, dMargemFamilia, {"Cod."}, "dMargemFamilia", JoinKind.LeftOuter),
+				    #"dMargemFamilia Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "dMargemFamilia", {"MG/2022"}, {"dMargemFamilia.MG/2022"}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"dMargemFamilia Expandido",{{"dMargemFamilia.MG/2022", "Margem Familia"}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Colunas Renomeadas1",{{"CD_ITEM", Text.Upper, type text}}),
+				    #"Texto Aparado" = Table.TransformColumns(#"Texto em Maiúscula",{{"CD_ITEM", Text.Trim, type text}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Texto Aparado", "CD_ITEM_CONSOLIDADO", each if Text.End([CD_ITEM],3)="-LM" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3)
+				    else if Text.End([CD_ITEM],1)= "E"  then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-1)  
+				    else if Text.End([CD_ITEM],1)= "e"  then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-1)
+				    else if Text.End([CD_ITEM],3)="-IM" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3) 
+				    else if Text.End([CD_ITEM],3)="-AB" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3) 
+				    else if Text.End([CD_ITEM],4)="-KI-" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-4)
+				    else if Text.End([CD_ITEM],4)="E-KI" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-4)
+				    else if Text.End([CD_ITEM],3)="-KI" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3)
+				    else if Text.End([CD_ITEM],2)="-C" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3)
+				    else if Text.End([CD_ITEM],1)="C" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-1)
+				    else if Text.End([CD_ITEM],3)="E-C" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-3)
+				    else if Text.End([CD_ITEM],4)="KI-C" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-4)
+				    else if Text.End([CD_ITEM],5)="-KI-C" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-5)    
+				    else if Text.End([CD_ITEM],4)="-SUZ" then Text.Start([CD_ITEM],Text.Length([CD_ITEM])-4)     
+				    else [CD_ITEM]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"CD_ITEM_CONSOLIDADO", type text}}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Tipo Alterado", {"CD_ITEM"})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Duplicatas Removidas",{"CD_ITEM_CONSOLIDADO","ID_ITEM_COMPRADO","ID_ITEM_FAB","DATA_CAD","DESC_C3","FM_CODIGO","DESC_C2","TEMPO_RESSUPRIMENTO","TIPO_CONTROLE","NM_CD_UM_ITEM","COD_C3","COD_C2","ALIQ_PIS","ALIQ_COFINS"})
+				in
+				    #"Columns removed by Measure Killer"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

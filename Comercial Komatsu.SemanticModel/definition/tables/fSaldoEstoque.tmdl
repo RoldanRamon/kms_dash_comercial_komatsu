@@ -1,0 +1,45 @@
+table fSaldoEstoque
+	lineageTag: 284c794d-a8d0-4ec4-a7dc-f8592ca32c8d
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 2a3e7e27-63e8-4025-9410-6bc3a53d8c4b
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SALDO_ATUAL
+		dataType: double
+		lineageTag: 1175e051-5af2-4083-bd8b-7f5ed4d8edfe
+		summarizeBy: sum
+		sourceColumn: SALDO_ATUAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IDEstab
+		dataType: string
+		lineageTag: 22f93ecb-0229-447c-9d38-551253581ae8
+		summarizeBy: none
+		sourceColumn: IDEstab
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fSaldoEstoque-da3ca85a-5394-4b04-bda5-0b227095d3f0 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_FATO_SALDO_ESTOQUE = Fonte{[Schema="dbo",Item="FATO_SALDO_ESTOQUE"]}[Data],
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(dbo_FATO_SALDO_ESTOQUE, "Mesclado", each Text.Combine({[DIM_ESTABELECIMENTO_ID], [DIM_ITEM_ID]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "IDEstab"}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas",{"LOCALIZACAO","CUSTO_MEDIO","ID_ITEM_COMPRADO","LOTE","DIM_ESTABELECIMENTO_ID","DEPOSITO","SALDO_ALOC_PED","SALDO_ALOC_PROD","DIM_FORNECEDOR_ID","SALDO_ALOCADO"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

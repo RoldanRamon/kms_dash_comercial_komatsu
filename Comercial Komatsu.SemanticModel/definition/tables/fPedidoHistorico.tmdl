@@ -1,0 +1,166 @@
+table fPedidoHistorico
+	lineageTag: 646979e8-25a8-44ac-93b6-8b04bf26301e
+
+	column DT_GERACAO
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 013abc16-be38-4faa-a509-626a59da1833
+		summarizeBy: none
+		sourceColumn: DT_GERACAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: cc9e590e-87cd-45ab-81c0-a55283a9f283
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_CLIENTE_ID
+		dataType: string
+		lineageTag: b6680b6a-9fa7-43ce-ba3b-11923b5fcd30
+		summarizeBy: none
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: string
+		lineageTag: f65bde76-5b60-4b22-8671-ff1a07cc8cbb
+		summarizeBy: none
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 34bba11d-b109-4e5c-ad63-89434e602f24
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTDE
+		dataType: double
+		lineageTag: 46589d3a-5d0e-437c-9d93-fa872ca3450e
+		summarizeBy: sum
+		sourceColumn: QTDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE_ATEND
+		dataType: double
+		lineageTag: 50c8e524-b6c0-494e-988b-54dc179271ae
+		summarizeBy: sum
+		sourceColumn: QTDE_ATEND
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_COFINS
+		dataType: double
+		lineageTag: 148c32c9-c033-4e7c-b430-b021cfcef23f
+		summarizeBy: sum
+		sourceColumn: VLR_COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_ICMS
+		dataType: double
+		lineageTag: 0820d2eb-6ca4-4916-b9a3-95bbaa53a6a1
+		summarizeBy: sum
+		sourceColumn: VLR_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_IPI
+		dataType: double
+		lineageTag: 7dcdde92-9df2-458e-a74a-5f26db0f213f
+		summarizeBy: sum
+		sourceColumn: VLR_IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DT_EMISSAO
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ecacba41-1dd8-4051-ba3e-ece4dc48a4c4
+		summarizeBy: none
+		sourceColumn: DT_EMISSAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column VLR_BRUTO
+		dataType: double
+		lineageTag: 1750c34e-7195-459a-9dd4-966502217ff9
+		summarizeBy: sum
+		sourceColumn: VLR_BRUTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_PIS
+		dataType: double
+		lineageTag: 00f001c5-58cf-40e3-95b1-2293dc4c51f6
+		summarizeBy: sum
+		sourceColumn: VLR_PIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'DT HISTORICO' = fPedidoHistorico[DT_GERACAO] + 1
+		formatString: Short Date
+		lineageTag: 8423bb7d-b328-42ae-83e5-58f255052619
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column VALOR_LIQUIDO_NF
+		dataType: double
+		lineageTag: 44b7c7c1-8974-483f-abae-b6427a7800bf
+		summarizeBy: sum
+		sourceColumn: VALOR_LIQUIDO_NF
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'DIVISAO VENDA' = RELATED('dDivisaoVendas'[TP_DIVISAO_VENDA])
+		lineageTag: d03c27af-27ee-4a7e-a9fd-6000555538b7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fPedidoHistorico-222e83da-5871-4b16-bbed-d2a9dd66a700 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Source = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_FATO_PEDIDO_HISTORICO = Source{[Schema="dbo",Item="FATO_PEDIDO_HISTORICO"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_FATO_PEDIDO_HISTORICO,{{"DT_GERACAO", type date}, {"DT_ENTREGA", type date}, {"DT_EMISSAO", type date}}),
+				    #"Columns removed by Measure Killer"= Table.RemoveColumns(#"Changed Type",{"FATO_PEDIDO_ID","VLR_LIQ","PRECO_UNIT","NR_PEDIDO_CLIENTE","NR_PEDIDO","DT_ENTREGA","NR_SEQ_PED","DIM_UNID_NEGOC_ID","PRIORIDADE","FATURAMENTO_PARCIAL","POS_PDV","QTDE_SLDO","QTDE_CANC"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

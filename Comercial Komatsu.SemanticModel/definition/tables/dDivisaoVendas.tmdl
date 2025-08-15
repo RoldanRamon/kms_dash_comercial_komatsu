@@ -1,0 +1,82 @@
+table dDivisaoVendas
+	lineageTag: 85d3a66b-954c-4d7b-a2fd-530c3e45bc3a
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: string
+		lineageTag: 2c9f183e-868b-49f5-a107-4d641c50ec48
+		summarizeBy: none
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DIVISAO_VENDA
+		dataType: string
+		lineageTag: e350a4f1-2d2e-43f3-a398-c1c5d8b0761c
+		summarizeBy: none
+		sourceColumn: COD_DIVISAO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_DIVISAO_VENDA
+		dataType: string
+		lineageTag: 09845635-677c-4b62-9db2-e1e0e48c965a
+		summarizeBy: none
+		sourceColumn: DESC_DIVISAO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TP_DIVISAO_VENDA
+		dataType: string
+		lineageTag: f795f3b5-5d94-4ee6-8341-2661f65fdd57
+		summarizeBy: none
+		sourceColumn: TP_DIVISAO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column AGRUP_DIVISAO_VENDA
+		dataType: string
+		lineageTag: 9bb9655b-2c63-4082-a0c3-26d9f82bfb94
+		summarizeBy: none
+		sourceColumn: AGRUP_DIVISAO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_AGRUP_DIVISAO_VENDA
+		dataType: string
+		lineageTag: 141953d0-e8eb-4e6e-b8b0-b6f729112d36
+		summarizeBy: none
+		sourceColumn: DESC_AGRUP_DIVISAO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cod Descr Div'
+		dataType: string
+		lineageTag: 0d0c9c2d-017a-46f8-9ae6-d89d06fa3991
+		summarizeBy: none
+		sourceColumn: Cod Descr Div
+
+		annotation SummarizationSetBy = Automatic
+
+	column column7
+		dataType: string
+		lineageTag: ceec3b0d-b259-40f9-8f95-7b6855d6a5c6
+		summarizeBy: none
+		sourceColumn: column7
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dDivisaoVendas-b5e11581-2f45-4c8e-bd2d-e9902187c5f9 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				        Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_DIVISAO_VENDA_BI= Fonte{[Schema="dbo",Item="DIM_DIVISAO_VENDA_BI"]}[Data],
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(dbo_DIM_DIVISAO_VENDA_BI, "Cod Descr Div", each Text.Combine({[COD_DIVISAO_VENDA], [DESC_DIVISAO_VENDA]}, " - "), type text)
+				in
+				    #"Coluna Mesclada Inserida"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegação
+

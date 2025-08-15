@@ -1,0 +1,36 @@
+table fOrdemManutencao
+	lineageTag: 319d0dd9-20bb-4787-aa09-c616a970a630
+
+	column nr-ord-produ
+		dataType: int64
+		formatString: 0
+		lineageTag: eebe52c6-408c-45eb-acd3-ae351f9e2a06
+		summarizeBy: sum
+		sourceColumn: nr-ord-produ
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_EMITENTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ad90ce9-ca82-4e42-b1fc-1eb1eeebb8f5
+		summarizeBy: none
+		sourceColumn: DIM_EMITENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fOrdemManutencao-4c0bcd0c-1b21-4360-a14d-2f69613db11b = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\POWERBI", "IDBA_KOMATSU"),
+				    dbo_FATO_ORDEM_MANUT = Fonte{[Schema="dbo",Item="FATO_ORDEM_MANUT"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dbo_FATO_ORDEM_MANUT,{{"dat-abert", type date}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Tipo Alterado",{"nr-ord-produ_1","cod-eqpto","dat-prev-term","dat-abert","dt-contato","cod-tipo","hr-contato","cod-setor-ofici","cod-estabel","cod-ofici","cc-codigo","estado","val-hodom-horim"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

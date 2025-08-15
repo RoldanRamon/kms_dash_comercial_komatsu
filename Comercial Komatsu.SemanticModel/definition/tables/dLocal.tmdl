@@ -1,0 +1,75 @@
+table dLocal
+	lineageTag: 5f26f7f5-4c9c-44e3-990e-25556599086e
+
+	column DIM_CIDADE_ID
+		dataType: int64
+		lineageTag: d79315cd-a019-43b4-ad0b-36daddbf2710
+		summarizeBy: none
+		sourceColumn: DIM_CIDADE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CIDADE
+		dataType: string
+		lineageTag: 026dc188-3dc2-420e-9593-c1c8b5123cff
+		summarizeBy: none
+		sourceColumn: CIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+	column UF
+		dataType: string
+		lineageTag: 34abdb80-74bf-426a-b867-9df2154657c3
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAIS
+		dataType: string
+		lineageTag: 49746906-bc01-478d-80f1-3b448d39bdca
+		summarizeBy: none
+		sourceColumn: PAIS
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_IBGE
+		dataType: string
+		lineageTag: 6ea80a30-c834-4e06-8085-5d000495b7a2
+		summarizeBy: none
+		sourceColumn: COD_IBGE
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'PAIS Hierarquia'
+		lineageTag: dfa51598-d492-4215-81ca-1fe1a935e5f3
+
+		level PAIS
+			lineageTag: a869f131-9b7e-4cc3-84a8-b7f4cd3d5d16
+			column: PAIS
+
+		level UF
+			lineageTag: 51c9d940-edcb-45b4-8b5e-a73bed9102c1
+			column: UF
+
+		level CIDADE
+			lineageTag: 8cea5354-eb9a-4820-95c4-7e53dc927f5b
+			column: CIDADE
+
+	partition dLocal-7efe3a09-2561-4498-995c-0202741d5625 = m
+		mode: import
+		queryGroup: DIM
+		source = ```
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_LOCAL_BI= Fonte{[Schema="dbo",Item="DIM_LOCAL_BI"]}[Data] 
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(   dbo_DIM_LOCAL_BI,{"NOME_UF","SIGLA_PAIS","LONGITUDE","LATITUDE","column10"})
+				in
+				#"Columns removed by Measure Killer"
+				```
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,39 @@
+table xOpção_Por_Qtde_ou_Valor
+	lineageTag: eca8756f-a045-4b21-9c08-1f0b7a34bbf0
+
+	/// 
+	/// SWITCH(
+	/// SELECTEDVALUE('xOpção_Por_Qtde_ou_Valor'[Value]),
+	/// "Por Qtde",_Medidas[Count It Ped Status OTIF LOG],
+	/// "Por Valor",'MEDIDAS PEDIDOS'[Faturamento Pedidos2],
+	/// 'MEDIDAS PEDIDOS'[Faturamento Pedidos2]
+	/// )
+	measure DemandaType_By_Qtde_Or_Value =
+			
+			SWITCH(
+			    SELECTEDVALUE('xOpção_Por_Qtde_ou_Valor'[Value]),
+			    "Por Qtde",_Medidas[Count It Ped Status OTIF LOG],
+			    "Por Valor",'MEDIDAS PEDIDOS'[Faturamento Pedidos2],
+			    'MEDIDAS PEDIDOS'[Faturamento Pedidos2]
+			)
+		lineageTag: 4c7dbb63-3649-407c-8310-67b6dead232e
+
+		formatStringDefinition = IF(SELECTEDVALUE('xOpção_Por_Qtde_ou_Valor'[Value]) = "Por Valor","R$ #,#0.00","#,#0")
+
+	column Value
+		lineageTag: 21f97142-8327-4f79-b44e-7b854b6b0ef2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xOpção_Por_Qtde_ou_Valor = calculated
+		mode: import
+		source =
+				
+				//Tabela criada para servir como segmentador de medida no grafico "Demand Type" da apa Parts - OTIF
+				{"Por Qtde","Por Valor"}
+
+	annotation PBI_Id = 1b03703d1e5142cfa1e4e0d7c61d18b6
+

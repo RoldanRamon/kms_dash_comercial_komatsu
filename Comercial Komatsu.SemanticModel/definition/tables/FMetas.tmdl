@@ -1,0 +1,83 @@
+table FMetas
+	lineageTag: 5a6b8cfc-5b3b-4f8b-a4cb-2c1627e88cad
+
+	column Código
+		dataType: string
+		lineageTag: 35c1d249-90f7-455b-9817-83e757353351
+		summarizeBy: none
+		sourceColumn: Código
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendedor
+		dataType: string
+		lineageTag: 4b761f4b-71cf-40e9-accd-a850ad881161
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bf2458c3-ec14-4692-afaa-6af6634e6981
+		summarizeBy: none
+		sourceColumn: Mês
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Meta
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c4e5be29-fa89-45b2-bd9a-86db01aa9cee
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column TIPO_VENDA
+		dataType: string
+		lineageTag: e754660e-667a-43d4-b3d9-fb54c34b7a0c
+		summarizeBy: none
+		sourceColumn: TIPO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendedor - Copiar.2'
+		dataType: string
+		lineageTag: 1315e230-c07b-4b3b-a250-c441ec696959
+		summarizeBy: none
+		sourceColumn: Vendedor - Copiar.2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FMetas-11ce28fd-65a4-46fa-931b-aebcbb36c7f7 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				//Ótimizamos script para pegar direto do sharepoint e não mais da pasta sincronizada.
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Metas Vendedores xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Metas Vendedores.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Metas Vendedores xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    METAS_Sheet = #"Pasta de Trabalho Importada do Excel"{[Item="METAS",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(METAS_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"VALOR", type number}, {"Mês", type date}, {"Vendedor", type text}, {"Código", type text}, {"Usuário", type text}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Vendedor", "Vendedor - Copiar"),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Coluna Duplicada", "Vendedor - Copiar", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"Vendedor - Copiar.1", "Vendedor - Copiar.2"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna por Delimitador",{{"Vendedor - Copiar.1", type text}, {"Vendedor - Copiar.2", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{"Vendedor - Copiar.1", "Abrev Vendedor"}, {"VALOR", "Meta"}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas",{"Usuário","Abrev Vendedor"}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Columns removed by Measure Killer",{{"Código", Text.Upper, type text}})
+				in
+				#"Texto em Maiúscula"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

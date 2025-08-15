@@ -1,0 +1,353 @@
+table dCalendario
+	lineageTag: 31ec10c3-71d3-4390-92e4-0f73ca3417e7
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(dCalendario, dCalendario[DIA_UTIL])
+	/// )
+	/// 
+	measure 'TOTAL DIA UTIL' = ```
+			
+			CALCULATE(
+			        SUMX(dCalendario, dCalendario[DIA_UTIL])
+			)
+			
+			```
+		lineageTag: 2018fda2-90f1-43d8-97e9-0c0e93b19c83
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// VAR vDiaMax = MAX(fVenda[DT_EMIS])
+	/// VAR vResutlado =
+	/// CALCULATE(
+	/// SUMX(dCalendario, dCalendario[DIA_UTIL]),
+	/// dCalendario[Date] <= vDiaMax
+	/// )
+	/// 
+	/// return
+	/// vResutlado
+	/// 
+	/// /* VAR DataAtual = MAX(TEMPO[DT_DATA])
+	/// RETURN
+	/// IF ( COUNTROWS('VENDA') > 0 ,
+	/// CALCULATE(
+	/// [TOTAL DIA UTIL],
+	/// FILTER(
+	/// ALLSELECTED(TEMPO[DT_DATA]),
+	/// TEMPO[DT_DATA] <= TODAY()
+	/// //TEMPO[DT_DATA]  <= DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY()))
+	/// )
+	/// )
+	/// ) */
+	measure 'Dias Uteis ate hoje' = ```
+			
+			VAR vDiaMax = MAX(fVenda[DT_EMIS])
+			VAR vResutlado = 
+			 CALCULATE(
+			        SUMX(dCalendario, dCalendario[DIA_UTIL]),
+			        dCalendario[Date] <= vDiaMax
+			    )
+			
+			return
+			vResutlado
+			
+			 /* VAR DataAtual = MAX(TEMPO[DT_DATA])
+			RETURN
+			IF ( COUNTROWS('VENDA') > 0 ,
+			    CALCULATE(
+			        [TOTAL DIA UTIL],
+			        FILTER(
+			            ALLSELECTED(TEMPO[DT_DATA]),
+			            TEMPO[DT_DATA] <= TODAY()
+			            //TEMPO[DT_DATA]  <= DATE(YEAR(TODAY()),MONTH(TODAY()),DAY(TODAY()))
+			        )
+			    )
+			) */
+			```
+		lineageTag: 0317a3aa-fe4f-4e07-8dcb-20e63c3ad64a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SUM(dCalendario[DIA_UTIL])
+	measure 'DIA UTIL SOMA' = SUM(dCalendario[DIA_UTIL])
+		formatString: 0
+		lineageTag: 8eee5040-5ca7-47d3-bdb5-0bd2d35a03ae
+
+	column DT_DATA
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 65ba6beb-4308-41bd-9f89-272e97919563
+		summarizeBy: none
+		sourceColumn: DT_DATA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"dCalendario","TableItemName":"DT_DATA (compartimentos)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column DIA
+		dataType: int64
+		formatString: 0
+		lineageTag: b72eb5c2-3f15-476e-949e-d7dbdcff8eba
+		summarizeBy: sum
+		sourceColumn: DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column MES
+		dataType: int64
+		formatString: 0
+		lineageTag: a64cc02b-ae7f-4c77-9849-596ef8108c46
+		summarizeBy: sum
+		sourceColumn: MES
+
+		annotation SummarizationSetBy = Automatic
+
+	column ANO
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ef9a2da-722c-4d82-8461-84ca6db7256e
+		summarizeBy: sum
+		sourceColumn: ANO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEMANA
+		dataType: int64
+		formatString: 0
+		lineageTag: e1c42fb3-bff8-4440-bf7b-e81e53d44c04
+		summarizeBy: sum
+		sourceColumn: SEMANA
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRIMESTRE
+		dataType: string
+		lineageTag: 3fbc2e75-055b-424d-a6e8-73df4f53fdcb
+		summarizeBy: none
+		sourceColumn: TRIMESTRE
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIA_UTIL
+		dataType: int64
+		formatString: 0
+		lineageTag: fb15a53a-11ac-4ace-9786-30d10cbbfe06
+		summarizeBy: sum
+		sourceColumn: DIA_UTIL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MES TEXT'
+		dataType: string
+		lineageTag: 592a4a7d-9532-4394-9992-7f14ac67cd18
+		summarizeBy: none
+		sourceColumn: MES TEXT
+		sortByColumn: MES
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano Fiscal' = ```
+			If( Month([DT_DATA]) >= 4  , Year([DT_DATA]),Year([DT_DATA]) -1 ) 
+			```
+		formatString: 0
+		lineageTag: 426b1fc2-a100-46d1-a340-b34f60ed9bf9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre/Ano = dCalendario[TRIMESTRE] & "/" & dCalendario[ANO]
+		lineageTag: 4e89149e-3abe-4594-8fa8-6e80872f406f
+		summarizeBy: none
+		sortByColumn: 'Trim order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DT_DATA (compartimentos)' =
+			IF(
+			  ISBLANK('dCalendario'[DT_DATA]),
+			  BLANK(),
+			  DATE(
+			    YEAR('dCalendario'[DT_DATA]),
+			    1 + (MONTH('dCalendario'[DT_DATA]) - 1),
+			    1
+			  )
+			)
+		formatString: General Date
+		lineageTag: b0c61f07-b17f-49d6-8b98-bf9e11eefaf5
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 6,
+				      "value": 1.0
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "dCalendario"
+				          }
+				        },
+				        "Property": "DT_DATA"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"t","Entity":"dCalendario"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"DT_DATA"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"DT_DATA"}},"Size":1.0,"TimeUnit":2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês = ```
+			SWITCH (MONTH (LASTDATE(dCalendario[DT_DATA])), 1, "Jan" , 2, "Feb", 3, "Mar", 4, "Apr"  
+			               , 5, "May", 6, "Jun", 7, "Jul", 8, "Aug"  
+			               , 9, "Sep", 10 , "Oct", 11, "Nov", 12, "Dec"  
+			               , "N/D")
+			```
+		lineageTag: 61d7a1d8-2119-41be-a2b1-b8716d229f68
+		summarizeBy: none
+		sortByColumn: 'Ord Ano Fiscal'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês e Ano' =
+			
+			SWITCH(
+			        TRUE(),
+			        dCalendario[ANO] = YEAR(TODAY()) && dCalendario[MES] = MONTH(TODAY()), "Mês Atual",
+			        dCalendario[Mês] & "/" & dCalendario[ANO])
+		lineageTag: 6c2300ca-ced0-4692-96a3-fbe9a888148a
+		summarizeBy: none
+		sortByColumn: 'DT_DATA (compartimentos)'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trim order' = dCalendario[ANO]&dCalendario[TRIMESTRE]
+		dataType: int64
+		formatString: 0
+		lineageTag: 859d2e99-ffed-45bf-a0f1-302353ea05ba
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ord Ano Fiscal' = ```
+			
+			        SWITCH (
+			                TRUE(),
+			                dCalendario[MES] = 1, "10",
+			                dCalendario[MES] = 2, "11",
+			                dCalendario[MES] = 3, "12",
+			                dCalendario[MES] = 4, "1", 
+			                dCalendario[MES] = 5, "2",
+			                dCalendario[MES] = 6, "3",
+			                dCalendario[MES] = 7, "4",
+			                dCalendario[MES] = 8, "5", 
+			                dCalendario[MES] = 9, "6",
+			                dCalendario[MES] = 10, "7",
+			                dCalendario[MES] = 11, "8",
+			                dCalendario[MES] = 12, "9", 
+			                "N/D")
+			```
+		dataType: int64
+		formatString: 0
+		lineageTag: a2ba1f9b-6f1d-43bb-9e5e-b89dc52c73c8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date = dCalendario[DT_DATA]
+		formatString: Short Date
+		lineageTag: 5f76557b-af4c-47c4-9ef5-3ce4fc517576
+		summarizeBy: none
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Text Month'
+		dataType: string
+		lineageTag: 4a8636b1-9bd3-4be7-afff-ea551b1c5a7c
+		summarizeBy: none
+		sourceColumn: Text Month
+		sortByColumn: 'Ord Ano Fiscal'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month/Year
+		dataType: string
+		lineageTag: 36250e69-a432-4bcd-92a9-b4a0aa169186
+		summarizeBy: none
+		sourceColumn: Month/Year
+		sortByColumn: 'DT_DATA (compartimentos)'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Ano Calendario' = ```
+			SWITCH (MONTH (LASTDATE(dCalendario[DT_DATA])), 1, "Jan" , 2, "Feb", 3, "Mar", 4, "Apr"  
+			               , 5, "May", 6, "Jun", 7, "Jul", 8, "Aug"  
+			               , 9, "Sep", 10 , "Oct", 11, "Nov", 12, "Dec"  
+			               , "N/D")
+			```
+		lineageTag: 79f48ff3-c9a0-485c-8afd-6463d00c3fd7
+		summarizeBy: none
+		sortByColumn: MES
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano Fiscal Atual' = ```
+			
+			
+			If( Month(TODAY()) >= 4  , Year(TODAY()),Year(TODAY()) -1 ) 
+			```
+		formatString: 0
+		lineageTag: b4f71922-092c-445f-9cdb-b25482ed2765
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario-067345eb-1f77-4c41-ad44-da024c2fc23f = m
+		mode: import
+		queryGroup: DIM
+		source = ```
+				let
+				        Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_TEMPO_BI = Fonte{[Schema="dbo",Item="DIM_TEMPO_BI"]}[Data],
+				     #"Coluna Duplicada" = Table.DuplicateColumn(dbo_DIM_TEMPO_BI, "DT_DATA", "DT_DATA - Copiar"),
+				    #"Nome do Mês Extraído" = Table.TransformColumns(#"Coluna Duplicada", {{"DT_DATA - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Nome do Mês Extraído",{{"DT_DATA - Copiar", Text.Upper, type text}}),
+				    #"Primeiros caracteres extraídos" = Table.TransformColumns(#"Texto em Maiúscula", {{"DT_DATA - Copiar", each Text.Start(_, 3), type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Primeiros caracteres extraídos",{{"DT_DATA - Copiar", "MES TEXT"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"DT_DATA", type date}, {"MES", Int64.Type}, {"DIA", Int64.Type}, {"ANO", Int64.Type}, {"SEMANA", Int64.Type}, {"BIMESTRE", Int64.Type}, {"TRIMESTRE", Int64.Type}, {"SEMESTRE", Int64.Type}, {"DIA_UTIL", Int64.Type}, {"DIAS_UTEIS_MES", Int64.Type}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Tipo Alterado", "MES - ANO", each Text.Combine({[MES TEXT], Text.From([ANO], "en-US")}, " / "), type text),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Mesclada Inserida",{"column11"}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Colunas Removidas", "Text Month", each if [MES] = 1 then "Jan" else if [MES] = 2 then "Feb" else if [MES] = 3 then "Mar" else if [MES] = 4 then "Apr" else if [MES] = 5 then "May" else if [MES] = 6 then "Jun" else if [MES] = 7 then "Jul" else if [MES] = 8 then "Aug" else if [MES] = 9 then "Sep" else if [MES] = 10 then "Oct" else if [MES] = 11 then "Nov" else if [MES] = 12 then "Dec" else null, type text),
+				    #"Added Custom" = Table.AddColumn(#"Added Conditional Column", "Month/Year", 
+				each Text.Combine({
+				Text.From([Text Month],"pt-BR"),
+				(" / "),
+				Text.From([ANO],"pt-BR")
+				}),type text)
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Added Custom",{"DIM_PERIODO_ID","MES - ANO","BIMESTRE","DIAS_UTEIS_MES","SEMESTRE"})
+				in
+				#"Columns removed by Measure Killer"
+				```
+
+	annotation PBI_ResultType = Table
+

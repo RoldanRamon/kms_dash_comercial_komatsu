@@ -1,0 +1,277 @@
+table fCotação
+	lineageTag: d231bf0b-e3d4-4581-b7d1-299703ec028f
+
+	column FATO_COTACAO_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: c800da8e-7cfc-4f2c-b96d-27fe72ea92dc
+		summarizeBy: count
+		sourceColumn: FATO_COTACAO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_CLIENTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 437e8d51-9b19-4458-a5e8-e97cd526fddf
+		summarizeBy: count
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: cb5e457a-d2df-4dea-96b7-e46f97aa5f1c
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 8dba6a74-0faa-4ef3-b1fa-69774c20f972
+		summarizeBy: count
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TIPO_NOTA_ID
+		dataType: string
+		lineageTag: 146ae717-d900-4bf6-8d3b-740f37a1008c
+		summarizeBy: none
+		sourceColumn: DIM_TIPO_NOTA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 545b0724-fa26-499f-b228-8ccd1c2da527
+		summarizeBy: count
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_UNID_NEGOC_ID
+		dataType: string
+		lineageTag: c2726de8-0686-4665-a3e7-f9c1a3ef840b
+		summarizeBy: none
+		sourceColumn: DIM_UNID_NEGOC_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 8d3374a8-c1d7-4a9c-979b-265031ff1574
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column NR_PEDIDO
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e5ae055-53bb-4eb8-9fbd-ba1399160e50
+		summarizeBy: sum
+		sourceColumn: NR_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NR_PEDIDO_CLIENTE
+		dataType: string
+		lineageTag: c35190ff-32e9-4dca-bce7-fffe3e67da86
+		summarizeBy: none
+		sourceColumn: NR_PEDIDO_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column VLR_BRUTO
+		dataType: double
+		lineageTag: 275fd5b7-05e2-4f9b-b71c-20cd18f0c8df
+		summarizeBy: sum
+		sourceColumn: VLR_BRUTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DT_ENTREGA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3be0e3d8-56b9-4b3b-9056-a7aa9c6b86ff
+		summarizeBy: none
+		sourceColumn: DT_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_EMISSAO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: de58f5a4-dee5-4655-abae-59cf457b0233
+		summarizeBy: none
+		sourceColumn: DT_EMISSAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column POS_PDV
+		dataType: string
+		lineageTag: 807b1d07-4b46-46f3-b878-058b5997a47d
+		summarizeBy: none
+		sourceColumn: POS_PDV
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTDE
+		dataType: double
+		lineageTag: 9d1ae71a-6f46-475a-803a-3feefbd18e65
+		summarizeBy: sum
+		sourceColumn: QTDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE_ATEND
+		dataType: double
+		lineageTag: 2e4ee4c0-c853-42c5-9adb-933e90078f1e
+		summarizeBy: sum
+		sourceColumn: QTDE_ATEND
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE_CANC
+		dataType: double
+		lineageTag: fa35cbed-67db-4964-9c6a-dc5d9c4815f6
+		summarizeBy: sum
+		sourceColumn: QTDE_CANC
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE_SLDO
+		dataType: double
+		lineageTag: e88d3f94-3f70-4155-b1c0-e445dc313511
+		summarizeBy: sum
+		sourceColumn: QTDE_SLDO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRECO_UNIT
+		dataType: double
+		lineageTag: 78775c5a-6b2a-4caf-a948-97725fe438f2
+		summarizeBy: sum
+		sourceColumn: PRECO_UNIT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NR_SEQ_PED
+		dataType: int64
+		formatString: 0
+		lineageTag: ad386818-6458-4841-8f08-b326e7fb965b
+		summarizeBy: sum
+		sourceColumn: NR_SEQ_PED
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC-CANCELAMENTO
+		dataType: string
+		lineageTag: f2721a20-2be4-48c0-a39e-8389938b129b
+		summarizeBy: none
+		sourceColumn: DESC-CANCELAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VLR_IPI
+		dataType: double
+		lineageTag: 55725fe3-9729-4fa7-bfe8-7e51e125c07e
+		summarizeBy: sum
+		sourceColumn: VLR_IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DIM_LOCAL_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 04e1e4b4-70be-4184-803b-0ea8397c3eba
+		summarizeBy: count
+		sourceColumn: DIM_LOCAL_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column VLR_LIQ
+		dataType: double
+		lineageTag: d5fde6ba-a89c-4894-9dbd-7389a9b7764c
+		summarizeBy: sum
+		sourceColumn: VLR_LIQ
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DIM_MOTIVO_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 91198bce-381d-4e16-8364-db8f02999e1e
+		summarizeBy: none
+		sourceColumn: DIM_MOTIVO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column USER_IMPL
+		dataType: string
+		lineageTag: 07de875d-5e49-44a6-a573-e7b559d7c8fd
+		summarizeBy: none
+		sourceColumn: USER_IMPL
+
+		annotation SummarizationSetBy = Automatic
+
+	column USER_CANCELAMENTO
+		dataType: string
+		lineageTag: 426113ed-7e30-4f00-b7b4-e04ff1c536c7
+		summarizeBy: none
+		sourceColumn: USER_CANCELAMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_CANCELA
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a2dbc61b-fa53-4e80-b0bd-b0c14bcca400
+		summarizeBy: none
+		sourceColumn: DT_CANCELA
+
+		annotation SummarizationSetBy = Automatic
+
+	column LOG_COTACAO
+		dataType: string
+		lineageTag: ae81b074-8bd7-4bba-9f5b-8292d51db4a9
+		summarizeBy: none
+		sourceColumn: LOG_COTACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCotação = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Databases("BRPIN-DBS008\PowerBI"),
+				    idba_komatsu = Fonte{[Name="idba_komatsu"]}[Data],
+				    dbo_FATO_COTACAO_BI = idba_komatsu{[Schema="dbo",Item="FATO_COTACAO_BI"]}[Data]
+				in
+				    dbo_FATO_COTACAO_BI
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

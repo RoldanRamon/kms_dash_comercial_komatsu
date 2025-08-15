@@ -1,0 +1,27 @@
+table dCondicaoPagamento
+	lineageTag: ca1ecd1d-2f6d-4fec-aa44-e81754fad449
+
+	column DIM_COND_PAGTO_ID
+		dataType: string
+		lineageTag: 04e788a3-f966-4403-9008-98a821e00378
+		summarizeBy: none
+		sourceColumn: DIM_COND_PAGTO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCondicaoPagamento-218b4c5f-ba87-4807-bd00-416edd6f80e7 = m
+		mode: import
+		queryGroup: DIM
+		source = ```
+				let
+				        Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_COND_PAGTO_BI = Fonte{[Schema="dbo",Item="DIM_COND_PAGTO_BI"]}[Data]
+				     
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(   dbo_DIM_COND_PAGTO_BI,{"DESC_PGTO","COD_COND_PGTO","QTDE_PARC","PRAZO_MEDIO","column6"})
+				in
+				#"Columns removed by Measure Killer"
+				```
+
+	annotation PBI_ResultType = Table
+

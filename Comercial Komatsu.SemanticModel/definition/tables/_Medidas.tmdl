@@ -1,0 +1,1103 @@
+table _Medidas
+	lineageTag: bda2172c-2b63-476a-bf3d-4c70b762cc30
+
+	/// ([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ] )
+	measure 'Faturamento Liquido Total' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    SELECTEDVALUE(dEmpresa[DIM_EMPRESA_ID]) = "INTERCOMPANY",
+			        CALCULATE(
+			            ([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ] ),
+			            REMOVEFILTERS(dEmpresa),  
+			            FILTER(
+			                dCliente,
+			                dCliente[TIPO DE CONTA] IN {"AB", "COL", "IND", "KDB", "UY"}
+			            )
+			        ),
+			    ([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ] )
+			)
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 1fc16ac2-f7a9-47f9-9ba9-7a97b38249bc
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// CALCULATE(IF(
+	/// ([Total Fat/Dias Uteis Orc]*[Dias Uteis Previstos Orç])+[Faturamento Gerencial]>0,
+	/// ([Total Fat/Dias Uteis Orc]*[Dias Uteis Previstos Orç])+[Faturamento Gerencial],
+	/// 0),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023))
+	measure 'Total Previsto Faturamento Orc' = ```
+			
+			CALCULATE(IF(
+			    ([Total Fat/Dias Uteis Orc]*[Dias Uteis Previstos Orç])+[Faturamento Gerencial]>0, 
+			    ([Total Fat/Dias Uteis Orc]*[Dias Uteis Previstos Orç])+[Faturamento Gerencial],
+			    0),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023))
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: e0702a65-c250-4786-bf80-2235c12bce59
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// [Faturamento Liquido]/[Dias Uteis Realizados]
+	measure 'Total Fat/Dias Uteis Orc' = [Faturamento Liquido Total]/[Dias Uteis Realizados]
+		lineageTag: 9c0b1ff7-9135-4422-8989-6de9e81e3921
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// CALCULATE(sum(dCalendario[DIA_UTIL]),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023),DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),ENDOFYEAR(dCalendario[DT_DATA])))
+	measure 'Dias Uteis Previstos Orç' = CALCULATE(sum(dCalendario[DIA_UTIL]),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023),DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),ENDOFYEAR(dCalendario[DT_DATA])))
+		formatString: 0
+		lineageTag: 917ff32f-12cf-42a6-9c17-c47aa2195c95
+
+	/// CALCULATE(sum(dCalendario[DIA_UTIL])-1,DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),TODAY()),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023))
+	measure 'Dias Uteis Realizados' = CALCULATE(sum(dCalendario[DIA_UTIL])-1,DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),TODAY()),FILTER(dCalendario,dCalendario[Ano Fiscal] = 2023))
+		formatString: 0
+		lineageTag: 6becaa27-69cf-4607-bff5-51bf45216e12
+
+	/// CALCULATE([Faturamento Liquido],FILTER(dCalendario,dCalendario[Ano Fiscal] = 2022),DATEADD(dCalendario[DT_DATA],-1,YEAR))
+	measure 'Faturamento Ult Ano Orc' = CALCULATE([Faturamento Liquido Total],FILTER(dCalendario,dCalendario[Ano Fiscal] = 2022),DATEADD(dCalendario[DT_DATA],-1,YEAR))
+		lineageTag: 575b2c22-2e9f-40a0-a19b-8838dbc69a0a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// (DIVIDE([Total Previsto Faturamento Orc],[Faturamento Ult Ano Orc],0)-1)
+	measure '% Ult. Ano Orc' = (DIVIDE([Total Previsto Faturamento Orc],[Faturamento Ult Ano Orc],0)-1)
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		lineageTag: 3572d866-83ef-4784-8771-6097817e4a5b
+
+	/// CALCULATE(sum(dCalendario[DIA_UTIL]),FILTER(dCalendario,dCalendario[ANO] = 2023),DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),ENDOFYEAR(dCalendario[DT_DATA])))
+	measure 'Dias Uteis Previstos Fiscal' = CALCULATE(sum(dCalendario[DIA_UTIL]),FILTER(dCalendario,dCalendario[ANO] = 2023),DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),ENDOFYEAR(dCalendario[DT_DATA])))
+		formatString: 0
+		lineageTag: 0514c149-36c0-4ffc-9190-e601d806b399
+
+	/// CALCULATE(sum(dCalendario[DIA_UTIL])-1,DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),TODAY()),FILTER(dCalendario,dCalendario[ANO] = 2023))
+	measure 'Dias Uteis Realizados Fiscal' = CALCULATE(sum(dCalendario[DIA_UTIL])-1,DATESBETWEEN(dCalendario[DT_DATA],STARTOFYEAR(dCalendario[DT_DATA]),TODAY()),FILTER(dCalendario,dCalendario[ANO] = 2023))
+		formatString: 0
+		lineageTag: 6a82c0b6-0b54-411a-be78-9f40c8b7cc69
+
+	/// [Faturamento Liquido]/[Dias Uteis Realizados Fiscal]
+	measure 'Total Fat/Dias Uteis Fiscal' = [Faturamento Liquido Total]/[Dias Uteis Realizados Fiscal]
+		lineageTag: fa285470-84fa-409b-a4e9-abab5fb0803b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(IF(
+	/// ([Total Fat/Dias Uteis Fiscal]*[Dias Uteis Previstos Fiscal])+[Faturamento Gerencial]>0,
+	/// ([Total Fat/Dias Uteis Fiscal]*[Dias Uteis Previstos Fiscal])+[Faturamento Gerencial],
+	/// 0),FILTER(dCalendario,dCalendario[ANO] = 2023))
+	measure 'Total Previsto Faturamento Fiscal' = ```
+			
+			CALCULATE(IF(
+			    ([Total Fat/Dias Uteis Fiscal]*[Dias Uteis Previstos Fiscal])+[Faturamento Gerencial]>0, 
+			    ([Total Fat/Dias Uteis Fiscal]*[Dias Uteis Previstos Fiscal])+[Faturamento Gerencial],
+			    0),FILTER(dCalendario,dCalendario[ANO] = 2023))
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: a43e2f4d-aee3-46e0-a312-60a204010db0
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// CALCULATE([Faturamento Liquido],FILTER(dCalendario,dCalendario[ANO]= 2022),DATEADD(dCalendario[DT_DATA],-1,YEAR))
+	measure 'Faturamento Ult Ano Fiscal' = CALCULATE([Faturamento Liquido Total],FILTER(dCalendario,dCalendario[ANO]= 2022),DATEADD(dCalendario[DT_DATA],-1,YEAR))
+		lineageTag: 28e37c69-8285-4a05-8d16-a8b600c0b030
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// (DIVIDE([Total Previsto Faturamento Fiscal],[Faturamento Ult Ano Fiscal],0)-1)
+	measure '% Ult. Ano Fiscal' = (DIVIDE([Total Previsto Faturamento Fiscal],[Faturamento Ult Ano Fiscal],0)-1)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a00faf67-5494-468c-b756-457b5de0a4ae
+
+	/// 
+	/// CALCULATE(SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),USERELATIONSHIP(fPedido[NR_PEDIDO],fVendasPedidoMes[PEDIDO]))
+	measure 'Faturamento Pedidos Data' = ```
+			
+			    CALCULATE(SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),USERELATIONSHIP(fPedido[NR_PEDIDO],fVendasPedidoMes[PEDIDO]))
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 5cd2879e-bfe3-4c58-8a76-090f704091fb
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// SWITCH(
+	/// TRUE(),
+	/// SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]) <> BLANK(), SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]))
+	measure 'Faturamento Gerencial' =
+			SWITCH(
+			                                    TRUE(),
+			                                    SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]) <> BLANK(), SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]))
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 878be9c7-d182-4048-862d-053fe647828f
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// DISTINCTCOUNT(fPedidoItemMaq[ID])
+	measure 'Qtde Máquinas Vendidas' = DISTINCTCOUNT(fPedidoItemMaq[ID])
+		formatString: 0
+		lineageTag: 196a871a-51d4-4d14-b3d5-d2c612b63a54
+
+	/// 
+	/// IF(
+	/// [% Faturamento Pedido Qtde Linhas] <> 1,
+	/// DIVIDE([Faturamento Pedidos],[VALOR LIQUIDO PDV],0),
+	/// 1)
+	measure '% Faturamento Pedido' =
+			
+			IF(
+			    [% Faturamento Pedido Qtde Linhas] <> 1,
+			    DIVIDE([Faturamento Pedidos],[VALOR LIQUIDO PDV],0),
+			    1)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 18ed875d-1693-4ff7-8aa4-8327e4488e1f
+
+	/// 
+	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT]) +
+	/// CALCULATE(SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]),FILTER(fLancamentoGerenciais,fLancamentoGerenciais[Divisão Venda] = "Máquinas"))
+	measure 'Faturamento Máquinas + Gerencial' = ```
+			
+			                        SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT]) + 
+			                        CALCULATE(SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]),FILTER(fLancamentoGerenciais,fLancamentoGerenciais[Divisão Venda] = "Máquinas"))
+			```
+		lineageTag: cc1808b3-1113-496e-8ea9-57c769dd14a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// DIVIDE([MaqFaturado Maquinas],[Valor Qtde Maquinas Budget] ,0)
+	measure '% Forescast Qtde Máquina' = DIVIDE([MaqFaturado Maquinas],[Qtde Maquinas Budget] ,0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: aacfb465-f764-4296-8efb-83e7add54baa
+
+	/// 
+	/// var PrevistoDiasUteis = [MaqFaturado Maquinas]/[Dias Uteis Realizados]
+	/// return
+	/// PrevistoDiasUteis * [Dias Uteis Previstos Orç]
+	measure 'Total Maquina/Dias Uteis Orc' =
+			
+			var PrevistoDiasUteis = [MaqFaturado Maquinas]/[Dias Uteis Realizados]
+			return
+			PrevistoDiasUteis * [Dias Uteis Previstos Orç]
+		formatString: 0
+		lineageTag: c184240f-009d-456b-af35-52ebede47474
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// DIVIDE([Qtde Máquinas Vendidas],SUMX(fForecastVendedor,fForecastVendedor[KF Chance (Qty)]),0)
+	measure '% Vendas por Vendedor Maquinas' = DIVIDE([Qtde Máquinas Vendidas],SUMX(fForecastVendedor,fForecastVendedor[KF Chance (Qty)]),0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f9b04532-0f9e-42d4-b22a-df56881b4003
+
+	/// 
+	/// COALESCE(
+	/// SWITCH(
+	/// TRUE(),
+	/// [MaqFaturado Valor Liq]<> BLANK(),DIVIDE([MaqFaturado Valor Liq],[Valor Maquinas Budget],0), BLANK())
+	/// ,0)
+	/// 
+	measure '% Forescast Valor Máquina' = ```
+			
+			CALCULATE(COALESCE(
+			SWITCH(
+			        TRUE(),
+			        [MaqFaturado Valor Liq]<> BLANK(),DIVIDE([MaqFaturado Valor Liq],[Valor Maquinas Budget],0), BLANK())
+			,0), dCalendario[Mês e Ano] == "Mês Atual")
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2e7d5c44-ce10-4560-a894-ec64c526f9c9
+
+		changedProperty = FormatString
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),FILTER(fVendasPedidoMes,fVendasPedidoMes[Faturamento Dentro Mês] = 1))
+	measure 'Faturamento Pedidos Mês' =
+			
+			CALCULATE(
+			            SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),FILTER(fVendasPedidoMes,fVendasPedidoMes[Faturamento Dentro Mês] = 1))
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: c2e913b1-4635-4354-94ee-ac8088a6f753
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// Var DiasRealizados = [vlr Meta vendedor]/[Dias Uteis Meta Mês]
+	/// return
+	/// DiasRealizados*[Dias Uteis Meta Atual]
+	measure 'Meta Projetada Vendedor' =
+			
+			Var DiasRealizados = [vlr Meta vendedor TOTAL]/[Dias Uteis Meta Mês]
+			return
+			DiasRealizados*[Dias Uteis Meta Atual]
+		lineageTag: 20a65d55-6cc7-4885-b80f-8c7b121eb5e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// CALCULATE(sum(dCalendario[DIA_UTIL]),DATESBETWEEN(dCalendario[DT_DATA],STARTOFMONTH(dCalendario[DT_DATA]),TODAY()))
+	measure 'Dias Uteis Meta Atual' = CALCULATE(sum(dCalendario[DIA_UTIL]),DATESBETWEEN(dCalendario[DT_DATA],STARTOFMONTH(dCalendario[DT_DATA]),TODAY()))
+		formatString: 0
+		lineageTag: fcbdf72a-b630-42ad-b4a7-00b4e1db9618
+
+	/// SUMX(dCalendario,dCalendario[DIA_UTIL])
+	/// 
+	measure 'Dias Uteis Meta Mês' = ```
+			SUMX(dCalendario,dCalendario[DIA_UTIL])
+			                   
+			```
+		formatString: 0
+		lineageTag: c206e53f-54c9-418f-bee4-679721190b10
+
+	/// [Faturamento Liquido] - [Meta Projetada Vendedor]
+	measure 'Dif Meta Projetada Vend.' = [Faturamento Liquido Total] - [Meta Projetada Vendedor]
+		lineageTag: 544bd1b3-8d95-4ee8-98e4-cbff3f8dc7e3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT])
+	/// 
+	measure 'Faturamento Máquinas Real' = ```
+			
+			                        SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT])
+			                        
+			```
+		lineageTag: f7d1b0f6-934c-4bc0-9e2a-a2673135411d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SUMX(fForecastVendedor,fForecastVendedor[Qty])
+	measure 'Qtde Prevista Vendedor' = SUMX(fForecastVendedor,fForecastVendedor[Qty])
+		formatString: 0.00
+		lineageTag: 0242fa29-1ddf-4847-a6d3-9186990bdcee
+
+		changedProperty = FormatString
+
+	/// 
+	/// Var DiasRealizados = [vlr Meta estabelecimento]/[Dias Uteis Meta Mês]
+	/// return
+	/// DiasRealizados*[Dias Uteis Meta Atual]
+	measure 'Meta Projetada Estab' =
+			
+			Var DiasRealizados = [vlr Meta estabelecimento Total]/[Dias Uteis Meta Mês]
+			return
+			DiasRealizados*[Dias Uteis Meta Atual]
+		lineageTag: 9983d0dc-1151-4a79-a1a8-de6a37c69f0e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// [Faturamento Liquido] - [Meta Projetada Estab]
+	measure 'Dif Meta Projetada Estab' = [vlr Meta estabelecimento Total] - [Faturamento Liquido Total]
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: 13261b50-79f0-478f-9eae-f62616dc7cf1
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	/// 
+	/// SWITCH(
+	/// TRUE(),
+	/// [MaqFaturado Maquinas] <> BLANK(),
+	/// DIVIDE( [MaqFaturado Maquinas] ,
+	/// [Qtde Prevista Vendedor],0),0)
+	/// 
+	measure '% Forescast Qtde Vendendor' = ```
+			
+			SWITCH(
+			        TRUE(),
+			        [MaqFaturado Maquinas] <> BLANK(),
+			        DIVIDE( [MaqFaturado Maquinas] ,
+			                [Qtde Prevista Vendedor],0),0)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4a7ac8d4-dee8-4125-831c-83649ace1df5
+
+	/// 
+	/// CALCULATE(
+	/// COUNTROWS(fPedido),
+	/// USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
+	/// CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],None)
+	/// )
+	measure 'Count It Ped Status' = ```
+			
+			    CALCULATE(
+			                COUNTROWS(fPedido),
+			                USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
+			                CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],None)                          
+			)
+			```
+		formatString: #,0
+		lineageTag: 5a0ad4fe-e2ea-4c21-aa41-26c3f733d6a2
+
+	/// SUMX(fPedido,fPedido[Saldo Item Pedido])
+	measure 'Saldo Item Pedido' = SUMX(fPedido,fPedido[Saldo Item Pedido])
+		lineageTag: 52154992-d767-4557-8d18-e46f8ea634da
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SUMX(fMetasServicos,fMetasServicos[valor])
+	measure 'Metas Serviços' = SUMX(fMetasServicos,fMetasServicos[valor])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 4bb08e6d-1d7d-41c7-b1f8-7fa0886de263
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// COALESCE(
+	/// DIVIDE([Faturamento Serviço],[Metas Serviços],0)
+	/// ,0)
+	measure '% Metas Serviços' =
+			
+			CALCULATE(COALESCE(
+			        DIVIDE([Faturamento Serviço],[Metas Serviços],0)
+			        ,0), dCalendario[Mês e Ano] == "Mês Atual")
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d4ed1097-56e5-45db-95f3-7935f3cbeb9e
+
+	/// 
+	/// Var DiasRealizados = [Metas Serviços]/[Dias Uteis Meta Mês]
+	/// return
+	/// DiasRealizados*[Dias Uteis Meta Atual]
+	measure 'Meta Projetada Servicos' =
+			
+			Var DiasRealizados = [Metas Serviços]/[Dias Uteis Meta Mês]
+			return
+			DiasRealizados*[Dias Uteis Meta Atual]
+		lineageTag: 5a2f30e6-4c19-4811-8ea3-7f0a45594b92
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(
+	/// (([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ])+0),
+	/// FILTER('dDivisaoVendas','dDivisaoVendas'[DIM_DIVISAO_VENDA_ID] = "300")
+	/// )
+	measure 'Fat Liquido Serviços Retail' = ```
+			
+			                CALCULATE(
+			                            (([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ])+0),
+			                            FILTER('dDivisaoVendas','dDivisaoVendas'[DIM_DIVISAO_VENDA_ID] = "300")
+			                        )
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: b3ae82df-5b39-4bc3-9362-1a24a0195624
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// var SaldoEstoque = SUMX(fSaldoEstoque,fSaldoEstoque[SALDO_ATUAL])
+	/// var SaldoPedido = [Saldo Item Pedido]
+	/// return
+	/// SWITCH(
+	/// TRUE(),
+	/// SaldoEstoque > SaldoPedido, 0,
+	/// SaldoEstoque - SaldoPedido
+	/// )
+	measure 'Qtde Necessidade' =
+			
+			var SaldoEstoque = SUMX(fSaldoEstoque,fSaldoEstoque[SALDO_ATUAL])
+			var SaldoPedido = [Saldo Item Pedido]
+			return
+			SWITCH(
+			        TRUE(),
+			        SaldoEstoque > SaldoPedido, 0,
+			        SaldoEstoque - SaldoPedido
+			        )
+		lineageTag: 2b05e5f4-3f16-4e7e-bf86-3756d3d12f23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(
+	/// ([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ] )+0,
+	/// FILTER('dDivisaoVendas','dDivisaoVendas'[DIM_DIVISAO_VENDA_ID] = "125")
+	/// )
+	measure 'Faturamento Vendas Ativa' = ```
+			
+			CALCULATE( 
+			            ([TOTAL VLR VENDAS LIQ] - [TOTAL VLR DEVOLUCOES LIQ] )+0,
+			            FILTER('dDivisaoVendas','dDivisaoVendas'[DIM_DIVISAO_VENDA_ID] = "125")
+			            )
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 42eb5280-f122-41a0-a0cd-6041aebd328f
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),
+	/// CROSSFILTER(fVendasPedidoMes[DT_DATA],dCalendario[DT_DATA],None),
+	/// USERELATIONSHIP(fVendasPedidoMes[PEDIDO],fPedido[NR_PEDIDO]),
+	/// USERELATIONSHIP(fVendasPedidoMes[DATA_PEDIDO],dCalendario[DT_DATA])
+	/// )
+	measure 'Faturamento Pedidos' = ```
+			
+			    CALCULATE(
+			        SUMX(fVendasPedidoMes,fVendasPedidoMes[VL Liquido]),
+			        CROSSFILTER(fVendasPedidoMes[DT_DATA],dCalendario[DT_DATA],None),
+			        USERELATIONSHIP(fVendasPedidoMes[PEDIDO],fPedido[NR_PEDIDO]),
+			        USERELATIONSHIP(fVendasPedidoMes[DATA_PEDIDO],dCalendario[DT_DATA])
+			        )
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: c2ab7d10-0a40-49a4-90d4-390f7bb00145
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// [Faturamento Liquido]
+	measure 'Faturamento Liquido + Gerencial' = [Faturamento Liquido Total]
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: fcb0ca7a-4e57-42a9-a39e-2d7568fbf875
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// var FaturamentoVlrNF =
+	/// CALCULATE(
+	/// SUMX(fPedidoHistorico,
+	/// SWITCH(
+	/// TRUE(),
+	/// fPedidoHistorico[VALOR_LIQUIDO_NF] <> 0 && fPedidoHistorico[QTDE_ATEND] <> 0,
+	/// (fPedidoHistorico[VALOR_LIQUIDO_NF]/fPedidoHistorico[QTDE_ATEND])*fPedidoHistorico[QTDE],
+	/// 0)),
+	/// fPedidoHistorico[DIVISAO VENDA] <> "Máquinas"
+	/// )
+	/// var FaturamentoVlrPed =
+	/// CALCULATE(
+	/// SUMX(fPedidoHistorico,fPedidoHistorico[VLR_BRUTO] -
+	/// fPedidoHistorico[VLR_COFINS] -
+	/// fPedidoHistorico[VLR_ICMS] -
+	/// fPedidoHistorico[VLR_IPI] -
+	/// fPedidoHistorico[VLR_PIS]),
+	/// fPedidoHistorico[VALOR_LIQUIDO_NF] = 0, fPedidoHistorico[DIVISAO VENDA] <> "Máquinas")
+	/// return
+	/// + FaturamentoVlrPed + FaturamentoVlrNF
+	measure 'Valor Liquido Hist Ped' = ```
+			
+			var FaturamentoVlrNF = 
+			        CALCULATE(
+			                    SUMX(fPedidoHistorico,
+			                    SWITCH(
+			                            TRUE(),
+			                            fPedidoHistorico[VALOR_LIQUIDO_NF] <> 0 && fPedidoHistorico[QTDE_ATEND] <> 0,
+			                            (fPedidoHistorico[VALOR_LIQUIDO_NF]/fPedidoHistorico[QTDE_ATEND])*fPedidoHistorico[QTDE],
+			                            0)),
+			                            fPedidoHistorico[DIVISAO VENDA] <> "Máquinas"
+			                    )
+			var FaturamentoVlrPed = 
+			        CALCULATE(
+			                    SUMX(fPedidoHistorico,fPedidoHistorico[VLR_BRUTO] - 
+			                        fPedidoHistorico[VLR_COFINS] - 
+			                        fPedidoHistorico[VLR_ICMS] - 
+			                        fPedidoHistorico[VLR_IPI] - 
+			                        fPedidoHistorico[VLR_PIS]),
+			                        fPedidoHistorico[VALOR_LIQUIDO_NF] = 0, fPedidoHistorico[DIVISAO VENDA] <> "Máquinas")
+			return
+			+ FaturamentoVlrPed + FaturamentoVlrNF
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: f7d17798-6905-4e13-9672-03d0b6071d22
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// [Faturamento Liquido] - [Faturamento Pedidos Mês]
+	measure 'Valor Liquido Hist Ped Fat' = [Faturamento Liquido Total] - [Faturamento Pedidos Mês]
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 87e81571-90ca-41cb-a2ea-39ccdf8ed727
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// VAR VlrPedidoHis = CALCULATE([Valor Liquido Hist Ped],DATEADD(dCalendario[DT_DATA],-1,MONTH))
+	/// Var VlrPedidoCarteira = CALCULATE([VALOR LIQUIDO PDV],
+	/// DATEADD(dCalendario[DT_DATA],-1,MONTH))
+	/// Var VlrPedidoFaturado = CALCULATE([Faturamento Liquido],DATEADD(dCalendario[DT_DATA],-1,MONTH))
+	/// 
+	/// return
+	/// VlrPedidoHis + VlrPedidoCarteira - VlrPedidoFaturado
+	measure 'Valor Liquido Backlog Pedido' =
+			
+			VAR VlrPedidoHis = CALCULATE([Valor Liquido Hist Ped],DATEADD(dCalendario[DT_DATA],-1,MONTH))
+			Var VlrPedidoCarteira = CALCULATE([VALOR LIQUIDO PDV],
+			                                    DATEADD(dCalendario[DT_DATA],-1,MONTH))
+			Var VlrPedidoFaturado = CALCULATE([Faturamento Liquido Total],DATEADD(dCalendario[DT_DATA],-1,MONTH))
+			
+			return
+			VlrPedidoHis + VlrPedidoCarteira - VlrPedidoFaturado
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 47f3a11c-6633-432a-9c8a-e254276a7cf3
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// DIVIDE([Faturamento Liquido],[Valor Liquido Backlog Pedido]+[VALOR LIQUIDO PDV],0)
+	measure '% Faturamento Pedidos Historico' = ```
+			DIVIDE([Faturamento Liquido Total],[Valor Liquido Backlog Pedido]+[VALOR LIQUIDO PDV],0)       
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 22793ff6-39dd-44f6-b67f-88b62bbfd72d
+
+	/// [Valor Liquido Hist Ped] + [VALOR LIQUIDO PDV]
+	measure 'Total Pedidos Backlog + Mes Atual' = [Valor Liquido Hist Ped] + [VALOR LIQUIDO PDV]
+		lineageTag: fd13aae6-ca65-4aac-9261-4bd144099a77
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// DIVIDE([Valor Liquido Hist Ped Fat],[Valor Liquido Backlog Pedido],0)
+	measure '% Backlog' = DIVIDE([Valor Liquido Hist Ped Fat],[Valor Liquido Backlog Pedido],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4aac563f-7220-403c-b02c-ab49dcefdfb2
+
+	/// DIVIDE([Faturamento Pedidos Mês],[VALOR LIQUIDO PDV],0)
+	measure '% Carteira Atual' = DIVIDE([Faturamento Pedidos Mês],[VALOR LIQUIDO PDV],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: de1132fc-9c00-4117-9207-3a89b3f0de2c
+
+	/// IF([Faturamento Gerencial] <> BLANK(), [Faturamento Gerencial],0)
+	measure 'Faturamento Gerencial 2' = IF([Faturamento Gerencial] <> BLANK(), [Faturamento Gerencial],0)
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 5299b140-6783-4099-886c-43bf0ed025dc
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// IF([Faturamento Liquido] <> BLANK(), [Faturamento Liquido],0)
+	measure 'Faturamento Liquido 2' = IF([Faturamento Liquido Total] <> BLANK(), [Faturamento Liquido Total],0)
+		lineageTag: 94ecfb0e-4938-4f71-b4c7-8dd09a24d0d1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(
+	/// COUNTROWS(fPedido),
+	/// USERELATIONSHIP(fPedido[NF_DATA],dCalendario[DT_DATA]),
+	/// CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],None)
+	/// )
+	measure 'Count It Ped Status OTIF LOG' = ```
+			
+			    CALCULATE(
+			                COUNTROWS(fPedido),
+			                USERELATIONSHIP(fPedido[NF_DATA],dCalendario[DT_DATA]),
+			                CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],None)           
+			)
+			```
+		formatString: #,0
+		lineageTag: f647fb20-23b3-4a34-b604-ed2908258bae
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// 
+	/// 
+	/// var vStatusGeral = COUNTROWS(fPedido)
+	/// var vStatusUnico = CALCULATE(COUNTROWS(fPedido),filter(fPedido,fPedido[OTIF] = "OTIF"))
+	/// return
+	/// CALCULATE(if(
+	/// vStatusUnico <> BLANK(),
+	/// DIVIDE(vStatusUnico,vStatusGeral,0),
+	/// 0
+	/// ))
+	measure '% OTIF LOG' = ```
+			
+			
+			var vStatusGeral = COUNTROWS(fPedido)
+			var vStatusUnico = CALCULATE(COUNTROWS(fPedido),filter(fPedido,fPedido[OTIF] = "OTIF"))
+			return  
+			CALCULATE(if(
+			    vStatusUnico <> BLANK(),
+			    DIVIDE(vStatusUnico,vStatusGeral,0),
+			    0
+			))
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9471c644-d185-4394-9f18-a6ed5bee1c2a
+
+	/// 1 - [% OTIF LOG]
+	measure 'x -1 OTIF Log' = 1 - [% OTIF LOG]
+		lineageTag: cec5a783-a7fa-49e9-8e2a-bdf173a261f4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SELECTEDVALUE('dItem'[COD_C1])
+	measure 'Familia Comercial' = SELECTEDVALUE('dItem'[COD_C1])
+		lineageTag: 83e83179-f4f8-4c33-aab1-67d5dd458cb1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SELECTEDVALUE('dItem'[COD_C4])
+	measure 'Grupo de Estoque' = SELECTEDVALUE('dItem'[COD_C4])
+		lineageTag: d3677331-ce37-400f-b4c1-6aa177b4a4c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// var vFat = [TOTAL VLR VENDAS LIQ]
+	/// var vCusto = SUMX(fVenda,fVenda[CUSTO PRODUTO REAL] * fVenda[QUANTIDADE])
+	/// var vResultado =  DIVIDE((vFat - vCusto),vFat,0)
+	/// 
+	/// return
+	/// vResultado
+	/// 
+	measure '% Margem de Produtos' = ```
+			
+			var vFat = [TOTAL VLR VENDAS LIQ]
+			var vCusto = SUMX(fVenda,fVenda[CUSTO PRODUTO REAL] * fVenda[QUANTIDADE])
+			var vResultado =  DIVIDE((vFat - vCusto),vFat,0)
+			
+			return
+			vResultado
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: aa07985d-8a6b-44ef-8171-ab00fdd9c584
+
+		changedProperty = FormatString
+
+	/// 
+	/// 
+	/// CALCULATE(
+	/// SUMX(
+	/// fVenda,
+	/// if(
+	/// fVenda[% Disponivel Margem] > 0,
+	/// ((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) * fVenda[% Disponivel Margem])*fVenda[QUANTIDADE],
+	/// 0)
+	/// )
+	/// )
+	measure 'Valor Disponivel Margem' =
+			
+			
+			CALCULATE(
+			            SUMX(
+			                 fVenda,
+			                 if(
+			                     fVenda[% Disponivel Margem] > 0,
+			                     ((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) * fVenda[% Disponivel Margem])*fVenda[QUANTIDADE],
+			                     0)
+			                )
+			        )
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 35c63420-e0ee-4685-aa0b-3a106d7fe334
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(
+	/// fVenda,
+	/// if(
+	/// fVenda[% Margem] < 0 && (((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) - fVenda[CUSTO_MEDIO])*fVenda[QUANTIDADE]) < 0,
+	/// ((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) - fVenda[CUSTO_MEDIO])*fVenda[QUANTIDADE],
+	/// 0)
+	/// )
+	/// )
+	measure 'Valor Perda Margem' =
+			
+			CALCULATE(
+			            SUMX(
+			                 fVenda,
+			                 if(
+			                     fVenda[% Margem] < 0 && (((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) - fVenda[CUSTO_MEDIO])*fVenda[QUANTIDADE]) < 0,
+			                     ((fVenda[VALOR_LIQUIDO] / fVenda[QUANTIDADE]) - fVenda[CUSTO_MEDIO])*fVenda[QUANTIDADE],
+			                     0)
+			            )
+			)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: a87f879a-6bff-4fe8-86cc-a8e00de144a3
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// COUNTROWS(fVenda)
+	measure 'Itens Vendas' =
+			
+			COUNTROWS(fVenda)
+		formatString: #,0.00
+		lineageTag: 2e488ab3-fb45-411b-92ec-5bb99cab8de6
+
+		changedProperty = FormatString
+
+	/// SUMX('dItem','dItem'[PRECO_UL_ENT])
+	measure 'Custo Item' = SUMX('dItem','dItem'[PRECO_UL_ENT])
+		lineageTag: 6a1a532d-ac4f-47ae-bff9-cd25d1f67eca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SUMX(fVenda,fVenda[CUSTO PRODUTO REAL] * fVenda[QUANTIDADE])
+	measure 'Custo Total Venda' = SUMX(fVenda,fVenda[CUSTO PRODUTO REAL] * fVenda[QUANTIDADE])
+		lineageTag: 67ffd8ff-deed-4bbf-b980-c9296455f79e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// SUMX('dItem','dItem'[Margem Familia])
+	measure 'Margem Item Familia' = SUMX('dItem','dItem'[Margem Familia])
+		lineageTag: 104b3747-9aa4-49b6-b035-2cff65658e45
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// SUMX(fForecastQty,
+	/// IF(
+	/// fForecastQty[ANO] = 2022,
+	/// fForecastQty[Vlr Real Máquinas],
+	/// fForecastQty[Vl Real])
+	/// )
+	measure 'Valor Maquinas Forecast' =
+			
+			SUMX(fForecastQty,
+			     IF(
+			         fForecastQty[ANO] = 2022,
+			         fForecastQty[Vlr Real Máquinas],
+			         fForecastQty[Vl Real])
+			)
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 7f6ee4b4-0604-4206-a95e-7612397c6334
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(fForecastQty,fForecastQty[Valor]),
+	/// FILTER(fForecastQty,fForecastQty[Valor] < 100 && fForecastQty[Valor] >= 0)
+	/// )
+	measure 'Valor Qtde Maquinas Forecast' =
+			
+			CALCULATE(
+			            SUMX(fForecastQty,fForecastQty[Valor]),
+			            FILTER(fForecastQty,fForecastQty[Valor] < 100 && fForecastQty[Valor] >= 0)
+			)
+		lineageTag: fdc5f300-b96b-4bf0-ace5-e6788c00e616
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// COUNTROWS(fVenda)
+	measure 'Qtde Linhas Venda' =
+			
+			COUNTROWS(fVenda)
+		lineageTag: a5d18bfb-a9a7-4d00-b07a-940fa3323054
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// [Valor Disponivel Margem] + [Valor Perda Margem]
+	measure 'Valor Margem Geral' = [Valor Disponivel Margem] + [Valor Perda Margem]
+		lineageTag: a00e3f7c-6caf-4f3e-9181-5d46c2ea7959
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// --CALCULATE(SUM(fForecastBudget[Valor]),fForecastBudget[Valor] <= 100)
+	/// SUMX(FILTER(fForecastBudget,fForecastBudget[Valor] <= 100),fForecastBudget[Valor])
+	/// 
+	measure 'Qtde Maquinas Budget' = ```
+			
+			SUMX(fForecastBudget, fForecastBudget[Qtd])
+			
+			```
+		lineageTag: eaed51e3-5615-4b1b-aed0-e8caff330812
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(fForecastMYO,fForecastMYO[Valor]),
+	/// FILTER(fForecastMYO,fForecastMYO[Valor] < 100)
+	/// )
+	measure 'Valor Qtde Maquinas MYO' =
+			
+			CALCULATE(
+			            SUMX(fForecastMYO,fForecastMYO[Valor]),
+			            FILTER(fForecastMYO,fForecastMYO[Valor] < 100)
+			)
+		lineageTag: 5c987c57-0cd3-4548-a474-c0358a6a64f0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(SUM(fForecastBudget[Valor]),fForecastBudget[Valor] > 100) * 1000
+	measure 'Valor Maquinas Budget' =
+			
+			CALCULATE(SUM(fForecastBudget[Valor]),fForecastBudget[Valor] > 100)
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 45f14f8f-715b-4626-af1e-5eac92d20a56
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	/// 
+	/// SUMX(fForecastMYO,
+	/// IF(
+	/// fForecastMYO[ANO] = 2022,
+	/// fForecastMYO[Vlr Real Máquinas],
+	/// fForecastMYO[Vl Real])
+	/// )
+	measure 'Valor Máquinas MYO' =
+			
+			SUMX(fForecastMYO,
+			     IF(
+			         fForecastMYO[ANO] = 2022,
+			         fForecastMYO[Vlr Real Máquinas],
+			         fForecastMYO[Vl Real])
+			)
+		lineageTag: bbb7f3c4-4028-4979-b7b7-b9297e437fda
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// if([% Ult. Ano Orc]>0,UNICHAR(9650),UNICHAR(128315))
+	measure 'xIcon Forecast %' = if([% Ult. Ano Orc]>0,UNICHAR(9650),UNICHAR(128315))
+		lineageTag: f1da48d4-7827-4919-911f-2a18397faff5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// VAR vQtdeGeral = COUNTROWS(fPedido)
+	/// VAR vQtdeAtendido =
+	/// CALCULATE(
+	/// COUNTROWS(fPedido),
+	/// fPedido[POS_PDV] = "Atendido Total")
+	/// 
+	/// return
+	/// DIVIDE(
+	/// vQtdeAtendido , vQtdeGeral,0)
+	/// 
+	measure '% Faturamento Pedido Qtde Linhas' = ```
+			
+			VAR vQtdeGeral = COUNTROWS(fPedido)
+			VAR vQtdeAtendido = 
+			CALCULATE( 
+			        COUNTROWS(fPedido),
+			        fPedido[POS_PDV] = "Atendido Total")
+			
+			return
+			DIVIDE(
+			         vQtdeAtendido , vQtdeGeral,0)
+			        
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b3a37465-0a39-4ad4-939d-bd1b40852db0
+
+		changedProperty = FormatString
+
+	/// 
+	/// CALCULATE(
+	/// DISTINCTCOUNT(fPedido[ID_PEDIDO]),
+	/// fPedido[POS_PDV] = "Atendido Total")
+	measure 'Qtde Linhas Pedidos Atendido' = ```
+			
+			CALCULATE( 
+			        DISTINCTCOUNT(fPedido[ID_PEDIDO]),
+			        fPedido[POS_PDV] = "Atendido Total")
+			```
+		lineageTag: 4baececf-5f79-46ff-8d28-af6bfade32ec
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// CALCULATE(
+	/// DISTINCTCOUNT(fVendasPedidoMes[ID_PEDIDO]),FILTER(fVendasPedidoMes,fVendasPedidoMes[Faturamento Dentro Mês] = 1 && fVendasPedidoMes[STATUS PEDIDO] = "Atendido Total"))
+	measure 'Qtde Linhas Pedidos Dentro Mês' =
+			
+			CALCULATE(
+			           DISTINCTCOUNT(fVendasPedidoMes[ID_PEDIDO]),FILTER(fVendasPedidoMes,fVendasPedidoMes[Faturamento Dentro Mês] = 1 && fVendasPedidoMes[STATUS PEDIDO] = "Atendido Total"))
+		lineageTag: 288dce67-dba7-4e4f-96a7-0e45f5970a55
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// COUNTROWS(fPedido)
+	measure 'Qtde Linhas Pedido' = COUNTROWS(fPedido)
+		lineageTag: 980bafaa-1d81-4f04-9e0c-6f04e1f8f245
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// DIVIDE([Faturamento Pedidos Mês],[VALOR LIQUIDO PDV],0)
+	measure '% Faturamento Pedido Dentro do Mes' =
+			
+			DIVIDE([Faturamento Pedidos Mês],[VALOR LIQUIDO PDV],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1ef439a5-9e99-48b5-890e-a4d6163ea0a9
+
+		changedProperty = FormatString
+
+	/// 
+	/// VAR vQtdeGeral = COUNTROWS(fPedido)
+	/// VAR vQtdeAtendido = [Qtde Linhas Pedidos Dentro Mês]
+	/// 
+	/// return
+	/// DIVIDE(
+	/// vQtdeAtendido , vQtdeGeral,0)
+	measure '% Faturamento Pedido Qtde Linhas Dentro Mês' =
+			
+			VAR vQtdeGeral = COUNTROWS(fPedido)
+			VAR vQtdeAtendido = [Qtde Linhas Pedidos Dentro Mês]
+			
+			return
+			DIVIDE(
+			         vQtdeAtendido , vQtdeGeral,0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f226f759-9000-41db-b63e-55ae712756e8
+
+		changedProperty = FormatString
+
+	/// SUMX(fVenda,DIVIDE(fVenda[VALOR_LIQUIDO],fVenda[QUANTIDADE],0))
+	measure 'Valor Liquido Unitário Vendas' = SUMX(fVenda,DIVIDE(fVenda[VALOR_LIQUIDO],fVenda[QUANTIDADE],0))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: bd6b2ba7-4dfe-4c2c-8bb9-6f279456c5cf
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// CALCULATE(
+	/// SUMX(fVendaAssistencia,fVendaAssistencia[VALOR_LIQUIDO]),
+	/// CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], dEmitente[DIM_EMITENTE_ID], Both)
+	/// //CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], CLIENTE[DIM_CLIENTE_ID], Both)
+	/// )
+	measure 'Faturamento Serviço' =
+			
+			CALCULATE(
+			        SUMX(fVendaAssistencia,fVendaAssistencia[VALOR_LIQUIDO]),
+			        CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], dEmitente[DIM_EMITENTE_ID], Both)
+			        //CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], CLIENTE[DIM_CLIENTE_ID], Both)
+			        )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 7bebe499-75b3-4ec1-b4e6-5416f9772275
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	/// 
+	/// VAR vFat = [TOTAL VLR VENDAS LIQ]
+	/// VAR vCusto =
+	/// SUMX ( fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE] )
+	/// VAR vResultado = ( vFat - vCusto ) / vFat
+	/// RETURN
+	/// vResultado
+	measure '% Margem por Custo Medio' =
+			
+			VAR vFat = [TOTAL VLR VENDAS LIQ]
+			VAR vCusto =
+			    SUMX ( fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE] )
+			VAR vResultado = ( vFat - vCusto ) / vFat
+			RETURN
+			    vResultado
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3d4bdd38-0244-4dca-9992-c00d20896ac8
+
+	/// 
+	/// SUMX ( fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE] )
+	measure 'Custo Medio Venda' =
+			
+			SUMX ( fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE] )
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: df2f2a7b-1c9b-4986-a826-da0d2bdba086
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	/// 
+	/// VAR _Faturado = CALCULATE([MaqFaturado Valor Liq], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+	/// VAR _Meta = CALCULATE([Valor Maquinas Budget],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+	/// RETURN DIVIDE(_Faturado, _Meta, 0)
+	measure '% MaqFaturado Maquina (YTD)' =
+			
+			VAR _Faturado = CALCULATE([MaqFaturado Valor Liq], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+			VAR _Meta = CALCULATE([Valor Maquinas Budget],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+			RETURN DIVIDE(_Faturado, _Meta, 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5a0b9089-9ad7-468e-84e5-8a809f330b6c
+
+	/// 
+	/// VAR _Faturado = CALCULATE([Faturamento Serviço],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+	/// VAR _Meta = CALCULATE([Metas Serviços], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+	/// RETURN DIVIDE(_Faturado,_Meta, 0)
+	measure '% Metas Serviços (YTD)' =
+			
+			VAR _Faturado = CALCULATE([Faturamento Serviço],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+			VAR _Meta = CALCULATE([Metas Serviços], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+			RETURN DIVIDE(_Faturado,_Meta, 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8425dc86-d00b-4986-ad01-d2acdb295a38
+
+	/// 
+	/// VAR _Faturado = CALCULATE([Faturamento Liquido],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+	/// VAR _Meta = CALCULATE([vlr Meta estabelecimento], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+	/// RETURN DIVIDE(_Faturado,_Meta, 0)
+	measure '% Meta Est. (YTD)' =
+			
+			VAR _Faturado = CALCULATE([Faturamento Liquido Total],REMOVEFILTERS(dCalendario[Mês e Ano]),DATESYTD(dCalendario[Date], "31/03"))
+			VAR _Meta = CALCULATE([vlr Meta estabelecimento Total], REMOVEFILTERS(dCalendario), DATESYTD(dCalendario[Date], "31/03"))
+			RETURN DIVIDE(_Faturado,_Meta, 0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 744ab0b7-fd7f-4794-b65c-f0f534dbbcd5
+
+	measure 'R$ Pedidos Cancelados' = ```
+			
+			CALCULATE(
+			    SUMX(
+			        fPedido,
+			        SWITCH(
+			            TRUE(),
+			            fPedido[VALOR_LIQUIDO_NF] <> 0 && fPedido[QTDE_ATEND] <> 0, 
+			                DIVIDE(fPedido[VALOR_LIQUIDO_NF], fPedido[QTDE_ATEND], 0) * (fPedido[QTDE] - fPedido[QTDE_ATEND]),
+			            fPedido[VLR_LIQ] <> 0 && fPedido[QTDE] <> 0, 
+			                DIVIDE(fPedido[VLR_LIQ], fPedido[QTDE], 0) * (fPedido[QTDE] - fPedido[QTDE_ATEND]),
+			            0
+			        )
+			    ),
+			    NOT(ISBLANK(fPedido[DT_CANCELA_ITEM])),
+			    REMOVEFILTERS(fPedido[POS_PDV]),
+			    USERELATIONSHIP(dCalendario[DT_DATA], fPedido[DT_CANCELA_ITEM])
+			)
+			
+			```
+		lineageTag: c22853af-0fd8-44e3-be0f-b8238b884463
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faturamento Liquido KA' =
+			
+			CALCULATE(
+			    [Faturamento Liquido Total],
+			    dCliente[TIPO DE CONTA] = "KA"
+			)
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: 4727c1c3-65b3-48aa-b98c-67fcfee421d8
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'Faturamento Liquido RETAIL' =
+			
+			CALCULATE(
+			    [Faturamento Liquido Total],
+			    dCliente[TIPO DE CONTA] = "RETAIL"
+			)
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: 85d84c09-873c-4b86-bbab-4d0f2a24be42
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	partition _Medidas-c7ec2d81-136a-4e9a-9d32-cc63cc526ef7 = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

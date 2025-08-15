@@ -1,0 +1,494 @@
+table 'MEDIDAS NOTAS'
+	lineageTag: d7adcf65-40ef-4ec8-b338-9ae2601cf7c4
+
+	/// DISTINCTCOUNT(fVenda[NOTA])
+	measure 'CONTAGEM NOTAS' = DISTINCTCOUNT(fVenda[NOTA])
+		formatString: 0
+		lineageTag: 003dcaf3-16cc-470b-821d-04f5837a4346
+
+	/// 
+	/// SWITCH(
+	/// TRUE(),
+	/// [Faturamento Liquido] <> BLANK(),
+	/// CALCULATE(
+	/// [Faturamento Liquido],
+	/// FILTER(
+	/// ALLSELECTED(dCalendario),
+	/// dCalendario[DT_DATA]<=MAX(dCalendario[DT_DATA])
+	/// )
+	/// ),
+	/// BLANK()
+	/// )
+	measure 'TOTAL VLR VENDAS ACUM' = ```
+			
+			SWITCH(
+			        TRUE(),
+			        [Faturamento Liquido Total] <> BLANK(), 
+			        CALCULATE(
+			            [Faturamento Liquido Total],
+			            FILTER(
+			                ALLSELECTED(dCalendario),
+			                dCalendario[DT_DATA]<=MAX(dCalendario[DT_DATA])
+			            )
+			        ), 
+			        BLANK()
+			    )
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 7177c06a-996e-4207-9995-50cc082740a8
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// SUMX('fVenda',fVenda[Valor Liquido Consolidado])
+	measure 'TOTAL VLR VENDAS LIQ' =
+			
+			SUMX('fVenda',fVenda[Valor Liquido Consolidado])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 49c7b821-fa86-446d-ad1c-86b2fe0b9056
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// var UltDtVenda =
+	/// CALCULATE(
+	/// LASTDATE(fVenda[DT_EMIS]),
+	/// ALL(fVenda)
+	/// )
+	/// var DataLimite = EDATE(UltDtVenda,-12)
+	/// return
+	/// CALCULATE([Faturamento Liquido],
+	/// SAMEPERIODLASTYEAR(dCalendario[DT_DATA]),
+	/// FILTER(ALL(dCalendario), dCalendario[DT_DATA] <= DataLimite)
+	/// )
+	/// 
+	measure 'TOTAL VLR VENDAS LY' = ```
+			
+			var UltDtVenda =
+			CALCULATE(
+			         LASTDATE(fVenda[DT_EMIS]),
+			         ALL(fVenda)
+			)
+			var DataLimite = EDATE(UltDtVenda,-12)
+			return
+			CALCULATE([Faturamento Liquido Total],
+			        SAMEPERIODLASTYEAR(dCalendario[DT_DATA]),
+			        FILTER(ALL(dCalendario), dCalendario[DT_DATA] <= DataLimite)
+			)
+			
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 77badfd4-d14d-4225-98dc-57e1db53e628
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// [Faturamento Liquido] - [TOTAL VLR VENDAS LY]
+	measure 'DIFERENCA VLR VENDAS LY' = [Faturamento Liquido Total] - [TOTAL VLR VENDAS LY]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: deac4778-55d7-46b1-96f8-50256d9d27c2
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// SUMX('fVendasDevolucao', 'fVendasDevolucao'[VLR_LIQ])
+	measure 'TOTAL VLR DEVOLUCOES LIQ' = SUMX('fVendasDevolucao', 'fVendasDevolucao'[VLR_LIQ])
+		formatString: "R$"#,0.00;("R$"#,0.00);"R$"#,0.00
+		lineageTag: a4f63931-c1b3-48e9-8f95-ca0977caada6
+
+	/// SUMX('fVenda', 'fVenda'[QUANTIDADE])
+	measure 'TOTAL QTD VENDAS' = SUMX('fVenda', 'fVenda'[QUANTIDADE])
+		formatString: #,0.00
+		lineageTag: a3e6defa-8ae8-4598-80cd-fc004e2f4187
+
+	/// SUMX('fVenda', 'fVenda'[VALOR_TOTAL])
+	measure 'TOTAL VLR VENDAS BRUTA' = SUMX('fVenda', 'fVenda'[VALOR_TOTAL])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 1eb2854c-6d02-4dce-8ab5-9085ce4be312
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// (DIVIDE([Faturamento Liquido], [TOTAL VLR VENDAS LY],0)-1)
+	measure '% VLR VENDAS LY' = (DIVIDE([Faturamento Liquido Total], [TOTAL VLR VENDAS LY],0)-1)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 42991400-8c39-49fe-845d-55da063c9604
+
+	/// SUMX('fVendasDevolucao','fVendasDevolucao'[QTDE_DEVOLUCAO])
+	measure 'TOTAL QTDE DEVOLUÇÃO' = SUMX('fVendasDevolucao','fVendasDevolucao'[QTDE_DEVOLUCAO])
+		lineageTag: 1e7c8df7-7bc7-4455-8b2c-a695fbe9eae5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// VAR TOT = CALCULATE([Faturamento Liquido],ALL(dCliente))
+	/// RETURN DIVIDE([Faturamento Liquido],TOT,0)
+	measure '%FAT CLIENTE SOB TOTAL' =
+			
+			VAR TOT = CALCULATE([Faturamento Liquido Total],ALL(dCliente))
+			RETURN DIVIDE([Faturamento Liquido Total],TOT,0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 193fe622-7bfa-4b86-bab8-baeed6124165
+
+	/// DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID])
+	measure 'COUNT CLI ATEND' = DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID])
+		formatString: 0
+		lineageTag: 86119a96-a6d6-427d-8683-fb44e0354fbf
+
+	/// 
+	/// VAR datainicial = MIN(dCalendario[DT_DATA])
+	/// VAR datafinal = max(dCalendario[DT_DATA])
+	/// var cli_tot =
+	/// CALCULATE( DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID]),
+	/// filter(ALL(dCalendario[DT_DATA]),
+	/// dCalendario[DT_DATA]<=datafinal))
+	/// var cli_anterior =
+	/// CALCULATE( DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID]),
+	/// filter(ALL(dCalendario[DT_DATA]),
+	/// dCalendario[DT_DATA]<datainicial))
+	/// RETURN cli_tot-cli_anterior
+	measure 'COUNT CLI NOVOS' = ```
+			
+			VAR datainicial = MIN(dCalendario[DT_DATA])
+			VAR datafinal = max(dCalendario[DT_DATA])
+			var cli_tot = 
+			    CALCULATE( DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID]), 
+			        filter(ALL(dCalendario[DT_DATA]),
+			        dCalendario[DT_DATA]<=datafinal))
+			var cli_anterior = 
+			    CALCULATE( DISTINCTCOUNTNOBLANK(fVenda[DIM_CLIENTE_ID]), 
+			        filter(ALL(dCalendario[DT_DATA]),
+			        dCalendario[DT_DATA]<datainicial)) 
+			RETURN cli_tot-cli_anterior       
+			```
+		formatString: 0
+		lineageTag: f6840e61-dd5e-4baf-b3b9-6481b1b23435
+
+	/// DIVIDE([TOTAL VLR VENDAS LIQ VENDEDOR + DEV],[vlr Meta vendedor],0)
+	measure '% Meta TOTAL' = DIVIDE([Net Sales Vendedor],[vlr Meta vendedor TOTAL],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 96dc4b8a-8300-484a-ab51-dfdcb6423faf
+
+	/// SUMX('fVenda', 'fVenda'[VALOR_LIQUIDO])+0
+	measure 'TOTAL VLR VENDAS LIQ TK' = SUMX('fVenda', 'fVenda'[VALOR_LIQUIDO])+0
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 741a6260-40b9-437d-8bb7-4ecf0c6b4f17
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// sumx(FMetas,FMetas[Meta])
+	measure 'vlr Meta vendedor TOTAL' =
+			
+			VAR _AntesDeAbril = SUMX('FMetas','FMetas'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('FMetas','FMetas'[Meta]), FMetas[TIPO_VENDA] == "TOTAL")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), _AntesDeAbril, _DepoisDeMarco)
+			RETURN _Conta
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: a4d1db30-125d-4d8e-8fb9-ce2e0d6000dc
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// SUMX(fVenda,fVenda[% Margem])
+	measure 'MARGEM BRUTA' = SUMX(fVenda,fVenda[% Margem])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d7dc35e4-a00c-4942-a8cc-39fcf8e2d1e6
+
+	/// SUMX(fVenda,fVenda[CUSTO_MEDIO]*fVenda[QUANTIDADE])
+	measure 'TOTAL CUSTO MEDIO' = SUMX(fVenda,fVenda[CUSTO_MEDIO]*fVenda[QUANTIDADE])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 009278b3-bdc5-4cc2-8274-0be566dff31e
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// sumx('fMetasEstab','fMetasEstab'[Meta])
+	measure 'vlr Meta estabelecimento Total' = ```
+			
+			VAR _AntesDeAbril = SUMX('fMetasEstab','fMetasEstab'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('fMetasEstab','fMetasEstab'[Meta]), fMetasEstab[TIPO_VENDA] == "TOTAL")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), _AntesDeAbril, _DepoisDeMarco)
+			RETURN _Conta
+			
+			```
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 6ac2ca78-5126-4d22-9d67-af7782223062
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// if ( [vlr Meta estabelecimento] - [Faturamento Liquido] < 0,0,[vlr Meta estabelecimento] - [Faturamento Liquido])
+	measure 'objetivo meta EST.' = if ( [vlr Meta estabelecimento Total] - [Faturamento Liquido Total] < 0,0,[vlr Meta estabelecimento Total] - [Faturamento Liquido Total])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 231e8aff-9094-47da-845f-c405beb243a3
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// DIVIDE([objetivo meta EST.],([TOTAL DIA UTIL] - [Dias Uteis ate hoje]),0)
+	measure 'objetivo dia est' = ```
+			DIVIDE([objetivo meta EST.],([TOTAL DIA UTIL] - [Dias Uteis ate hoje]),0)  
+			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: d1aa0b35-4cfc-47f1-9ccf-59e73a12b109
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// 
+	/// COALESCE(
+	/// DIVIDE([Faturamento Liquido],[vlr Meta estabelecimento],0),0)
+	measure '% Meta Est. Total' = ```
+			
+			CALCULATE(
+			    COALESCE(
+			        DIVIDE([Faturamento Liquido Total], [vlr Meta estabelecimento Total], 0), 0
+			    ),
+			    ALLSELECTED(dCalendario[Mês e Ano])
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f70f527b-9020-4c46-818d-0a3f6e9505a6
+
+	/// DIVIDE([Faturamento Liquido],[Dias Uteis ate hoje],0)
+	measure 'ritmo diario' = DIVIDE([Faturamento Liquido Total],[Dias Uteis ate hoje],0)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: d4c4929f-564e-4b5f-a0b6-2812813301a6
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// [ritmo diario] * [TOTAL DIA UTIL]
+	measure 'resultado com ritmo atual' = [ritmo diario] * [TOTAL DIA UTIL]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 8feac541-7586-4c68-b72d-0459545e2e84
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// divide([resultado com ritmo atual],[vlr Meta estabelecimento],0)
+	measure '% est. Meta' = divide([resultado com ritmo atual],[vlr Meta estabelecimento Total],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d3655f8f-9208-4be0-8286-7394571bb6fa
+
+	/// 
+	/// 
+	/// VAR vVendedorEstab =
+	/// CALCULATE(
+	/// SUMX('fVenda', 'fVenda'[VALOR_LIQUIDO]),
+	/// dRepresentante,dRepresentante[Estabelecimento] <> BLANK(),
+	/// USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB]),
+	/// CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None))
+	/// 
+	/// 
+	/// 
+	/// VAR vVendedor =
+	/// CALCULATE(
+	/// SUMX('fVenda', 'fVenda'[VALOR_LIQUIDO]),
+	/// FILTER(dRepresentante,dRepresentante[Estabelecimento] = BLANK())
+	/// )
+	/// return
+	/// 
+	/// vVendedor + vVendedorEstab
+	measure 'Net Sales Vendedor' = ```
+			
+			//Faturamento
+			VAR _VendedorEstab = 
+			CALCULATE(
+			         SUM(fVenda[VALOR_LIQUIDO]),
+			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
+			         )
+			 
+			VAR _Vendedor = 
+			CALCULATE(
+			    SUM(fVenda[VALOR_LIQUIDO]),
+			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			        )
+			
+			VAR _Faturamento = _Vendedor + _VendedorEstab
+			
+			//Devoluções
+			VAR _Devolucoes = 
+			CALCULATE(
+			         SUM(fVendasDevolucao[VLR_LIQ]),
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         )
+			         
+			VAR _Conta = _Faturamento - _Devolucoes
+			RETURN _Conta
+			```
+		lineageTag: b03e0663-eaff-4132-9f28-e4c73e66f0db
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'vlr Meta estabelecimento KA' = ```
+			
+			VAR _AntesDeAbril = SUMX('fMetasEstab','fMetasEstab'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('fMetasEstab','fMetasEstab'[Meta]), fMetasEstab[TIPO_VENDA] == "K.A.")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), 0, _DepoisDeMarco)
+			RETURN _Conta
+			
+			```
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 0f533107-8d16-4d86-a968-cfd75738ccd2
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'vlr Meta estabelecimento RETAIL' = ```
+			
+			VAR _AntesDeAbril = SUMX('fMetasEstab','fMetasEstab'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('fMetasEstab','fMetasEstab'[Meta]), fMetasEstab[TIPO_VENDA] == "RETAIL")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), 0, _DepoisDeMarco)
+			RETURN _Conta
+			
+			```
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 1aae8c94-fe71-49f5-a80a-7593ac30e036
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure '% Meta Est. KA' = ```
+			
+			CALCULATE(
+			    COALESCE(
+			        DIVIDE([Faturamento Liquido KA], [vlr Meta estabelecimento KA], 0), 0
+			    ),
+			    ALLSELECTED(dCalendario[Mês e Ano])
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cd61b381-41a0-4ab9-8b49-467f1582f62b
+
+	measure '% Meta Est. RETAIL' =
+			
+			CALCULATE(
+			    COALESCE(
+			        DIVIDE([Faturamento Liquido RETAIL], [vlr Meta estabelecimento RETAIL], 0), 0
+			    ),
+			    ALLSELECTED(dCalendario[Mês e Ano])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cc78fe9c-5055-4878-812d-7608478699d7
+
+	measure 'vlr Meta vendedor KA' =
+			
+			VAR _AntesDeAbril = SUMX('FMetas','FMetas'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('FMetas','FMetas'[Meta]), FMetas[TIPO_VENDA] == "K.A.")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), _AntesDeAbril, _DepoisDeMarco)
+			RETURN _Conta
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: 462d5e3a-eddf-456f-9fa4-724508c6cfb4
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'vlr Meta vendedor RETAIL' =
+			
+			VAR _AntesDeAbril = SUMX('FMetas','FMetas'[Meta])
+			VAR _DepoisDeMarco = CALCULATE(SUMX('FMetas','FMetas'[Meta]), FMetas[TIPO_VENDA] == "RETAIL")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), _AntesDeAbril, _DepoisDeMarco)
+			RETURN _Conta
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		lineageTag: 5f9faef4-8b3f-42fa-91cd-a9ebc196033e
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure 'Net Sales Vendedor KA' = ```
+			
+			//Faturamento
+			VAR _VendedorEstab = 
+			CALCULATE(
+			         SUM(fVenda[VALOR_LIQUIDO]),
+			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),dCliente[TIPO DE CONTA] = "KA",
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
+			         )
+			 
+			VAR _Vendedor = 
+			CALCULATE(
+			    SUM(fVenda[VALOR_LIQUIDO]),
+			    dCliente[TIPO DE CONTA] = "KA",
+			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			        )
+			
+			VAR _Faturamento = _Vendedor + _VendedorEstab
+			
+			//Devoluções
+			VAR _Devolucoes = 
+			CALCULATE(
+			         SUM(fVendasDevolucao[VLR_LIQ]),
+			         FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"),
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         )
+			         
+			VAR _Conta = _Faturamento - _Devolucoes
+			RETURN _Conta
+			```
+		lineageTag: 56bef78a-6a85-4dbb-80f6-62e8c7c42fdb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Sales Vendedor RETAIL' = ```
+			
+			//Faturamento
+			VAR _VendedorEstab = 
+			CALCULATE(
+			         SUM(fVenda[VALOR_LIQUIDO]),
+			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),dCliente[TIPO DE CONTA] = "RETAIL",
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
+			         )
+			 
+			VAR _Vendedor = 
+			CALCULATE(
+			    SUM(fVenda[VALOR_LIQUIDO]),
+			    dCliente[TIPO DE CONTA] = "RETAIL",
+			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			        )
+			
+			VAR _Faturamento = _Vendedor + _VendedorEstab
+			
+			//Devoluções
+			VAR _Devolucoes = 
+			CALCULATE(
+			         SUM(fVendasDevolucao[VLR_LIQ]),
+			         FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"),
+			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
+			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         )
+			         
+			VAR _Conta = _Faturamento - _Devolucoes
+			RETURN _Conta
+			```
+		lineageTag: 889aa4b5-62e2-467d-a811-2c6f4693b910
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'vlr Meta estabelecimento InterCompany' = ```
+			
+			VAR _AntesDeAbril = 0
+			VAR _DepoisDeMarco = CALCULATE(SUMX('fMetasEstab','fMetasEstab'[Meta]), fMetasEstab[Código] = "INTERCOMPANY")
+			VAR _Conta =  IF(MAX(dCalendario[DT_DATA]) < DATE(2025,04,01), _AntesDeAbril, _DepoisDeMarco)
+			RETURN _Conta
+			
+			```
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
+		lineageTag: 41ec43b0-8c81-4619-98ef-7f74e584ccdf
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-BR"}
+
+	measure '% Meta RETAIL' = DIVIDE([Net Sales Vendedor RETAIL],[vlr Meta vendedor RETAIL],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8059bfba-b0c0-461c-9de9-02bd255b2346
+
+	measure '% Meta KA' = DIVIDE([Net Sales Vendedor KA],[vlr Meta vendedor KA],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b6854f68-4296-4f68-ab37-d2313668f1c5
+
+	partition 'MEDIDAS NOTAS-820f7891-9c60-4da8-adc2-8641bf707752' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

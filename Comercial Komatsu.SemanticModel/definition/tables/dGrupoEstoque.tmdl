@@ -1,0 +1,31 @@
+table dGrupoEstoque
+	lineageTag: cb6ba600-76fb-4bc1-947d-17c4c9d65906
+
+	column 'Cod + Descrição' = dGrupoEstoque[COD_C4] & " - " & dGrupoEstoque[DESC_C4]
+		lineageTag: ddcfab04-da7a-4827-ad2f-3237ae09a34b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_C4
+		lineageTag: 47c072f7-7f86-4f06-9e41-83693cb51090
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dItem[COD_C4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_C4
+		lineageTag: e839b92c-26a9-4490-bf19-a2bad044ae2a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dItem[DESC_C4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dGrupoEstoque-b23d2167-9eb5-44ab-b6b4-4ab78c44f6a6 = calculated
+		mode: import
+		source = SUMMARIZE('dItem','dItem'[COD_C4],'dItem'[DESC_C4])
+
+	annotation PBI_Id = 7fb73ddf105346f298af7322449e712f
+

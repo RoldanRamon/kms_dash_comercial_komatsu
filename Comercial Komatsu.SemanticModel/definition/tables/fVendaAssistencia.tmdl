@@ -1,0 +1,112 @@
+table fVendaAssistencia
+	lineageTag: 4694eb9e-0761-4df5-b57a-2ade98762f7e
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: 7bb55504-0220-4187-82ad-8a91f24a1d9f
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 4255e760-7ff2-4cab-8303-a2f3bc5926e0
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TIPO_NOTA_ID
+		dataType: string
+		lineageTag: 9efbc005-f21a-41c3-b83b-a36a7042dd97
+		summarizeBy: none
+		sourceColumn: DIM_TIPO_NOTA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_CLIENTE_ID
+		dataType: string
+		lineageTag: 87d69f19-a99b-481b-9097-6d7783c12b62
+		summarizeBy: none
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: string
+		lineageTag: 27ad1396-6fbf-4c39-9d36-fb4f80105aaa
+		summarizeBy: none
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_EMIS
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: eb26791d-3814-4b3a-992d-7623b4296c0e
+		summarizeBy: none
+		sourceColumn: DT_EMIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column VALOR_LIQUIDO
+		dataType: double
+		lineageTag: cfd313d3-df26-4990-a5eb-66d7771961e2
+		summarizeBy: sum
+		sourceColumn: VALOR_LIQUIDO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: string
+		lineageTag: 354d9b5c-50c1-4b4e-8259-6d0fc3fa3eba
+		summarizeBy: none
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column nr-ord-produ
+		dataType: int64
+		formatString: 0
+		lineageTag: dc92e3e2-1ac2-48f0-8571-424b096f0d91
+		summarizeBy: none
+		sourceColumn: nr-ord-produ
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primeiro Tecnico OM' =
+			
+			RELATED(fApontamentoOrdemTecnico[cod-matr])
+		lineageTag: 97aa2f2a-eabe-49db-a32d-2f3567274afd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Regiao Tecnico' =
+			
+			LOOKUPVALUE(dTecnicos[Região],dTecnicos[chave],fVendaAssistencia[chave])
+		lineageTag: 83713935-66a0-4d87-834b-b468c3c75bd6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVendaAssistencia-4c02ddb6-1707-48bc-a90d-558fadeebe0c = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\POWERBI", "IDBA_KOMATSU", [Query="SELECT V.[DIM_EMPRESA_ID]#(lf)      ,V.[DIM_ITEM_ID]#(lf)      ,V.[DIM_TIPO_NOTA_ID]#(lf)      ,V.[DIM_CLIENTE_ID]#(lf)      ,V.[DIM_REPRESENTANTE_ID]#(lf)      ,V.[DT_EMIS]#(lf)      ,V.[NOTA]#(lf)      ,V.[COD_ITEM]#(lf)      ,V.[VALOR_LIQUIDO]#(lf)      ,V.[COFINS]#(lf)      ,V.[PIS]#(lf)      ,V.[CUSTO_MATERIAL]#(lf)      ,V.[VALOR_TOTAL]#(lf)      ,V.[QUANTIDADE]#(lf)      ,V.[VALOR_IPI]#(lf)      ,V.[PEDIDO]#(lf)      ,V.[CUSTO_MEDIO]#(lf)      ,V.[ORIGEM]#(lf)      ,V.[ORDEM_COMPRA]#(lf)      ,V.[REPRESENTANTE]#(lf)      ,V.[PRECO_TAB]#(lf)      ,V.[TABELA_CLIENTE]#(lf)      ,V.[DIM_DIVISAO_VENDA_ID]#(lf)      ,V.[DATA_PEDIDO]#(lf)      ,V.[SEQUENCIA]#(lf)      ,V.[SEQUENCIA_PEDIDO]#(lf)      ,V.[VALOR_ICMS]#(lf)      ,V.[PEDIDO_CLIENTE]#(lf)      ,V.[SERIE]#(lf)      ,V.[SERIE_ANTECIPACAO]#(lf)      ,V.[NOTA_ANTECIPACAO]#(lf)      ,D.COD_DIVISAO_VENDA#(lf)      ,VO.[nr-ord-produ] #(lf)  FROM [idba_komatsu].[dbo].[FATO_VENDA_BI] AS V  #(lf)  INNER JOIN DIM_DIVISAO_VENDA_BI AS D on D.COD_DIVISAO_VENDA = V.DIM_DIVISAO_VENDA_ID#(lf)  INNER JOIN FATO_VENDA_ORDEM_MANUT AS VO ON VO.[nr-pedcli] = V.PEDIDO_CLIENTE#(lf)  WHERE D.TP_DIVISAO_VENDA  = 'Serviço'#(lf)"]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"DT_EMIS", type date}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Tipo Alterado",{"PEDIDO","PEDIDO_CLIENTE","PRECO_TAB","NOTA","VALOR_TOTAL","COD_ITEM","SERIE","COD_DIVISAO_VENDA","ORDEM_COMPRA","TABELA_CLIENTE","NOTA_ANTECIPACAO","SERIE_ANTECIPACAO","REPRESENTANTE","ORIGEM","DATA_PEDIDO","SEQUENCIA","SEQUENCIA_PEDIDO","PIS","CUSTO_MATERIAL","QUANTIDADE","VALOR_IPI","COFINS","CUSTO_MEDIO","VALOR_ICMS"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Columns removed by Measure Killer")
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_ResultType = Table
+

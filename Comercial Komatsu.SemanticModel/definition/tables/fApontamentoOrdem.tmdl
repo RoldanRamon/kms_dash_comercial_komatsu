@@ -1,0 +1,170 @@
+table fApontamentoOrdem
+	lineageTag: b04de6d8-5edc-4ca8-baaa-506f88960acc
+
+	column nr-ord-produ
+		dataType: string
+		lineageTag: 6ab775e2-408d-45f3-827e-15620ca8c4f4
+		summarizeBy: none
+		sourceColumn: nr-ord-produ
+
+		annotation SummarizationSetBy = Automatic
+
+	column sequencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 01af72cf-1cb0-4f76-b052-32e3d372dca2
+		summarizeBy: sum
+		sourceColumn: sequencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column vl-un-custo
+		dataType: double
+		lineageTag: fb52fcb4-67d8-4c32-9fb8-623fd09837ea
+		summarizeBy: sum
+		sourceColumn: vl-un-custo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column dt-despesa
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 97ff863f-681e-4dbe-9b67-c57e638734cb
+		summarizeBy: none
+		sourceColumn: dt-despesa
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column vl-tot-custo
+		dataType: double
+		lineageTag: 0aa6f6d2-f0e1-4021-95e0-ebfb1a87867f
+		summarizeBy: sum
+		sourceColumn: vl-tot-custo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column km-inicial
+		dataType: double
+		lineageTag: 4ef853c5-4c25-47c7-86c8-b51eba0ee256
+		summarizeBy: sum
+		sourceColumn: km-inicial
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column km-final
+		dataType: double
+		lineageTag: ef7d9cea-8ae8-44a5-9f63-77da4653e107
+		summarizeBy: sum
+		sourceColumn: km-final
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hora-ini
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 8966b511-4813-4e58-9eb9-7798c889f188
+		summarizeBy: none
+		sourceColumn: hora-ini
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column hora-fim
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: faa08b59-2351-4c8b-a8a7-0635c1a28021
+		summarizeBy: none
+		sourceColumn: hora-fim
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column orc-fec
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9b185ae9-53ac-43ee-854c-ca34f73ffa4b
+		summarizeBy: none
+		sourceColumn: orc-fec
+
+		annotation SummarizationSetBy = Automatic
+
+	column cc-codigo
+		dataType: string
+		lineageTag: 5c8a6cca-c8ee-44b1-adc0-3a72d2884b29
+		summarizeBy: none
+		sourceColumn: cc-codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod-matr
+		dataType: string
+		lineageTag: 5a3d8c66-b0cf-4017-b028-8c468c5878e9
+		summarizeBy: none
+		sourceColumn: cod-matr
+
+		annotation SummarizationSetBy = Automatic
+
+	column nom-func
+		dataType: string
+		lineageTag: 5c6a19b5-18b8-4bfc-91da-09e3a5480dab
+		summarizeBy: none
+		sourceColumn: nom-func
+
+		annotation SummarizationSetBy = Automatic
+
+	column funcionario
+		dataType: string
+		lineageTag: 279e9852-f702-4e99-ad9c-7ff8886e6ea7
+		summarizeBy: none
+		sourceColumn: funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column it-codigo
+		dataType: string
+		lineageTag: 4cb46eee-56a7-4d3d-8787-3664b0a7681d
+		summarizeBy: none
+		sourceColumn: it-codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Início do Mês'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8e0f60c2-eac5-4453-8305-e498494974e5
+		summarizeBy: none
+		sourceColumn: Início do Mês
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fApontamentoOrdem-ae863657-cfed-4495-a059-5e192971e72e = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\POWERBI", "IDBA_KOMATSU"),
+				    dbo_FATO_APONTAMENTO_MANUT = Fonte{[Schema="dbo",Item="FATO_APONTAMENTO_MANUT"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dbo_FATO_APONTAMENTO_MANUT,{{"hora-ini", type time}, {"hora-fim", type time}, {"nr-ord-produ", type text}, {"dt-despesa", type date}}),
+				    #"Início do Mês Inserido" = Table.AddColumn(#"Tipo Alterado", "Início do Mês", each Date.StartOfMonth([#"dt-despesa"]), type date),
+				    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Início do Mês Inserido", {{"hora-fim", null}})
+				in
+				    #"Erros Substituídos"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegação
+

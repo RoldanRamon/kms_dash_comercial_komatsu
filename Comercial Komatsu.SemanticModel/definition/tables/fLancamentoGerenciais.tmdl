@@ -1,0 +1,61 @@
+table fLancamentoGerenciais
+	lineageTag: 4f42ea79-c892-4372-a756-dfcbd8339bbb
+
+	column Valor
+		dataType: int64
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: b3866060-90b8-45e9-8e5a-f5673a9cc73d
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 907c88b9-ea2a-4464-a416-ad90b8604ec6
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Divisão Venda'
+		dataType: string
+		lineageTag: e850f9cb-52be-4526-8af9-6a368b471542
+		summarizeBy: none
+		sourceColumn: Divisão Venda
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descricao
+		dataType: string
+		lineageTag: e2d33294-1218-4e2d-a07d-ebd2a0c5f6cd
+		summarizeBy: none
+		sourceColumn: Descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fLancamentoGerenciais-90afae49-51ea-4373-99e4-946faa322555 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    //Atualizado 24.Out para pegar direto do sharepoint
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Lançamentos-Gerenciais xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Lançamentos-Gerenciais.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Lançamentos-Gerenciais xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    Dados_Sheet1 = #"Pasta de Trabalho Importada do Excel"{[Item="Dados",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Dados_Sheet1, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", type date}, {"Divisão Venda", type text}, {"Valor", Int64.Type}, {"Column4", type any}, {"Column5", type any}, {"Tipo", type text}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each ([Data] <> null)),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Linhas Filtradas",{"Column5", "Tipo"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas",{{"Column4", "Descricao"}})
+				in
+				     #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,658 @@
+table fVenda
+	lineageTag: d086cc38-1258-4cc8-bd75-25247c5973ff
+
+	/// COUNT ( fVenda[NOTA])
+	measure 'TOTAL QTD linhas' = COUNT ( fVenda[NOTA])
+		formatString: 0
+		lineageTag: 1c21cbb0-12d1-40fd-9768-84a3d682513f
+
+	column DT_EMIS
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: fe7ca0ec-7d64-49bd-b626-d617fd1f9dce
+		summarizeBy: none
+		sourceColumn: DT_EMIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column NOTA
+		dataType: string
+		lineageTag: 412070c0-4129-4de9-9dc7-df140647da22
+		summarizeBy: none
+		sourceColumn: NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ITEM
+		dataType: string
+		lineageTag: c4fccb37-03cc-432d-81ec-8ba0ef7526bf
+		summarizeBy: none
+		sourceColumn: COD_ITEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_LIQUIDO
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 956974cf-04b0-4f30-a766-adf6ca04caa5
+		summarizeBy: sum
+		sourceColumn: VALOR_LIQUIDO
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = User
+
+	column COFINS
+		dataType: double
+		lineageTag: 7628d866-9747-4282-a95f-f3858e957fbb
+		summarizeBy: sum
+		sourceColumn: COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PIS
+		dataType: double
+		lineageTag: bbde5daa-21e2-4bc0-870e-23552e070c65
+		summarizeBy: sum
+		sourceColumn: PIS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTO_MATERIAL
+		dataType: double
+		lineageTag: da03d425-48bb-4d0c-99fe-818c351acd32
+		summarizeBy: sum
+		sourceColumn: CUSTO_MATERIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_TOTAL
+		dataType: double
+		lineageTag: bac11526-63aa-4037-8012-59890a32eaeb
+		summarizeBy: sum
+		sourceColumn: VALOR_TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QUANTIDADE
+		dataType: double
+		lineageTag: 7068969d-7b4f-4bd1-bd22-fed3e9e28db1
+		summarizeBy: sum
+		sourceColumn: QUANTIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_IPI
+		dataType: double
+		lineageTag: 7b9e4a29-d4eb-4f6a-90eb-255b53d49ca5
+		summarizeBy: sum
+		sourceColumn: VALOR_IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PEDIDO
+		dataType: string
+		lineageTag: 54d6a8af-6002-4965-8808-8dc23e82d2d9
+		summarizeBy: none
+		sourceColumn: PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBST_TRIBUTARIA
+		dataType: double
+		lineageTag: a13e573a-3a08-481c-b4a1-adf044e07cc5
+		summarizeBy: sum
+		sourceColumn: SUBST_TRIBUTARIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTO_MEDIO
+		dataType: double
+		lineageTag: 61fad408-2665-44be-b774-f8778c6bd1a4
+		summarizeBy: sum
+		sourceColumn: CUSTO_MEDIO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BASE_ICMS
+		dataType: double
+		lineageTag: 86486074-e489-40b4-a7c7-f6d65307813b
+		summarizeBy: sum
+		sourceColumn: BASE_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ALIQ_ICMS
+		dataType: double
+		lineageTag: f3537ac3-fe79-4634-820a-6809d8c7155a
+		summarizeBy: sum
+		sourceColumn: ALIQ_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORIGEM
+		dataType: string
+		lineageTag: 9abc1663-d3db-4b74-981e-3f3207ceb1cc
+		summarizeBy: none
+		sourceColumn: ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDEM_COMPRA
+		dataType: string
+		lineageTag: 1d44d49b-ca8d-4f8f-8a11-1c8973df8460
+		summarizeBy: none
+		sourceColumn: ORDEM_COMPRA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRECO_TAB
+		dataType: double
+		lineageTag: d40a7fc6-808c-4de0-9f28-e7da4e11edae
+		summarizeBy: sum
+		sourceColumn: PRECO_TAB
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TABELA_CLIENTE
+		dataType: string
+		lineageTag: b3add798-07fb-4aae-b439-70708a6a6bc9
+		summarizeBy: none
+		sourceColumn: TABELA_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: c56b916e-41da-425b-9490-d3e719066757
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: a7cb23f3-8634-4f8c-a7c6-b9e521427c66
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TIPO_NOTA_ID
+		dataType: string
+		lineageTag: d6eb9655-7de0-40e8-b3a6-4ded91ed1247
+		summarizeBy: none
+		sourceColumn: DIM_TIPO_NOTA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_COND_PAGTO_ID
+		dataType: string
+		lineageTag: 9843ad6f-32c5-40a8-b84d-313c253152d0
+		summarizeBy: none
+		sourceColumn: DIM_COND_PAGTO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_CLIENTE_ID
+		dataType: string
+		lineageTag: a465a8b2-71b0-4da1-a55d-c0ea21efe146
+		summarizeBy: none
+		sourceColumn: DIM_CLIENTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_REPRESENTANTE_ID
+		dataType: string
+		lineageTag: f8c1e0d4-bd67-4a29-b162-16a44d5c477f
+		summarizeBy: none
+		sourceColumn: DIM_REPRESENTANTE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_TRANSPORTADORA_BI
+		dataType: string
+		lineageTag: 34ec4af9-471e-4246-8751-4304d3d24961
+		summarizeBy: none
+		sourceColumn: DIM_TRANSPORTADORA_BI
+
+		annotation SummarizationSetBy = Automatic
+
+	column REPRESENTANTE
+		dataType: string
+		lineageTag: 0b57bf2b-dbc1-4020-b2c8-ada5c420c634
+		summarizeBy: none
+		sourceColumn: REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DT_MES_VENDA
+		dataType: string
+		lineageTag: 3f2d9469-457e-42a7-8196-667403a72f67
+		summarizeBy: none
+		sourceColumn: DT_MES_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column ANO_VENDA
+		dataType: int64
+		formatString: 0
+		lineageTag: 59d0fed9-0a7b-4fa1-a265-ad83fc05cd5b
+		summarizeBy: sum
+		sourceColumn: ANO_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column MES_NUM
+		dataType: int64
+		formatString: 0
+		lineageTag: f0c43846-dd83-4bb3-9435-defd7a770705
+		summarizeBy: sum
+		sourceColumn: MES_NUM
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIA_NUM
+		dataType: int64
+		formatString: 0
+		lineageTag: 4055ab07-6f74-4a2d-8fca-c8f198a81059
+		summarizeBy: sum
+		sourceColumn: DIA_NUM
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_DIVISAO_VENDA_ID
+		dataType: string
+		lineageTag: 81623752-ab94-4cf2-bea4-4187a440c523
+		summarizeBy: none
+		sourceColumn: DIM_DIVISAO_VENDA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_UNID_NEGOC_ID
+		dataType: string
+		lineageTag: 22022e1f-bfe3-49a8-a683-e17b6f3be03c
+		summarizeBy: none
+		sourceColumn: DIM_UNID_NEGOC_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DATA_PEDIDO
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b787ef0e-cc5f-490a-96f0-d3f0ce7e70f5
+		summarizeBy: none
+		sourceColumn: DATA_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column SEQUENCIA
+		dataType: int64
+		formatString: 0
+		lineageTag: 6dd546c0-e6a9-4ef1-93d3-24666e6551ad
+		summarizeBy: sum
+		sourceColumn: SEQUENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEQUENCIA_PEDIDO
+		dataType: int64
+		formatString: 0
+		lineageTag: fb53bc42-17cd-4cfa-b6fb-3964e97178d3
+		summarizeBy: sum
+		sourceColumn: SEQUENCIA_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_ICMS
+		dataType: double
+		lineageTag: 4d0f513b-e7ab-45bc-a008-aa7dc686ac12
+		summarizeBy: sum
+		sourceColumn: VALOR_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Margem' = ```
+			
+			var vLiquidounit =  fVenda[VALOR_LIQUIDO]/fVenda[QUANTIDADE]
+			var vCusto = 
+			SWITCH(
+			        TRUE(),
+			       fVenda[CUSTO_MEDIO]  > 0 , fVenda[CUSTO_MEDIO] ,
+			        (vLiquidounit * 0.75)
+			        )
+			
+			
+			var vMargem = (vLiquidounit - vCusto)/vLiquidounit
+			return
+			vMargem
+			```
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		lineageTag: f041bef5-b4ac-46eb-859d-e43130090a35
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Disponivel Margem' = ```
+			
+			var vMargem = 
+			    if(
+			        [Margem Item Familia] <> BLANK() || [Margem Item Familia] > 0,
+			        [Margem Item Familia],
+			        0.3)
+			
+			return
+			SWITCH(
+			        TRUE(),
+			        fVenda[% Margem] > vMargem,
+			        fVenda[% Margem] - vMargem,
+			        0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 78afef45-ff0d-47ab-bb4d-da116deaa736
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faixa de Margem' =
+			
+			SWITCH(
+			        TRUE(),
+			        fVenda[% Margem] <=  -0.3, "- 30%",
+			        fVenda[% Margem] <=  -0.2  && fVenda[% Margem] > -0.3,  "-21 a -29 %",
+			        fVenda[% Margem] <=  -0.1  && fVenda[% Margem] > -0.2,  "-11 a -20 %",
+			        fVenda[% Margem] <    0    && fVenda[% Margem] > -0.11,  "-1 a -10 %",
+			        fVenda[% Margem] >=   0    && fVenda[% Margem] <= 0.1,  "0 a 10 %",
+			        fVenda[% Margem] >    0.1  && fVenda[% Margem] <= 0.2,  "11 a 20 %",
+			        fVenda[% Margem] >    0.2  && fVenda[% Margem] <  0.3,  "21 a 29 %",
+			        fVenda[% Margem] >=   0.3, "+ 30%")
+		lineageTag: 2836ab0e-0242-41f7-8b37-99f099a29afc
+		summarizeBy: none
+		sortByColumn: 'Ord Margem'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DIVISAO VENDA' = RELATED('dDivisaoVendas'[TP_DIVISAO_VENDA])
+		lineageTag: ce7a3cb0-d966-4af1-b831-991752d777a9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CUSTO PRODUTO REAL' = ```
+			
+			
+			var vLiquidounit =  fVenda[VALOR_LIQUIDO]/fVenda[QUANTIDADE]
+			var vCusto = 
+			SWITCH(
+			        TRUE(),
+			        [Custo Item] > 0 && fVenda[DIVISAO VENDA] <> "Máquinas", [Custo Item],
+			        fVenda[CUSTO_MEDIO] > 0 , [CUSTO_MEDIO],
+			        (vLiquidounit * 0.75)
+			        )
+			
+			RETURN
+			vCusto
+			```
+		lineageTag: 457289e5-2d5c-44ea-8426-58fe6816a8f4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Ord Margem' =
+			
+			
+			SWITCH(
+			        TRUE(),
+			        fVenda[% Margem] <=  -0.3, 8,
+			        fVenda[% Margem] <=  -0.2  && fVenda[% Margem] > -0.3,  7,
+			        fVenda[% Margem] <=  -0.1  && fVenda[% Margem] > -0.2,  6,
+			        fVenda[% Margem] <    0    && fVenda[% Margem] > -0.11,  5,
+			        fVenda[% Margem] >=   0    && fVenda[% Margem] <= 0.1,  4,
+			        fVenda[% Margem] >    0.1  && fVenda[% Margem] <= 0.2,  3,
+			        fVenda[% Margem] >    0.2  && fVenda[% Margem] <  0.3,  2,
+			        fVenda[% Margem] >=   0.3, 1)
+			
+			/*SWITCH(
+			        TRUE(),
+			        CONTAINSSTRING([Faixa de Margem],"- 30%"), 8 ,
+			        CONTAINSSTRING([Faixa de Margem],"-21 a -29 %"), 7,
+			        CONTAINSSTRING([Faixa de Margem],"-11 a -20 %"), 6,
+			        CONTAINSSTRING([Faixa de Margem],"-1 a -10 %"), 5,
+			        CONTAINSSTRING([Faixa de Margem],"0 a 10 %"), 4,
+			        CONTAINSSTRING([Faixa de Margem],"11 a 20 %"), 3,
+			        CONTAINSSTRING([Faixa de Margem],"21 a 29 %"), 2,
+			        CONTAINSSTRING([Faixa de Margem],"+ 30%"),1)*/
+		formatString: 0
+		lineageTag: f8c5774d-062c-418e-b826-93ee2591b793
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column PEDIDO_CLIENTE
+		dataType: string
+		lineageTag: 124a8519-2602-4511-a42e-96a72e89591e
+		summarizeBy: none
+		sourceColumn: PEDIDO_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERIE
+		dataType: string
+		lineageTag: 86f4a0c6-1110-4fde-a947-eaa3625f9540
+		summarizeBy: none
+		sourceColumn: SERIE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SERIE_ANTECIPACAO
+		dataType: string
+		lineageTag: 6c92f622-24a6-45c9-85a6-edd0869b0860
+		summarizeBy: none
+		sourceColumn: SERIE_ANTECIPACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOTA_ANTECIPACAO
+		dataType: string
+		lineageTag: 15f095a9-d723-4966-9378-df453f4f8ad7
+		summarizeBy: none
+		sourceColumn: NOTA_ANTECIPACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_NOTA
+		dataType: string
+		lineageTag: 5eb145ec-626a-4938-9447-5668ba7e87cb
+		summarizeBy: none
+		sourceColumn: ID_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOTA_INT
+		dataType: int64
+		formatString: 0
+		lineageTag: 5152b01e-af57-4c11-886e-9a279d05501d
+		summarizeBy: sum
+		sourceColumn: NOTA_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NET SALES' = ```
+			LOOKUPVALUE(xfMachinesControlConsol[NET SALES],xfMachinesControlConsol[ID_NOTA],fVenda[ID_NOTA])
+			
+			```
+		lineageTag: 260f1ede-cb5b-4451-b3e1-7d5569232ba5
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Valor Liquido Consolidado' = ```
+			
+			IF(
+			    fVenda[NET SALES] = BLANK(),
+			    fVenda[VALOR_LIQUIDO],
+			    fVenda[NET SALES])
+			    
+			```
+		formatString: #,0.00
+		lineageTag: 452088ab-3ddb-4b5f-9e33-9533c2ea73ac
+		summarizeBy: sum
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column GE = LOOKUPVALUE('dItem'[COD_C4],'dItem'[CD_ITEM],fVenda[COD_ITEM])
+		lineageTag: ec5a296a-34af-4289-8040-fc126d20df0f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_PEDIDO
+		dataType: string
+		lineageTag: 71665e17-1f1a-406b-ae0e-6aa019735b89
+		summarizeBy: none
+		sourceColumn: ID_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'STATUS PEDIDO' =
+			
+			CALCULATE(
+			        FIRSTNONBLANK(fPedido[POS_PDV], TRUE()),
+			        FILTER(fPedido,fPedido[ID_PEDIDO] = fVenda[ID_PEDIDO])
+			    )
+		lineageTag: 44471a91-7bec-4ff4-8879-bc6cd7a3a065
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column REPRESENTANTE_ESTAB
+		dataType: string
+		lineageTag: 4fc12595-fbef-4eb9-b9e3-ea4fb6d4de56
+		summarizeBy: none
+		sourceColumn: REPRESENTANTE_ESTAB
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTO_MEDIO_MES
+		dataType: double
+		lineageTag: 33827d45-6815-4f51-aacc-d37191403c54
+		summarizeBy: sum
+		sourceColumn: CUSTO_MEDIO_MES
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EMPRESA = RELATED('dDivisaoVendas'[DESC_AGRUP_DIVISAO_VENDA])
+		lineageTag: 33d5603a-af6c-4514-8ebd-2f6e345281eb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTO_MEDIO_CONSOLIDADO =
+			
+			IF(
+			    [CUSTO_MEDIO_MES] <> BLANK(), [CUSTO_MEDIO_MES], fVenda[CUSTO_MEDIO])
+		lineageTag: faa664b5-b056-4144-b361-197259053884
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TP_DIVISAO_VENDA = RELATED(dDivisaoVendas[TP_DIVISAO_VENDA])
+		lineageTag: 735e7195-8e62-48c1-97bf-7aa71bea0dc2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DIVISAO = RELATED(dDivisaoVendas[COD_DIVISAO_VENDA])
+		lineageTag: dc680cec-c7b6-483b-8ef9-d99380cac90e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fVenda-10823e43-3f76-471f-a4ac-e396ee955b81 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				   Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_FATO_VENDA_BI = Fonte{[Schema="dbo",Item="FATO_VENDA_BI"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(dbo_FATO_VENDA_BI,{{"VALOR_TOTAL", type number}, {"CUSTO_MATERIAL", type number}, {"PIS", type number},  {"VALOR_LIQUIDO", type number},  {"VALOR_IPI", type number}, {"CUSTO_MEDIO", type number}, {"PRECO_TAB", type number}, {"DT_EMIS", type date}}),
+				    #"Linhas Classificadas" = Table.Sort(#"Tipo Alterado",{{"DT_EMIS", Order.Descending}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Linhas Classificadas", "DT_EMIS", "DT_EMIS - Copiar"),
+				    #"Nome do Mês Extraído" = Table.TransformColumns(#"Coluna Duplicada", {{"DT_EMIS - Copiar", each Date.MonthName(_), type text}}),
+				    #"Texto em Maiúscula" = Table.TransformColumns(#"Nome do Mês Extraído",{{"DT_EMIS - Copiar", Text.Upper, type text}}),
+				    #"Primeiros caracteres extraídos" = Table.TransformColumns(#"Texto em Maiúscula", {{"DT_EMIS - Copiar", each Text.Start(_, 3), type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Primeiros caracteres extraídos",{{"DT_EMIS - Copiar", "DT_MES_VENDA"}}),
+				    #"Coluna Duplicada1" = Table.DuplicateColumn(#"Colunas Renomeadas", "DT_EMIS", "DT_EMIS - Copiar"),
+				    #"Ano Extraído" = Table.TransformColumns(#"Coluna Duplicada1",{{"DT_EMIS - Copiar", Date.Year, Int64.Type}}),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Ano Extraído",{{"DT_EMIS - Copiar", "ANO_VENDA"}}),
+				    #"Coluna Duplicada2" = Table.DuplicateColumn(#"Colunas Renomeadas1", "DT_EMIS", "DT_EMIS - Copiar"),
+				    #"Coluna Duplicada3" = Table.DuplicateColumn(#"Coluna Duplicada2", "DT_EMIS - Copiar", "DT_EMIS - Copiar - Copiar"),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Coluna Duplicada3",{{"DT_EMIS - Copiar", "MES_NUM"}}),
+				    #"Mês Extraído" = Table.TransformColumns(#"Colunas Renomeadas2",{{"MES_NUM", Date.Month, Int64.Type}}),
+				    #"Dia Extraído" = Table.TransformColumns(#"Mês Extraído",{{"DT_EMIS - Copiar - Copiar", Date.Day, Int64.Type}}),
+				    #"Colunas Renomeadas3" = Table.RenameColumns(#"Dia Extraído",{{"DT_EMIS - Copiar - Copiar", "DIA_NUM"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Colunas Renomeadas3",{{"DATA_PEDIDO", type date}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"FATO_VENDA_ID"}),
+				    #"Coluna Duplicada4" = Table.DuplicateColumn(#"Removed Columns", "NOTA", "NOTA - Copiar"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Duplicada4",{{"NOTA - Copiar", Int64.Type}}),
+				    #"Colunas Renomeadas4" = Table.RenameColumns(#"Tipo Alterado1",{{"NOTA - Copiar", "NOTA_INT"}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Renomeadas4", "ID_NOTA", each Text.Combine({[DIM_EMPRESA_ID],Text.From([NOTA_INT], "pt-BR")}, ""), type text),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Coluna Mesclada Inserida", each not Text.Contains([DIM_CLIENTE_ID], "2316")),
+				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Linhas Filtradas", "ID_PEDIDO", each Text.Combine({[PEDIDO], Text.From([SEQUENCIA_PEDIDO], "pt-BR")}, ""), type text),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Coluna Mesclada Inserida1", "REPRESENTANTE_ESTAB", each if [DIM_EMPRESA_ID] = "119" then 34 else if [DIM_EMPRESA_ID] = "120" then 34 else if [DIM_EMPRESA_ID] = "123" then 38 else if [DIM_EMPRESA_ID] = "110" then 47 else if [DIM_EMPRESA_ID] = "115" then 12 else if [DIM_EMPRESA_ID] = "113" then 42 else if [DIM_EMPRESA_ID] = "133" then 47 else if [DIM_EMPRESA_ID] = "134" then 5 else null),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"REPRESENTANTE_ESTAB", type text}})
+				in
+				    #"Tipo Alterado2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

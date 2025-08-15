@@ -1,0 +1,25 @@
+table CENARIOS
+	lineageTag: a5c580e5-bd5d-43c8-851d-4219134926b9
+
+	/// SELECTEDVALUE(CENARIOS[APLICAR CRESCIMENTO %])
+	measure 'CENARIO CRESCIMENTO' = SELECTEDVALUE(CENARIOS[APLICAR CRESCIMENTO %])
+		lineageTag: c54cd71f-2b79-4529-b9ae-b7a8e81fa539
+
+	column 'APLICAR CRESCIMENTO %'
+		dataType: double
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: b44075e9-6e88-463b-aed7-47ca42232161
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition CENARIOS-c0bf4a47-f1bc-4b2f-9c2a-c0511cd1ecc8 = calculated
+		mode: import
+		source = GENERATESERIES(-1, 1, 0.01)
+

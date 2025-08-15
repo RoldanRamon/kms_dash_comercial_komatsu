@@ -1,0 +1,47 @@
+table dMargemFamilia
+	lineageTag: 6878d30f-ec44-4b90-b931-cdcc71faaa52
+
+	column 'Cod.'
+		dataType: string
+		lineageTag: 58cdaa6f-3a95-4d57-b3f8-4494c42f0038
+		summarizeBy: none
+		sourceColumn: Cod.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Família Comercial'
+		dataType: string
+		lineageTag: be72f823-adc7-42cb-b89c-796e51995010
+		summarizeBy: none
+		sourceColumn: Família Comercial
+
+		annotation SummarizationSetBy = Automatic
+
+	column MG/2022
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e0316d3d-d64e-4217-b92b-6c59ebd26936
+		summarizeBy: sum
+		sourceColumn: MG/2022
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dMargemFamilia-90252d5b-f536-4797-8e7b-5bbe48ad8c75 = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    //Atualizado 24.Out para pegar direto do sharepoint
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Margem-Familia xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Margem-Familia.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Margem-Familia xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    Planilha1_Sheet1 = #"Pasta de Trabalho Importada do Excel"{[Item="Planilha1",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Planilha1_Sheet1, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Cod.", type text}, {"Família Comercial", type text}, {"MG/2022", type number}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Exception
+

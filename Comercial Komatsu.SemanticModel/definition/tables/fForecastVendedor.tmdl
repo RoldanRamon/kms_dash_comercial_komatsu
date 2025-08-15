@@ -1,0 +1,190 @@
+table fForecastVendedor
+	lineageTag: 30a21a26-0619-4303-aed4-450de40ef9bd
+
+	column Customers
+		dataType: string
+		lineageTag: 277db470-a300-46a2-a975-9db02347bc66
+		summarizeBy: none
+		sourceColumn: Customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Group'
+		dataType: string
+		lineageTag: 03abef90-583e-437d-9526-8eb7b2a3da7d
+		summarizeBy: none
+		sourceColumn: Customer Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column UF
+		dataType: string
+		lineageTag: 3a57c6e6-466f-4bba-9c10-232c4d043311
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		dataType: string
+		lineageTag: 5b0c8f58-578b-4438-98cd-b75f22c84a77
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column Qty
+		dataType: double
+		formatString: 0
+		lineageTag: fa64868e-d5b3-4d32-bd44-f93b1b7dd038
+		summarizeBy: sum
+		sourceColumn: Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Possibilities'
+		dataType: double
+		lineageTag: d833ae04-b0e4-435d-ac21-fce9a8a1eccb
+		summarizeBy: sum
+		sourceColumn: Market Possibilities
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'KF Chance (Qty)'
+		dataType: double
+		lineageTag: 93cf05d0-fd8b-4030-a955-f31317a8676d
+		summarizeBy: sum
+		sourceColumn: KF Chance (Qty)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Vendedor
+		dataType: string
+		lineageTag: b529d2c9-fabb-4220-baf8-400644606877
+		summarizeBy: none
+		sourceColumn: Vendedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preço Unitário'
+		dataType: int64
+		formatString: 0
+		lineageTag: 82e93609-a77f-4248-b161-9d148278459c
+		summarizeBy: sum
+		sourceColumn: Preço Unitário
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a76f347-5b8c-46bb-8139-bf1a8fd156ea
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column GE
+		dataType: string
+		lineageTag: eac32aca-a3e3-43ac-85e7-e3dc504b25c5
+		summarizeBy: none
+		sourceColumn: GE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nome Vend.'
+		dataType: string
+		lineageTag: 5a136c62-df19-4dd3-8ff3-de0bc06a4b4a
+		summarizeBy: none
+		sourceColumn: Nome Vend.
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regiao = ```
+			
+			SWITCH(
+			        TRUE(),
+			        fForecastVendedor[Cod Representante] = "25", "Rio Grande do Sul",
+			        fForecastVendedor[Cod Representante] = "26", "Centro Oeste",
+			        fForecastVendedor[Cod Representante] = "24", "Minas Gerais/Nordeste",
+			        fForecastVendedor[Cod Representante] = "27", "Santa Catarina",
+			        fForecastVendedor[Cod Representante] = "23", "Paraná",
+			        fForecastVendedor[Cod Representante] = "43", "São Paulo",
+			        fForecastVendedor[Cod Representante] = "45", "Santa Catarina",
+			        fForecastVendedor[Cod Representante] = "22", "Grandes Contas", "Outros"
+			      )
+			
+			
+			```
+		lineageTag: b63317fc-38bc-42b5-b908-5b404b8b035b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ANO FISCAL'
+		dataType: string
+		lineageTag: c358e022-32e0-4c74-b9a2-2ba4b1ccafea
+		summarizeBy: none
+		sourceColumn: ANO FISCAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter/Year
+		dataType: string
+		lineageTag: 887546a4-da77-4d15-ad28-fbe3e40ba47b
+		summarizeBy: none
+		sourceColumn: Quarter/Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cod Representante'
+		dataType: string
+		lineageTag: d75c79b0-5260-4b7e-a48e-580db15b3d37
+		summarizeBy: none
+		sourceColumn: Cod Representante
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERIODO
+		dataType: string
+		lineageTag: 5e5c6ab7-8ccf-4049-885f-44c4b00cd29c
+		summarizeBy: none
+		sourceColumn: PERIODO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fForecastVendedor-b7c66fa6-8d27-4f06-983d-a502c437ddcb = m
+		mode: import
+		queryGroup: 'Budget Machines'
+		source =
+				let
+				    //Atualizado 24.Out para pegar direto do sharepoint
+				    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial", [ApiVersion = 15]),
+				    #"Forecast_Vendedor xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/" = Fonte{[Name="Forecast_Vendedor.xlsx",#"Folder Path"="https://komatsuforest.sharepoint.com/sites/KFBR-BIComercial/Delade dokument/General/"]}[Content],
+				    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Forecast_Vendedor xlsx_https://komatsuforest sharepoint com/sites/KFBR-BIComercial/Delade dokument/General/"),
+				    #"Forecast Vendedor_Sheet" = #"Pasta de Trabalho Importada do Excel"{[Item="Forecast Vendedor",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Forecast Vendedor_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Customers", type text}, {"Customer Group", type text}, {"UF", type text}, {"Group", type text}, {"Qty", type number}, {"Market Possibilities", type number}, {"KF Chance (Qty)", type number}, {"Quarter", type text}, {"Vendedor", type text}, {"Cod Representante", type any}, {"Preço Unitário", Int64.Type}, {"Grupo de Estoque", type text}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Quarter", "Quarter - Copiar"),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Coluna Duplicada",{"Quarter - Copiar"}),
+				    #"Dividir Coluna pela Posição" = Table.SplitColumn(#"Colunas Removidas", "Quarter", Splitter.SplitTextByRepeatedLengths(1), {"Quarter.1", "Quarter.2"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Dividir Coluna pela Posição",{{"Quarter.1", type text}, {"Quarter.2", Int64.Type}}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Tipo Alterado1",{"Quarter.1"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas1",{{"Quarter.2", "Quarter"}}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Renomeadas", "Mesclado", each Text.Combine({"0", [Grupo de Estoque]}), type text),
+				    #"Colunas Renomeadas2" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "GE"}}),
+				    #"Colunas Removidas2" = Table.RemoveColumns(#"Colunas Renomeadas2",{"Grupo de Estoque"}),
+				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Colunas Removidas2", "Mesclado", each Text.Combine({Text.From([Quarter], "pt-BR"), "/", Text.From([ANO FISCAL], "pt-BR")}), type text),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Mesclada Inserida1",{{"Mesclado", "Quarter/Year"}}),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Colunas Renomeadas1",{{"ANO FISCAL", type text}, {"PERIODO", type text}})
+				in
+				    #"Tipo Alterado2"
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navegação
+

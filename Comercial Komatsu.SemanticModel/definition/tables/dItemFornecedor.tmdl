@@ -1,0 +1,62 @@
+table dItemFornecedor
+	lineageTag: c5374b7e-8276-4b27-b2c4-b4740bc9ae5c
+
+	column DIM_FORNECEDOR_ID
+		dataType: string
+		lineageTag: af2014f7-376f-4634-afb1-a56372a77cc6
+		summarizeBy: none
+		sourceColumn: DIM_FORNECEDOR_ID
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_ITEM_ID
+		dataType: string
+		lineageTag: 04cc0f5e-8f42-4268-9cbd-56b974317f56
+		summarizeBy: none
+		sourceColumn: DIM_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_ITEM_FAB
+		dataType: string
+		lineageTag: 4e9bd082-d85f-4186-97a0-ec96a00af96b
+		summarizeBy: none
+		sourceColumn: ID_ITEM_FAB
+
+		annotation SummarizationSetBy = Automatic
+
+	column FORNECEDOR
+		dataType: string
+		lineageTag: 0f6cae6b-bb33-4d1d-86cf-bf41d85f9f52
+		summarizeBy: none
+		sourceColumn: FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUM_CASA_DEC
+		dataType: int64
+		formatString: 0
+		lineageTag: ffd1454f-911a-40cf-bddf-c00e20d5798c
+		summarizeBy: sum
+		sourceColumn: NUM_CASA_DEC
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dItemFornecedor-0d3ada26-1942-4274-b217-d6ff76803af5 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_ITEM_FORNECEDOR = Fonte{[Schema="dbo",Item="DIM_ITEM_FORNECEDOR"]}[Data],
+				    #"Linhas Filtradas" = Table.SelectRows(dbo_DIM_ITEM_FORNECEDOR, each [DIM_ITEM_ID] <> null and [DIM_ITEM_ID] <> ""),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Linhas Filtradas", {"DIM_FORNECEDOR_ID"}, dFornecedor, {"DIM_FORNECEDOR_ID"}, "dFornecedor", JoinKind.LeftOuter),
+				    #"dFornecedor Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "dFornecedor", {"DESCRICAO"}, {"dFornecedor.DESCRICAO"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"dFornecedor Expandido",{{"dFornecedor.DESCRICAO", "FORNECEDOR"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Exception
+

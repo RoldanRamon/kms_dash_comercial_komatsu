@@ -1,0 +1,25 @@
+table dTipoNota
+	lineageTag: 7ab80f2b-5bb3-4115-8b2b-1b37c3d04335
+
+	column DIM_TIPO_NOTA_ID
+		dataType: string
+		lineageTag: a79362ef-a7bb-4d27-8c43-529294db6626
+		summarizeBy: none
+		sourceColumn: DIM_TIPO_NOTA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dTipoNota-b55e38c9-6a14-4a23-a03c-af1271a8da68 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_TIPO_NOTA_BI =  Fonte{[Schema="dbo",Item="DIM_TIPO_NOTA_BI"]}[Data]
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    dbo_DIM_TIPO_NOTA_BI,{"DESC_TIPO_NOTA","BAIXA_ESTOQ","RECEITA","EMITE_DUPLIC"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

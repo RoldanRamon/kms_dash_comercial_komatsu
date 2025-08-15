@@ -1,0 +1,90 @@
+table dEmpresa
+	lineageTag: 65afbc5c-b7b5-47d4-bf20-ec7588a0bf0c
+
+	column DIM_EMPRESA_ID
+		dataType: string
+		lineageTag: ed3430bc-d8df-4e0b-840c-d1a5b8f5507c
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: string
+		lineageTag: 81b0de78-7a94-462a-96a3-572c16a19bf6
+		summarizeBy: none
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estabelecimento
+		dataType: string
+		lineageTag: fdfcdca2-f652-4496-9f08-2b832ffb2cc4
+		summarizeBy: none
+		sourceColumn: Estabelecimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Regional Serviços' =
+			
+			SWITCH(
+			        TRUE(),
+			        dEmpresa[COD_EMPRESA] = "101" || dEmpresa[COD_EMPRESA] = "121" || dEmpresa[COD_EMPRESA] = "129" || dEmpresa[COD_EMPRESA] = "131" || dEmpresa[COD_EMPRESA] = "127", "REGIONAL 03",
+			        dEmpresa[COD_EMPRESA] = "122" || dEmpresa[COD_EMPRESA] = "110" || dEmpresa[COD_EMPRESA] = "123" || dEmpresa[COD_EMPRESA] = "119" || dEmpresa[COD_EMPRESA] = "120" || dEmpresa[COD_EMPRESA] = "126" ||dEmpresa[COD_EMPRESA] = "125" ||dEmpresa[COD_EMPRESA] = "133", "REGIONAL 01",
+			        dEmpresa[COD_EMPRESA] = "113" || dEmpresa[COD_EMPRESA] = "124" || dEmpresa[COD_EMPRESA] = "115" || dEmpresa[COD_EMPRESA] = "132", "REGIONAL 02")
+		lineageTag: f304bcd0-3a89-49ff-b5cd-568ff7b7a03c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column REGIONAL
+		dataType: string
+		lineageTag: 24401c98-f069-4fce-a187-df1d6bab1109
+		summarizeBy: none
+		sourceColumn: REGIONAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIM_EMITENTE_ESTAB
+		dataType: int64
+		formatString: 0
+		lineageTag: dd7e3347-f0c1-4994-ac49-ab6b8ea88c85
+		summarizeBy: sum
+		sourceColumn: DIM_EMITENTE_ESTAB
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dEmpresa-aaf53c65-e04c-4004-b5be-e4d0b5b4e4ee = m
+		mode: import
+		queryGroup: DIM
+		source = ```
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_EMPRESA_BI = Fonte{[Schema="dbo",Item="DIM_EMPRESA_BI"]}[Data],
+				    #"Linhas Filtradas" = Table.SelectRows(dbo_DIM_EMPRESA_BI, each [DIM_EMPRESA_ID] <> 104 and [DIM_EMPRESA_ID] <> 107 and [DIM_EMPRESA_ID] <> 108),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Linhas Filtradas",{"column6"}),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Removidas", "Estabelecimento", each Text.Combine({Text.From([COD_EMPRESA], "en-US"), [CIDADE]}, " - "), type text),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Coluna Mesclada Inserida",{{"DIM_EMPRESA_ID", type text}, {"COD_EMPRESA", type text}}),
+				    #"Columns removed by Measure Killer" = Table.RemoveColumns(#"Tipo Alterado",{"CNPJ","CIDADE","DESC_EMPRESA","NOME_FANTASIA"}),
+				    // Inserindo a nova linha ao final da tabela
+				    #"Linha Adicionada" = Table.InsertRows(
+				        #"Columns removed by Measure Killer", 
+				        Table.RowCount(#"Columns removed by Measure Killer"),
+				        {
+				            [
+				                DIM_EMPRESA_ID = "INTERCOMPANY", 
+				                COD_EMPRESA = "INTERCOMPANY", 
+				                REGIONAL = "INTERCOMPANY",
+				                DIM_EMITENTE_ESTAB = 999,
+				                Estabelecimento = "999 - INTERCOMPANY"
+				            ]
+				        }
+				    )
+				in
+				    #"Linha Adicionada"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

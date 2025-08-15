@@ -1,0 +1,28 @@
+table xItemDemandType
+	lineageTag: 87196395-2d1c-431b-8747-161a78394adf
+
+	column ID_CodEmpresa_ItemCode
+		lineageTag: df7b1242-54d0-4e64-ac33-887cafb9fa2e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dSyncron[ID_CodEmpresa_ItemCode]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xItemDemandType = calculated
+		mode: import
+		source =
+				
+				-- Esta tabela intermediaria serve exclusivamente para ligar PEDIDO com a dItemDemandType, criada por Ramon 28.09.2023 com o principal objetivo de auxiliar no visual da aba PARTS - OTIF
+				DISTINCT (
+				    FILTER (
+				        UNION (
+				            ALL ( dSyncron[ID_CodEmpresa_ItemCode] ),
+				            ALL ( fPedido[ID_CodEmpresa_ItemCode] )
+				        ),
+				        NOT ( ISBLANK ( dSyncron[ID_CodEmpresa_ItemCode] ) )
+				    )
+				)
+
+	annotation PBI_Id = 5b4dd0813b8747788dcb862cba1d5b16
+

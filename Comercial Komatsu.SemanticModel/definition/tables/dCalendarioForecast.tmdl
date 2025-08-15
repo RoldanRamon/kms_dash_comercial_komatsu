@@ -1,0 +1,58 @@
+table dCalendarioForecast
+	lineageTag: 27a1e3ba-51c0-4de6-a5ef-6567eb2845a2
+
+	column PERIODO
+		dataType: string
+		lineageTag: 7fdd4b14-93e2-4c69-9a1a-44de9697ed0a
+		summarizeBy: none
+		sourceColumn: PERIODO
+		sortByColumn: ORDEM
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ANO FISCAL'
+		dataType: string
+		lineageTag: 36f53871-4f8f-456e-975a-f9648d7fc9b1
+		summarizeBy: none
+		sourceColumn: ANO FISCAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDEM
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: e182ef38-8046-41f9-a286-68a3168d2b61
+		summarizeBy: none
+		sourceColumn: ORDEM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition dCalendarioForecast-e3cceb06-3af6-4a46-a7c8-b6042dd8a96c = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = fForecastVendedor,
+				    #"Outras Colunas Removidas" = Table.SelectColumns(Fonte,{"ANO FISCAL", "PERIODO"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas"),
+				    #"Linhas Classificadas" = Table.Sort(#"Duplicatas Removidas",{{"ANO FISCAL", Order.Ascending}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Linhas Classificadas", "PERIODO", "PERIODO - Copiar"),
+				    #"Dividir Coluna por Delimitador" = Table.SplitColumn(#"Coluna Duplicada", "PERIODO - Copiar", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"PERIODO - Copiar.1", "PERIODO - Copiar.2"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Dividir Coluna por Delimitador", "ORDEM", each "01/" & [#"PERIODO - Copiar.1"] & "/" & [#"PERIODO - Copiar.2"]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"ORDEM", type date}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"PERIODO - Copiar.1", "PERIODO - Copiar.2"}),
+				    #"Linhas Classificadas1" = Table.Sort(#"Colunas Removidas",{{"ORDEM", Order.Ascending}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Linhas Classificadas1", each ([PERIODO] <> null))
+				in
+				    #"Linhas Filtradas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

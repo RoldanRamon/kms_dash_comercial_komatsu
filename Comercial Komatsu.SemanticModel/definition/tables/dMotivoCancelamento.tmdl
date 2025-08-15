@@ -1,0 +1,40 @@
+table dMotivoCancelamento
+	lineageTag: 1ae9a4cd-d188-444f-8051-a694421f2d62
+
+	column DIM_MOTIVO_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: c6ec689e-5e53-4e02-bb2b-470f8aed728a
+		summarizeBy: none
+		sourceColumn: DIM_MOTIVO_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESCRICAO
+		dataType: string
+		lineageTag: d8b532ce-a311-4683-b900-fde393ac8413
+		summarizeBy: none
+		sourceColumn: DESCRICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dMotivoCancelamento = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Databases("BRPIN-DBS008\PowerBI"),
+				    idba_komatsu = Fonte{[Name="idba_komatsu"]}[Data],
+				    dbo_DIM_MOTIVO_CANC = idba_komatsu{[Schema="dbo",Item="DIM_MOTIVO_CANC"]}[Data],
+				    #"Colunas Removidas" = Table.RemoveColumns(dbo_DIM_MOTIVO_CANC,{"NARRATIVA", "TIPO_TRANS"}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Colunas Removidas","NAO USAR","NÃO USAR",Replacer.ReplaceText,{"DESCRICAO"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído",".","",Replacer.ReplaceText,{"DESCRICAO"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","-","",Replacer.ReplaceText,{"DESCRICAO"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Valor Substituído2")
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

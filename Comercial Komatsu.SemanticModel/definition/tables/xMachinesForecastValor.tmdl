@@ -1,0 +1,49 @@
+table xMachinesForecastValor
+	lineageTag: 0d8611d8-f145-405a-8d91-914c2cbcc2eb
+
+	column xMachinesForecastValor
+		lineageTag: 109d86d8-340c-4eed-b568-a17093ccb062
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'xMachinesForecastValor Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'xMachinesForecastValor Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'xMachinesForecastValor Campos'
+		isHidden
+		lineageTag: 22cb6204-5141-4490-b8a3-2916dc379a22
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'xMachinesForecastValor Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'xMachinesForecastValor Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 4e6d5bf1-c237-487f-b50b-0c86aafa8f41
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xMachinesForecastValor-11eaf02b-e23b-4fbf-a09d-94766b24ac53 = calculated
+		mode: import
+		source =
+				{
+				    ("Budget", NAMEOF('_Medidas'[Valor Maquinas Budget]), 0),
+				    ("Forecast", NAMEOF('_Medidas'[Valor Maquinas Forecast]), 1),
+				    ("MYO", NAMEOF('_Medidas'[Valor Máquinas MYO]), 2)
+				}
+
+	annotation PBI_Id = fdb2979345584fa58faa91122394682c
+

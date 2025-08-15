@@ -1,0 +1,106 @@
+expression RemoveAcento = ```
+		(Texto as text) =>
+		let
+		    ListaAcentos = 
+				{
+		                {"à","a"},
+		                {"á","a"},
+		                {"â","a"},
+		                {"ã","a"},
+		                {"ä","a"},
+				{"è","e"},
+				{"é","e"},
+				{"ê","e"},
+				{"ë","e"},
+				{"ì","i"},
+				{"í","i"},
+				{"î","i"},
+				{"ï","i"},
+				{"ò","o"},
+				{"ó","o"},
+				{"ô","o"},
+				{"õ","o"},
+				{"ö","o"},
+				{"ù","u"},
+				{"ú","u"},
+				{"û","u"},
+				{"ü","u"},
+				{"À","A"},
+				{"Á","A"},
+				{"Â","A"},
+				{"Ã","A"},
+				{"Ä","A"},
+				{"È","E"},
+				{"É","E"},
+				{"Ê","E"},
+				{"Ë","E"},
+				{"Ì","I"},
+				{"Í","I"},
+				{"Î","I"},
+				{"Ò","O"},
+				{"Ó","O"},
+				{"Ô","O"},
+				{"Õ","O"},
+				{"Ö","O"},
+				{"Ù","U"},
+				{"Ú","U"},
+				{"Û","U"},
+				{"Ü","U"},
+				{"ç","c"},
+				{"Ç","C"},
+				{"ñ","n"},
+				{"Ñ","N"}
+				}
+		in
+		    Text.Combine(List.ReplaceMatchingItems(Text.ToList(Texto), ListaAcentos))
+		```
+	lineageTag: b7b237ac-ee4d-4923-a01e-68018fc7dc83
+	queryGroup: FATO
+
+	annotation PBI_ResultType = Function
+
+expression Parâmetro1 = #"Arquivo de Amostra" meta [IsParameterQuery=true, BinaryIdentifier=#"Arquivo de Amostra", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: e331f654-61eb-441f-8291-f8aa68dc917d
+	queryGroup: 'DIM\Transformar Arquivo de dTipoDeContaCliente\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transformar o Arquivo de Exemplo' =
+		let
+		    Fonte = Excel.Workbook(Parâmetro1, null, true),
+		    #"Classificação dos Cliente_Sheet" = Fonte{[Item="Classificação dos Cliente",Kind="Sheet"]}[Data],
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Classificação dos Cliente_Sheet", [PromoteAllScalars=true])
+		in
+		    #"Cabeçalhos Promovidos"
+	lineageTag: b7e40530-7500-4947-b915-3c93270e48f1
+	queryGroup: 'DIM\Transformar Arquivo de dTipoDeContaCliente'
+
+	annotation PBI_ResultType = Table
+
+expression 'Arquivo de Amostra' =
+		let
+		    Fonte = SharePoint.Files("https://komatsuforest.sharepoint.com/sites/BIKFBR-ANLISEDEMARGENS", [ApiVersion = 15]),
+		    Navegação1 = Fonte{0}[Content]
+		in
+		    Navegação1
+	lineageTag: d0ad24fc-6ad9-405c-87ff-527481f49a75
+	queryGroup: 'DIM\Transformar Arquivo de dTipoDeContaCliente\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transformar Arquivo' =
+		let
+		    Fonte = (Parâmetro1 as binary) => let
+		    Fonte = Excel.Workbook(Parâmetro1, null, true),
+		    #"Classificação dos Cliente_Sheet" = Fonte{[Item="Classificação dos Cliente",Kind="Sheet"]}[Data],
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Classificação dos Cliente_Sheet", [PromoteAllScalars=true])
+		in
+		    #"Cabeçalhos Promovidos"
+		in
+		    Fonte
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transformar o Arquivo de Exemplo""}" ]
+	lineageTag: 653f1d79-8070-445c-879f-7c67ea4c7fe4
+	queryGroup: 'DIM\Transformar Arquivo de dTipoDeContaCliente\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Function
+

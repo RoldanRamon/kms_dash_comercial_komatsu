@@ -1,0 +1,68 @@
+table dModeloItem
+	lineageTag: 468ae364-1c27-4ac3-93be-a3914a583364
+
+	column COD_MODELO
+		dataType: string
+		lineageTag: e12154dc-c2bc-41f9-a0be-8dad2d4aa6df
+		summarizeBy: none
+		sourceColumn: COD_MODELO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DES_MODELO
+		dataType: string
+		lineageTag: f4ceffd6-db08-41e9-8f72-7ea6afafe81d
+		summarizeBy: none
+		sourceColumn: DES_MODELO
+
+		annotation SummarizationSetBy = Automatic
+
+	column GE
+		dataType: string
+		lineageTag: 1dc01e31-e08a-4e27-a564-9feeef38fea5
+		summarizeBy: none
+		sourceColumn: GE
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'GE DESC' = LOOKUPVALUE(dGrupoEstoque[Cod + Descrição],dGrupoEstoque[COD_C4],dModeloItem[GE])
+		lineageTag: 0b40a8d5-31e5-4bb7-a0e2-14d952b517f1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORIGEM
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 26b56e09-5fa4-4696-b7f0-dc47b016a14d
+		summarizeBy: none
+		sourceColumn: ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAPADIDADE
+		dataType: double
+		lineageTag: 2b6b665e-6bdf-4f1b-b50e-5506f09b044f
+		summarizeBy: sum
+		sourceColumn: CAPADIDADE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dModeloItem-79a4e079-9164-4e41-9db5-c29eb275ba53 = m
+		mode: import
+		queryGroup: DIM
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
+				    dbo_DIM_ITEM_MODELO = Fonte{[Schema="dbo",Item="DIM_ITEM_MODELO"]}[Data],
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(dbo_DIM_ITEM_MODELO, "Mesclado", each Text.Combine({"0", [GE_CODIGO]}), type text),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Mesclada Inserida",{{"Mesclado", "GE"}})
+				,
+				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas",{"GE_CODIGO"})
+				in
+				#"Columns removed by Measure Killer"
+
+	annotation PBI_ResultType = Table
+

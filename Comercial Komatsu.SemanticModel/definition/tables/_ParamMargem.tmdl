@@ -1,0 +1,48 @@
+table _ParamMargem
+	lineageTag: e138efdf-c01d-4fe9-b54f-e2f3f73c147b
+
+	column _ParamMargem
+		lineageTag: c0f91898-c843-4f16-8a2e-5236a7993aa7
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_ParamMargem Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_ParamMargem Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_ParamMargem Campos'
+		isHidden
+		lineageTag: 5d6b81d0-1b18-4489-9780-325886741e92
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_ParamMargem Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_ParamMargem Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 3e0374e2-8ea5-4afc-88c0-a351b1ed84ef
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _ParamMargem-5636b088-c644-4eba-99a3-ee4d94f25ec0 = calculated
+		mode: import
+		source =
+				{
+				    ("Por Linhas", NAMEOF('_Medidas'[Qtde Linhas Venda]), 0),
+				    ("Por Valor ", NAMEOF('_Medidas'[Valor Margem Geral]), 1)
+				}
+
+	annotation PBI_Id = 16d9eb3f5ab0458499caac7c4ef78c7a
+

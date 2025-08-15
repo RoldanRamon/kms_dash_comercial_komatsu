@@ -1,0 +1,24 @@
+table dUltimaAtualizacao
+	lineageTag: 207bc1c2-e696-431c-ae70-a5b187bdde0e
+
+	column data_hora
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b15b4b7f-199d-4f9e-8109-77b9aa726aa9
+		summarizeBy: none
+		sourceColumn: data_hora
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dUltimaAtualizacao-71ae418a-0deb-4855-8069-d0c3f0a170af = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu", [Query="select max(data_hora) as data_hora from log_atualizacao"])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

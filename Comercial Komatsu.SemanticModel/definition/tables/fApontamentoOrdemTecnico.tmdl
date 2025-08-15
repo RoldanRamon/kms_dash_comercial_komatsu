@@ -1,0 +1,32 @@
+table fApontamentoOrdemTecnico
+	lineageTag: 9af4beef-bef0-4ec4-9a23-8d2420b112f5
+
+	column nr-ord-produ
+		dataType: string
+		lineageTag: 61e83092-84b0-404d-b7b6-81535a1c5f1f
+		summarizeBy: none
+		sourceColumn: nr-ord-produ
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod-matr
+		dataType: string
+		lineageTag: 47afaa5f-b43c-4506-ac77-bfe7bac72b79
+		summarizeBy: none
+		sourceColumn: cod-matr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fApontamentoOrdemTecnico-a7ed440a-4405-4623-a613-1dd325bc7eae = m
+		mode: import
+		queryGroup: FATO
+		source =
+				let
+				    Fonte = fApontamentoOrdem,
+				    #"Outras Colunas Removidas" = Table.SelectColumns(Fonte,{"nr-ord-produ", "cod-matr"}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Outras Colunas Removidas", {"nr-ord-produ"})
+				in
+				    #"Duplicatas Removidas"
+
+	annotation PBI_ResultType = Table
+

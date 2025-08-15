@@ -1,0 +1,54 @@
+table xfMachinesControlConsol
+	lineageTag: 8e865d65-4571-4e05-81f5-eff2302ca431
+
+	column ID_NOTA
+		lineageTag: 39c7a771-7a6b-49ff-a695-fe95ed665e22
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: xfMachinesControl[ID_NOTA]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NET SALES'
+		lineageTag: 452fd162-225c-4bbb-a92f-331268457672
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [NET SALES]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COSTS
+		lineageTag: 66692d19-da15-433e-82fe-4bca9de18362
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [COSTS]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTDE
+		formatString: 0
+		lineageTag: 900a8c6f-a95a-4845-ad04-c94fd246c546
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [QTDE]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition xfMachinesControlConsol-2576bc6a-aa7e-4aec-8065-4677f267376e = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(
+				         xfMachinesControl,
+				         xfMachinesControl[ID_NOTA],
+				         "NET SALES", SUMX(xfMachinesControl,xfMachinesControl[NetSales]),
+				         "COSTS", SUMX(xfMachinesControl,xfMachinesControl[Direct Mat Costs]),
+				         "QTDE", COUNTROWS(xfMachinesControl)
+				)
+
+	annotation PBI_Id = 3cd22942ac254e7a97f13cfe0bc8d8dd
+
