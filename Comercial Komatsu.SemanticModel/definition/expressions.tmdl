@@ -103,14 +103,3 @@ expression 'Transformar Arquivo' =
 
 	annotation PBI_ResultType = Function
 
-expression 'MEDIDAS NOTAS' =
-		let
-		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
-		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
-		    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
-		in
-		    #"Colunas Removidas"
-	lineageTag: 9f311d21-6ced-4ce2-90e5-6e19b6061a56
-
-	annotation PBI_ResultType = Table
-

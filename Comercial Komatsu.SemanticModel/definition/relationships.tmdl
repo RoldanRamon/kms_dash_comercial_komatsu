@@ -87,7 +87,6 @@ relationship 2aad20ee-9122-47dc-996c-72ebb13dcf82
 	toColumn: dCalendario.DT_DATA
 
 relationship f5c72db9-c7e6-4d92-bd78-cc0cc281a750
-	crossFilteringBehavior: bothDirections
 	fromColumn: fMetasEstab.Código
 	toColumn: dEmpresa.DIM_EMPRESA_ID
 
@@ -121,10 +120,6 @@ relationship f81bc0e8-3c16-4b06-83e6-e839f13a9cf0
 relationship 9f3feb0d-27dc-48f4-872a-c915d4f958e5
 	fromColumn: fForecastQty.Data
 	toColumn: dCalendario.DT_DATA
-
-relationship 1c995abb-8b5a-40d0-a63d-6ebd0a975fc3
-	fromColumn: dCliente.'ID Cidade/Estado'
-	toColumn: dMunicipio.Localização
 
 relationship 507e84e6-4286-4acb-aea2-90d01b9f842d
 	fromColumn: fForecastQty.MACHINES

@@ -87,14 +87,6 @@ table fVendaAssistencia
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Regiao Tecnico' =
-			
-			LOOKUPVALUE(dTecnicos[Região],dTecnicos[chave],fVendaAssistencia[chave])
-		lineageTag: 83713935-66a0-4d87-834b-b468c3c75bd6
-		summarizeBy: none
-
-		annotation SummarizationSetBy = Automatic
-
 	partition fVendaAssistencia-4c02ddb6-1707-48bc-a90d-558fadeebe0c = m
 		mode: import
 		queryGroup: FATO

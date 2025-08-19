@@ -1825,21 +1825,6 @@ table _Medidas
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	/// 
-	/// IF('MEDIDAS PEDIDOS'[MaqFaturado Maquinas] <> BLANK(),'MEDIDAS PEDIDOS'[MaqFaturado Maquinas],0)
-	measure 'MaqFaturado Maquinas Cartão' =
-			
-			IF('MEDIDAS PEDIDOS'[MaqFaturado Maquinas] <> BLANK(),'MEDIDAS PEDIDOS'[MaqFaturado Maquinas],0)
-		formatString: 0
-		lineageTag: 890ff208-1aaa-4c03-85a7-2918d452de97
-
-		annotation PBI_FormatHint = {"isDecimal":true}
-
-	/// IF('MEDIDAS PEDIDOS'[MaqBacklog Maquinas 2]<>BLANK(),'MEDIDAS PEDIDOS'[MaqBacklog Maquinas 2],0)
-	measure 'MaqBacklog Maquinas Cartão' = IF('MEDIDAS PEDIDOS'[MaqBacklog Maquinas 2]<>BLANK(),'MEDIDAS PEDIDOS'[MaqBacklog Maquinas 2],0)
-		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: e4337423-bd61-4c44-987d-dd8af73b00c0
-
-	/// 
 	/// CALCULATE(
 	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT_REAL]),
 	/// USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),

@@ -93,7 +93,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: b72eb5c2-3f15-476e-949e-d7dbdcff8eba
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DIA
 
 		annotation SummarizationSetBy = Automatic
@@ -102,7 +102,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: a64cc02b-ae7f-4c77-9849-596ef8108c46
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: MES
 
 		annotation SummarizationSetBy = Automatic
@@ -111,7 +111,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: 3ef9a2da-722c-4d82-8461-84ca6db7256e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: ANO
 
 		annotation SummarizationSetBy = Automatic
@@ -120,7 +120,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: e1c42fb3-bff8-4440-bf7b-e81e53d44c04
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: SEMANA
 
 		annotation SummarizationSetBy = Automatic
@@ -139,7 +139,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: fb15a53a-11ac-4ace-9786-30d10cbbfe06
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: DIA_UTIL
 
 		annotation SummarizationSetBy = Automatic
@@ -158,7 +158,7 @@ table dCalendario
 			```
 		formatString: 0
 		lineageTag: 426b1fc2-a100-46d1-a340-b34f60ed9bf9
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -238,7 +238,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: 859d2e99-ffed-45bf-a0f1-302353ea05ba
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -263,7 +263,7 @@ table dCalendario
 		dataType: int64
 		formatString: 0
 		lineageTag: a2ba1f9b-6f1d-43bb-9e5e-b89dc52c73c8
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 
@@ -317,7 +317,7 @@ table dCalendario
 			```
 		formatString: 0
 		lineageTag: b4f71922-092c-445f-9cdb-b25482ed2765
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

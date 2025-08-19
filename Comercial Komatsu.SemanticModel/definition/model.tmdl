@@ -31,7 +31,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.142.928.0 (25.04)+de52df9f0bb74ad93a80d89c52d63fe6d07e0e1b
 
-annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dMunicipio","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dEmitente","dSyncron","dMoeda","Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","dMotivoCancelamento"]
+annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dEmitente","dSyncron","dMoeda","Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","dMotivoCancelamento"]
 
 annotation __TEdtr = 1
 
@@ -65,7 +65,6 @@ ref table fVendasPedidoMes
 ref table fPedidosNrPed
 ref table fPedidoItemMaq
 ref table dModeloItem
-ref table dMunicipio
 ref table fMetasServicos
 ref table fSaldoEstoque
 ref table dItemFornecedor
@@ -93,10 +92,9 @@ ref table fVendaAssistencia
 ref table dEmitente
 ref table dSyncron
 ref table xItemDemandType
-ref table xOpção_Por_Qtde_ou_Valor
 ref table dMoeda
 ref table fCotação
 ref table dMotivoCancelamento
 
-ref cultureInfo en-US
+ref cultureInfo es-BR
 

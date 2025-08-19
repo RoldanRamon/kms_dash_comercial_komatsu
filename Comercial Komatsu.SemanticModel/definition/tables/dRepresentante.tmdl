@@ -111,7 +111,7 @@ table dRepresentante
 				let
 				    Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
 				    dbo_DIM_REPRESENTANTE_BI= Fonte{[Schema="dbo",Item="DIM_REPRESENTANTE_BI"]}[Data],
-				    #"Coluna Condicional Adicionada" = Table.AddColumn(dbo_DIM_REPRESENTANTE_BI, "Personalizar", each if [REPRESENTANTE] = "JEFFERSON DE SOUZA MARCAL" then 115 else if [REPRESENTANTE] = "BRENO SOUZA VIANA" then 999 else if [REPRESENTANTE] = "GENILDO VIEIRA DA SILVA" then 999 else if [REPRESENTANTE] = "BRUNO DIAS DOS REIS" then 123 else if [COD_REPRESENTANTE] = "5" then 113 else if [COD_REPRESENTANTE] = "46" then 115 else null),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(dbo_DIM_REPRESENTANTE_BI, "Personalizar", each if [REPRESENTANTE] = "JEFFERSON DE SOUZA MARCAL" then 115 else if [REPRESENTANTE] = "BRENO SOUZA VIANA" then 999 else if [REPRESENTANTE] = "GENILDO VIEIRA DA SILVA" then 999 else if [COD_REPRESENTANTE] = "52" then 123 else if [COD_REPRESENTANTE] = "5" then 113 else if [COD_REPRESENTANTE] = "46" then 115 else if [COD_REPRESENTANTE] = "53" then 131 else null),
 				    #"Colunas Renomeadas" = Table.RenameColumns(#"Coluna Condicional Adicionada",{{"Personalizar", "Estabelecimento"}}),
 				    #"Coluna Personalizada Adicionada" = Table.AddColumn(#"Colunas Renomeadas", "Personalizar", each let splitREPRESENTANTE = Splitter.SplitTextByDelimiter(" ", QuoteStyle.None)([REPRESENTANTE]), splitREPRESENTANTE2 = List.Reverse(Splitter.SplitTextByDelimiter(" ", QuoteStyle.None)([REPRESENTANTE])) in Text.Combine({splitREPRESENTANTE{0}?, " ", splitREPRESENTANTE2{0}?}), type text),
 				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Coluna Personalizada Adicionada",{{"Personalizar", "NOME"}})
@@ -121,4 +121,6 @@ table dRepresentante
 				#"Columns removed by Measure Killer"
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 
