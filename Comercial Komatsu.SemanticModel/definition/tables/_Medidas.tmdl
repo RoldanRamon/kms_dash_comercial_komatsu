@@ -151,18 +151,6 @@ table _Medidas
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 18ed875d-1693-4ff7-8aa4-8327e4488e1f
 
-	/// 
-	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT]) +
-	/// CALCULATE(SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]),FILTER(fLancamentoGerenciais,fLancamentoGerenciais[Divisão Venda] = "Máquinas"))
-	measure 'Faturamento Máquinas + Gerencial' = ```
-			
-			                        SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT]) + 
-			                        CALCULATE(SUMX(fLancamentoGerenciais,fLancamentoGerenciais[Valor]),FILTER(fLancamentoGerenciais,fLancamentoGerenciais[Divisão Venda] = "Máquinas"))
-			```
-		lineageTag: cc1808b3-1113-496e-8ea9-57c769dd14a7
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	/// DIVIDE([MaqFaturado Maquinas],[Valor Qtde Maquinas Budget] ,0)
 	measure '% Forescast Qtde Máquina' = DIVIDE([MaqFaturado Maquinas],[Qtde Maquinas Budget] ,0)
 		formatString: 0.00%;-0.00%;0.00%
@@ -250,18 +238,6 @@ table _Medidas
 	/// [Faturamento Liquido] - [Meta Projetada Vendedor]
 	measure 'Dif Meta Projetada Vend.' = [Faturamento Liquido Total] - [Meta Projetada Vendedor]
 		lineageTag: 544bd1b3-8d95-4ee8-98e4-cbff3f8dc7e3
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	/// 
-	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT])
-	/// 
-	measure 'Faturamento Máquinas Real' = ```
-			
-			                        SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT])
-			                        
-			```
-		lineageTag: f7d1b0f6-934c-4bc0-9e2a-a2673135411d
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -966,8 +942,8 @@ table _Medidas
 			
 			CALCULATE(
 			        SUMX(fVendaAssistencia,fVendaAssistencia[VALOR_LIQUIDO]),
-			        CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], dEmitente[DIM_EMITENTE_ID], Both)
-			        //CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], CLIENTE[DIM_CLIENTE_ID], Both)
+			        //CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], dEmitente[DIM_EMITENTE_ID], Both)
+			        CROSSFILTER(fVendaAssistencia[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID], Both)
 			        )
 		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		lineageTag: 7bebe499-75b3-4ec1-b4e6-5416f9772275
@@ -1631,21 +1607,6 @@ table _Medidas
 
 	/// 
 	/// CALCULATE(
-	/// DISTINCTCOUNT(fPedidoItemMaq[NR_PEDIDO]),
-	/// USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
-	/// CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],NONE))
-	measure 'MaqBacklog Pedidos' =
-			
-			CALCULATE(
-			    DISTINCTCOUNT(fPedidoItemMaq[NR_PEDIDO]),
-			    USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
-			    CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],NONE))
-		lineageTag: 62539131-7a3d-4450-a71b-c2ef291fd75c
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	/// 
-	/// CALCULATE(
 	/// DISTINCTCOUNT(fPedidoItemMaq[Pedido e Sequencia]),
 	/// USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
 	/// CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],NONE),
@@ -1823,25 +1784,6 @@ table _Medidas
 		lineageTag: 41584075-dbfc-4d22-b614-375d263801ca
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	/// 
-	/// CALCULATE(
-	/// SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT_REAL]),
-	/// USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
-	/// CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],NONE),
-	/// fPedido[POS_PDV] = "Aberto",
-	/// fPedido[DIM_TIPO_NOTA_ID] = "510199" || fPedido[DIM_TIPO_NOTA_ID] = "610199"
-	/// )
-	measure 'MaqBacklog Valor Liq Backlog_Real' =
-			
-			CALCULATE(
-			    SUMX(fPedidoItemMaq,fPedidoItemMaq[VL_LIQ_IT_REAL]),
-			    USERELATIONSHIP(fPedido[DT_ENTREGA],dCalendario[DT_DATA]),
-			    CROSSFILTER(fPedido[DT_EMISSAO],dCalendario[DT_DATA],NONE),
-			    fPedido[POS_PDV] = "Aberto",
-			    fPedido[DIM_TIPO_NOTA_ID] = "510199" || fPedido[DIM_TIPO_NOTA_ID] = "610199"
-			)
-		lineageTag: 395e2174-508d-4ce9-b991-3d7cce3eac75
 
 	/// 
 	/// CALCULATE(

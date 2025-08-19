@@ -125,11 +125,6 @@ relationship 507e84e6-4286-4acb-aea2-90d01b9f842d
 	fromColumn: fForecastQty.MACHINES
 	toColumn: dModeloItem.DES_MODELO
 
-relationship 54ec0d42-fa47-4562-8b63-deadc7d2cd13
-	toCardinality: many
-	fromColumn: fPedido.NR_PEDIDO
-	toColumn: fPedidosNrPed.NR_PEDIDO
-
 relationship c90c32d9-eead-4cac-b094-a80e61d45c46
 	crossFilteringBehavior: bothDirections
 	fromColumn: dItem.COD_C4
@@ -341,14 +336,6 @@ relationship b8b3eb04-2aed-44f4-b1b2-d3ff3e141489
 	fromColumn: fVendaAssistencia.nr-ord-produ
 	toColumn: fApontamentoOrdemTecnico.nr-ord-produ
 
-relationship c12241f4-ff05-4466-a38d-ca1871c49b30
-	fromColumn: fOrdemManutencao.DIM_EMITENTE_ID
-	toColumn: dEmitente.DIM_EMITENTE_ID
-
-relationship bdee0154-a280-4d27-9df4-6e4089bb38b2
-	fromColumn: fVendaAssistencia.DIM_CLIENTE_ID
-	toColumn: dEmitente.DIM_EMITENTE_ID
-
 relationship 2f9d201c-33a8-4de9-86ce-d10eb47ce05f
 	fromColumn: fPedido.DESCRICAO_MOEDA
 	toColumn: dMoeda.DESCRICAO_MOEDA
@@ -380,10 +367,6 @@ relationship de0f8290-c256-5413-a919-d8fae44c4b21
 	fromColumn: fPedido.DT_CANCELA_ITEM
 	toColumn: dCalendario.DT_DATA
 
-relationship eaa814f8-25e3-db5b-6314-b4e43f52f0bb
-	fromColumn: fVenda.DIM_EMPRESA_ID
-	toColumn: dEmitente.COD_EMITENTE
-
 relationship AutoDetected_a1962625-2b6d-433d-a61d-26827bdfa6dc
 	fromColumn: fCotação.DIM_EMPRESA_ID
 	toColumn: dEmpresa.DIM_EMPRESA_ID
@@ -407,4 +390,8 @@ relationship a1b2ca7f-f1b8-5ffd-4dd2-c6674d6ebaa5
 relationship a274475a-c953-a685-cdc7-c5a6b7e250aa
 	fromColumn: fForecastBudget.'Modelo Totvs'
 	toColumn: dModeloItem.COD_MODELO
+
+relationship 511f8d19-1023-7d14-1311-5d600aa72d45
+	fromColumn: fOrdemManutencao.DIM_EMITENTE_ID
+	toColumn: dCliente.DIM_CLIENTE_ID
 

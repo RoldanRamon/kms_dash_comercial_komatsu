@@ -1,30 +1,6 @@
 table dItem
 	lineageTag: b70b149f-b2e3-4899-9df6-23639035b115
 
-	column %REPRES_VENDAS =
-			
-			VAR LucroTotalFixo = CALCULATE([TOTAL VLR VENDAS LIQ], ALL('dItem'))
-			VAR LucroAtual = [TOTAL VLR VENDAS LIQ]
-			VAR LucroAcumulado =
-			IF(
-			    LucroAtual > 0,
-			    CALCULATE(
-			        [TOTAL VLR VENDAS LIQ],
-			        FILTER(
-			            'dItem',
-			            [TOTAL VLR VENDAS LIQ] >= LucroAtual
-			        )
-			    )
-			)
-			RETURN
-			DIVIDE(LucroAcumulado, LucroTotalFixo)
-		lineageTag: 6fe4307b-7bd2-43f6-a40b-35f0affeff5a
-		summarizeBy: sum
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column DESC_C1
 		dataType: string
 		lineageTag: 02ba3807-45d8-486b-ba36-542d3cbb9ba3

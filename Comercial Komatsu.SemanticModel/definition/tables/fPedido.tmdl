@@ -76,7 +76,7 @@ table fPedido
 	column VLR_CUSTO
 		dataType: double
 		lineageTag: 40e316b3-475d-4a93-9d13-dc18a1337396
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_CUSTO
 
 		annotation SummarizationSetBy = Automatic
@@ -86,7 +86,7 @@ table fPedido
 	column VLR_IPI
 		dataType: double
 		lineageTag: 06e85894-6291-4372-aa12-4b42859d7d7a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_IPI
 
 		annotation SummarizationSetBy = Automatic
@@ -96,7 +96,7 @@ table fPedido
 	column VLR_BRUTO
 		dataType: double
 		lineageTag: ff47f7e4-7a4c-44ed-b96b-4ed2f16cb400
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_BRUTO
 
 		annotation SummarizationSetBy = Automatic
@@ -106,7 +106,7 @@ table fPedido
 	column VLR_COFINS
 		dataType: double
 		lineageTag: e34ce978-a71c-49d2-877e-3a1631697e93
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_COFINS
 
 		annotation SummarizationSetBy = Automatic
@@ -116,7 +116,7 @@ table fPedido
 	column VLR_DESC
 		dataType: double
 		lineageTag: 0a129982-35cf-4669-bf6c-02b5ef9ec5f2
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_DESC
 
 		annotation SummarizationSetBy = Automatic
@@ -126,7 +126,7 @@ table fPedido
 	column VLR_ICMS
 		dataType: double
 		lineageTag: 0b1f5982-d860-4e32-b511-bd3d9390142d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_ICMS
 
 		annotation SummarizationSetBy = Automatic
@@ -136,7 +136,7 @@ table fPedido
 	column VLR_IPI_SICMS
 		dataType: double
 		lineageTag: 75c6b099-265d-49bb-b1bb-dc6ffeb3c96d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_IPI_SICMS
 
 		annotation SummarizationSetBy = Automatic
@@ -146,7 +146,7 @@ table fPedido
 	column VLR_PIS
 		dataType: double
 		lineageTag: 155bb8f5-9092-469d-9fe7-c565b0962a1c
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_PIS
 
 		annotation SummarizationSetBy = Automatic
@@ -218,7 +218,7 @@ table fPedido
 	column QTDE
 		dataType: double
 		lineageTag: c202d77b-d8d4-4258-a7e5-8e49046db90d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QTDE
 
 		annotation SummarizationSetBy = Automatic
@@ -228,7 +228,7 @@ table fPedido
 	column QTDE_ATEND
 		dataType: double
 		lineageTag: 0257c90e-3629-468c-bc67-a9b72fc66b14
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QTDE_ATEND
 
 		annotation SummarizationSetBy = Automatic
@@ -238,7 +238,7 @@ table fPedido
 	column QTDE_CANC
 		dataType: double
 		lineageTag: e4439eb6-80ed-4958-841a-8e3bac2e9709
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QTDE_CANC
 
 		annotation SummarizationSetBy = Automatic
@@ -248,7 +248,7 @@ table fPedido
 	column QTDE_SLDO
 		dataType: double
 		lineageTag: 77721a9b-a1c7-4345-bc0d-bb103ed79061
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QTDE_SLDO
 
 		annotation SummarizationSetBy = Automatic
@@ -258,7 +258,7 @@ table fPedido
 	column PRECO_UNIT
 		dataType: double
 		lineageTag: dbef7dab-f993-4478-87bc-b0c5e22a0718
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PRECO_UNIT
 
 		annotation SummarizationSetBy = Automatic
@@ -268,7 +268,7 @@ table fPedido
 	column VLR_LIQ_IPI
 		dataType: double
 		lineageTag: 82694fc8-af09-49f3-a17c-2a480c318ea1
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_LIQ_IPI
 
 		annotation SummarizationSetBy = Automatic
@@ -278,7 +278,7 @@ table fPedido
 	column VLR_LIQ
 		dataType: double
 		lineageTag: 647faa14-54d1-42dd-b28e-3f47f9dd4b7d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_LIQ
 
 		annotation SummarizationSetBy = Automatic
@@ -288,7 +288,7 @@ table fPedido
 	column VLR_LIQ_SICMS
 		dataType: double
 		lineageTag: 5c39b4dd-5f6b-418a-b6f5-01a30190451d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_LIQ_SICMS
 
 		annotation SummarizationSetBy = Automatic
@@ -298,7 +298,7 @@ table fPedido
 	column VLR_BRUTO_SICMS
 		dataType: double
 		lineageTag: 639b4f6c-3a4c-4e8e-b88b-7d1d9a79b40c
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_BRUTO_SICMS
 
 		annotation SummarizationSetBy = Automatic
@@ -343,7 +343,7 @@ table fPedido
 	column ALIQ_ICMS
 		dataType: double
 		lineageTag: 309e74e3-b4b8-4598-b3a7-7ba5696a1dc9
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ALIQ_ICMS
 
 		annotation SummarizationSetBy = Automatic
@@ -352,7 +352,7 @@ table fPedido
 
 	column VLR_ICMS_UNIT = fPedido[VLR_ICMS] / fPedido[QTDE]
 		lineageTag: d4422c9a-c6a3-41fd-bba3-d5577a68555d
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -360,7 +360,7 @@ table fPedido
 
 	column VLR_COFINS_UNIT = fPedido[VLR_COFINS] / fPedido[QTDE]
 		lineageTag: e758ce23-8277-41d8-a8f3-3470c58475c7
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -410,7 +410,7 @@ table fPedido
 			    )
 		formatString: 0
 		lineageTag: a5db44f9-f0eb-4349-be2e-0a2961389776
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -457,7 +457,7 @@ table fPedido
 			
 			```
 		lineageTag: ed1455cc-5fc1-4e91-abd8-d3d3e584f090
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -480,7 +480,7 @@ table fPedido
 			```
 		formatString: 0
 		lineageTag: c570488b-58ac-4cd5-8919-38bdc31bc439
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -495,7 +495,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: 8d41cd3b-02aa-422e-901a-ae78a1085ef0
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -551,7 +551,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: 47c8be54-0417-40df-80d5-e1a3c7db1c20
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: NR_SEQ_PED_NF
 
 		annotation SummarizationSetBy = Automatic
@@ -567,7 +567,7 @@ table fPedido
 	column VALOR_LIQUIDO_NF
 		dataType: double
 		lineageTag: d439ff74-aa60-41ca-8b41-81af7f678d72
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VALOR_LIQUIDO_NF
 
 		annotation SummarizationSetBy = Automatic
@@ -577,7 +577,7 @@ table fPedido
 	column QT_ALOCADA
 		dataType: double
 		lineageTag: 295d3a7f-de23-455f-bf20-45a235e22240
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QT_ALOCADA
 
 		annotation SummarizationSetBy = Automatic
@@ -587,7 +587,7 @@ table fPedido
 	column QT_EMBARCADA
 		dataType: double
 		lineageTag: f355eefe-155b-4152-b15b-49bbdd1a595c
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: QT_EMBARCADA
 
 		annotation SummarizationSetBy = Automatic
@@ -800,7 +800,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: 09d7ccd2-4661-4fc8-8cee-ea9e86dc8704
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: mo-codigo
 
 		annotation SummarizationSetBy = Automatic
@@ -813,7 +813,7 @@ table fPedido
 
 	column 'Cocataco Moeda' = RELATED(dMoeda[VALOR_COTAC])
 		lineageTag: 2d1f0f0e-6a50-47db-81a2-d4f76aea07c7
-		summarizeBy: none
+		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
@@ -823,7 +823,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: 1b5fb291-0b32-4ccf-a785-a49a485469ad
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: SIT_AVAL
 
 		annotation SummarizationSetBy = Automatic
@@ -839,7 +839,7 @@ table fPedido
 	column VALOR_COTAC
 		dataType: double
 		lineageTag: c5ef0206-079d-4cad-bf54-1eafb25925a5
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VALOR_COTAC
 
 		annotation SummarizationSetBy = Automatic
@@ -867,7 +867,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: fe4580ed-e7f7-43d6-855e-8703d5ff809d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: SIT_ENTREGA
 
 		annotation SummarizationSetBy = Automatic
@@ -876,7 +876,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: b0d22161-af23-4a6b-b564-975d3feedf73
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: NUM_ENTREGAS
 
 		annotation SummarizationSetBy = Automatic
@@ -892,7 +892,7 @@ table fPedido
 	column VLR_NET_BR
 		dataType: double
 		lineageTag: d551f228-f2be-4cf1-9a9c-680d2e59b8bf
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_NET_BR
 
 		annotation SummarizationSetBy = Automatic
@@ -902,7 +902,7 @@ table fPedido
 	column VL_GROSS_BR
 		dataType: double
 		lineageTag: 355404b2-421a-42f2-a10d-8d7ee55b6803
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VL_GROSS_BR
 
 		annotation SummarizationSetBy = Automatic
@@ -912,7 +912,7 @@ table fPedido
 	column VLR_NET_US
 		dataType: double
 		lineageTag: c89f485c-64b7-4ed9-9876-a3d7f38c4de8
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_NET_US
 
 		annotation SummarizationSetBy = Automatic
@@ -922,7 +922,7 @@ table fPedido
 	column VLR_GROSS_US
 		dataType: double
 		lineageTag: d3eb6b77-55ae-40d8-bec6-5b9f73761ce2
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_GROSS_US
 
 		annotation SummarizationSetBy = Automatic
@@ -932,7 +932,7 @@ table fPedido
 	column VLR_GROSS_BR
 		dataType: double
 		lineageTag: 3cac2a4b-4c11-4289-8ced-9b1231de4ab0
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: VLR_GROSS_BR
 
 		annotation SummarizationSetBy = Automatic
@@ -943,7 +943,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: bb37fb2d-d21a-448b-879f-bd6187ea2f9a
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: SEQ_ENTREGA
 
 		annotation SummarizationSetBy = Automatic
@@ -976,7 +976,7 @@ table fPedido
 		dataType: int64
 		formatString: 0
 		lineageTag: bf35ca5c-7fee-491f-989b-3fcfe6c2ae2e
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: PARCELA
 
 		annotation SummarizationSetBy = Automatic
@@ -1025,7 +1025,7 @@ table fPedido
 	column ALIQ_IPI
 		dataType: double
 		lineageTag: 0b0663db-c54f-4f4a-b87a-86f73c07f12d
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: ALIQ_IPI
 
 		annotation SummarizationSetBy = Automatic

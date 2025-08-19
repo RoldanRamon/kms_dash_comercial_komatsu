@@ -422,19 +422,6 @@
         },
         {
           "location": {
-            "x": 18681.3,
-            "y": 0
-          },
-          "nodeIndex": "dEmitente",
-          "nodeLineageTag": "d70aae1b-834d-4f10-a0e5-9f7b1054147d",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
             "x": 19755.742268732352,
             "y": 0
           },
@@ -729,120 +716,16 @@
       "nodes": [
         {
           "location": {
-            "x": 457.7252528716615,
-            "y": 0
-          },
-          "nodeIndex": "dEmpresa",
-          "nodeLineageTag": "65afbc5c-b7b5-47d4-bf20-ec7588a0bf0c",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 0,
-            "y": 0
+            "x": -13,
+            "y": 112
           },
           "nodeIndex": "fPedido",
           "nodeLineageTag": "bc7b9118-4216-42eb-a508-834aa929a4ee",
           "size": {
-            "height": 145,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 812.2900305679467,
-            "y": 163.29583450505152
-          },
-          "nodeIndex": "fVendasDevolucao",
-          "nodeLineageTag": "2cf49cee-0dbb-4495-97b8-0de7b2208b8b",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 0,
-            "y": 312.5648172085954
-          },
-          "nodeIndex": "fVenda",
-          "nodeLineageTag": "d086cc38-1258-4cc8-bd75-25247c5973ff",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 800.49811114693409,
-            "y": 493.16833335823753
-          },
-          "nodeIndex": "fMetasEstab",
-          "nodeLineageTag": "c095b551-00e6-4422-93e1-81e1e3a2d323",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 823.899542808778,
-            "y": 0
-          },
-          "nodeIndex": "fMetasServicos",
-          "nodeLineageTag": "851977ec-e797-4a7d-bc7f-b38bbd0221e2",
-          "size": {
-            "height": 152,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 0,
-            "y": 476.62673199257745
-          },
-          "nodeIndex": "fPedidoHistorico",
-          "nodeLineageTag": "646979e8-25a8-44ac-93b6-8b04bf26301e",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 808.62781210081232,
-            "y": 326.35405476953918
-          },
-          "nodeIndex": "fVendaAssistencia",
-          "nodeLineageTag": "4694eb9e-0761-4df5-b57a-2ade98762f7e",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 0,
-            "y": 156
-          },
-          "nodeIndex": "fCotação",
-          "nodeLineageTag": "d231bf0b-e3d4-4581-b7d1-299703ec028f",
-          "size": {
-            "height": 145,
-            "width": 234
-          },
-          "zIndex": 0
+          "zIndex": 1
         }
       ],
       "name": "Layout 1",
