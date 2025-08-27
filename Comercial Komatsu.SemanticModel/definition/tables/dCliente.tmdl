@@ -120,6 +120,38 @@ table dCliente
 
 		annotation SummarizationSetBy = Automatic
 
+	column ENDERECO
+		dataType: string
+		lineageTag: 311013a3-d3f2-4aec-b2bc-a86f6ae55eb4
+		summarizeBy: none
+		sourceColumn: ENDERECO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TELEFONE
+		dataType: string
+		lineageTag: 251bd9ce-987f-437d-b814-614f382bfee3
+		summarizeBy: none
+		sourceColumn: TELEFONE
+
+		annotation SummarizationSetBy = Automatic
+
+	column EMAIL
+		dataType: string
+		lineageTag: 87a159ce-af28-4a76-b522-199721b44d82
+		summarizeBy: none
+		sourceColumn: EMAIL
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NOME CLIENTE'
+		dataType: string
+		lineageTag: 5cce79ce-143e-4e12-a84f-eadc137e116f
+		summarizeBy: none
+		sourceColumn: NOME CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dCliente-eca569ea-0c80-490c-8220-7c582c346235 = m
 		mode: import
 		queryGroup: DIM

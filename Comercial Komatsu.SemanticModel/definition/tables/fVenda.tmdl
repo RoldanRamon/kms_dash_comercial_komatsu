@@ -647,12 +647,12 @@ table fVenda
 				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Colunas Renomeadas4", "ID_NOTA", each Text.Combine({[DIM_EMPRESA_ID],Text.From([NOTA_INT], "pt-BR")}, ""), type text),
 				    #"Linhas Filtradas" = Table.SelectRows(#"Coluna Mesclada Inserida", each not Text.Contains([DIM_CLIENTE_ID], "2316")),
 				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Linhas Filtradas", "ID_PEDIDO", each Text.Combine({[PEDIDO], Text.From([SEQUENCIA_PEDIDO], "pt-BR")}, ""), type text),
-				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Coluna Mesclada Inserida1", "REPRESENTANTE_ESTAB", each if [DIM_EMPRESA_ID] = "119" then 34 else if [DIM_EMPRESA_ID] = "120" then 34 else if [DIM_EMPRESA_ID] = "123" then 38 else if [DIM_EMPRESA_ID] = "110" then 47 else if [DIM_EMPRESA_ID] = "115" then 12 else if [DIM_EMPRESA_ID] = "113" then 42 else if [DIM_EMPRESA_ID] = "133" then 47 else if [DIM_EMPRESA_ID] = "134" then 5 else null),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Coluna Mesclada Inserida1", "REPRESENTANTE_ESTAB", each if [DIM_EMPRESA_ID] = "119" then 34 else if [DIM_EMPRESA_ID] = "120" then 34 else if [DIM_EMPRESA_ID] = "123" then 52 else if [DIM_EMPRESA_ID] = "110" then 33 else if [DIM_EMPRESA_ID] = "115" then 12 else if [DIM_EMPRESA_ID] = "113" then 42 else if [DIM_EMPRESA_ID] = "133" then 33 else if [DIM_EMPRESA_ID] = "134" then 42 else null),
 				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"REPRESENTANTE_ESTAB", type text}})
 				in
 				    #"Tipo Alterado2"
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
 
 	annotation PBI_NavigationStepName = Navegação
 

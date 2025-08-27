@@ -58,18 +58,6 @@
         },
         {
           "location": {
-            "x": 3584.5,
-            "y": 0
-          },
-          "nodeIndex": "fPedidosNrPed",
-          "size": {
-            "height": 200,
-            "width": 234
-          },
-          "zIndex": 13
-        },
-        {
-          "location": {
             "x": 3984.9,
             "y": 0
           },
