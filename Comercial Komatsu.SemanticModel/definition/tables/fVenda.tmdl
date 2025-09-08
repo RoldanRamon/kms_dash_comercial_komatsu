@@ -221,10 +221,13 @@ table fVenda
 		annotation SummarizationSetBy = Automatic
 
 	column DIM_CLIENTE_ID
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: a465a8b2-71b0-4da1-a55d-c0ea21efe146
 		summarizeBy: none
 		sourceColumn: DIM_CLIENTE_ID
+
+		changedProperty = DataType
 
 		annotation SummarizationSetBy = Automatic
 
@@ -612,6 +615,12 @@ table fVenda
 
 	column COD_DIVISAO = RELATED(dDivisaoVendas[COD_DIVISAO_VENDA])
 		lineageTag: dc680cec-c7b6-483b-8ef9-d99380cac90e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês e Ano' = MONTH(fVenda[DT_EMIS]) & "/" & YEAR(fVenda[DT_EMIS])
+		lineageTag: 6617ed7d-6070-4fcd-bb5f-7f8ddf25dea1
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic

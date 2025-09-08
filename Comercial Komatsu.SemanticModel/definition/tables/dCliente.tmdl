@@ -2,10 +2,13 @@ table dCliente
 	lineageTag: 959c086f-c05a-40a4-9b78-8d177ea2b7fa
 
 	column DIM_CLIENTE_ID
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: ce84cb26-6122-4fea-b064-9eb8f878446f
 		summarizeBy: none
 		sourceColumn: DIM_CLIENTE_ID
+
+		changedProperty = DataType
 
 		annotation SummarizationSetBy = Automatic
 

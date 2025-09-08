@@ -1329,28 +1329,17 @@ table _Medidas
 	measure 'Net Sales Vendedor' = ```
 			
 			//Faturamento
-			VAR _VendedorEstab = 
-			CALCULATE(
-			         SUM(fVenda[VALOR_LIQUIDO]),
-			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
-			         )
-			 
-			VAR _Vendedor = 
+			VAR _Faturamento = 
 			CALCULATE(
 			    SUM(fVenda[VALOR_LIQUIDO]),
-			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			    USERELATIONSHIP(fVenda[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			        )
-			
-			VAR _Faturamento = _Vendedor + _VendedorEstab
 			
 			//Devoluções
 			VAR _Devolucoes = 
 			CALCULATE(
 			         SUM(fVendasDevolucao[VLR_LIQ]),
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			         )
 			         
 			VAR _Conta = _Faturamento - _Devolucoes
@@ -1435,30 +1424,19 @@ table _Medidas
 	measure 'Net Sales Vendedor KA' = ```
 			
 			//Faturamento
-			VAR _VendedorEstab = 
-			CALCULATE(
-			         SUM(fVenda[VALOR_LIQUIDO]),
-			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),dCliente[TIPO DE CONTA] = "KA",
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
-			         )
-			 
-			VAR _Vendedor = 
+			VAR _Faturamento = 
 			CALCULATE(
 			    SUM(fVenda[VALOR_LIQUIDO]),
-			    dCliente[TIPO DE CONTA] = "KA",
-			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			    FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"),
+			    USERELATIONSHIP(fVenda[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			        )
-			
-			VAR _Faturamento = _Vendedor + _VendedorEstab
 			
 			//Devoluções
 			VAR _Devolucoes = 
 			CALCULATE(
 			         SUM(fVendasDevolucao[VLR_LIQ]),
 			         FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"),
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			         )
 			         
 			VAR _Conta = _Faturamento - _Devolucoes
@@ -1471,30 +1449,19 @@ table _Medidas
 	measure 'Net Sales Vendedor RETAIL' = ```
 			
 			//Faturamento
-			VAR _VendedorEstab = 
-			CALCULATE(
-			         SUM(fVenda[VALOR_LIQUIDO]),
-			         fVenda[REPRESENTANTE_ESTAB] <> BLANK(),dCliente[TIPO DE CONTA] = "RETAIL",
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[DIM_REPRESENTANTE_ID],fVenda[REPRESENTANTE_ESTAB])
-			         )
-			 
-			VAR _Vendedor = 
+			VAR _Faturamento = 
 			CALCULATE(
 			    SUM(fVenda[VALOR_LIQUIDO]),
-			    dCliente[TIPO DE CONTA] = "RETAIL",
-			    fVenda[REPRESENTANTE_ESTAB] = BLANK()
+			    FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"),
+			    USERELATIONSHIP(fVenda[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			        )
-			
-			VAR _Faturamento = _Vendedor + _VendedorEstab
 			
 			//Devoluções
 			VAR _Devolucoes = 
 			CALCULATE(
 			         SUM(fVendasDevolucao[VLR_LIQ]),
 			         FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"),
-			         CROSSFILTER(dRepresentante[DIM_REPRESENTANTE_ID],dCliente[DIM_REPRESENTANTE_ID],None),
-			         USERELATIONSHIP(dRepresentante[Estabelecimento],'fVendasDevolucao'[DIM_EMPRESA_ID])
+			         USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
 			         )
 			         
 			VAR _Conta = _Faturamento - _Devolucoes
@@ -1799,6 +1766,84 @@ table _Medidas
 			```
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: fa49a02d-edd2-4c80-b966-9d7562179054
+
+	measure ChurnScore =
+			
+				VAR _DataHoje = TODAY()
+			    VAR _DataCorte = EOMONTH( SELECTEDVALUE( dCalendario[Date] ), 0 )
+			
+				VAR _UlitmaCompra = CALCULATE(
+					MAX(fVenda[DT_EMIS]),
+					ALLEXCEPT(
+						fVenda,
+						fVenda[DIM_CLIENTE_ID]),
+			             fVenda[DT_EMIS] <= _DataCorte
+				)
+				VAR _DiasSemCompra = DATEDIFF(
+					_UlitmaCompra,
+					_DataHoje,
+					DAY
+				)
+				VAR _ComprasUltimos90d = CALCULATE(
+					COUNTROWS(fVenda),
+					DATESINPERIOD(
+						dCalendario[Date],
+						_DataHoje,
+						-90,
+						DAY
+					),
+					dCliente[DIM_CLIENTE_ID] = MAX(dCliente[DIM_CLIENTE_ID])
+				)
+				VAR _TicketMedioCliente = DIVIDE(
+					CALCULATE(
+						SUM(fVenda[VALOR_LIQUIDO]),
+						dCliente[DIM_CLIENTE_ID]
+					) = MAX(dCliente[DIM_CLIENTE_ID]),
+					CALCULATE(
+						COUNTROWS(fVenda),
+						dCliente[DIM_CLIENTE_ID]
+					) = MAX(dCliente[DIM_CLIENTE_ID])
+				)
+				VAR _TicketMedioGeral = CALCULATE(AVERAGEX(
+					VALUES(dCliente[DIM_CLIENTE_ID]),
+					DIVIDE(
+						SUM(fVenda[VALOR_LIQUIDO]),
+						COUNTROWS(fVenda)
+					)
+				))
+				-- Score baseado em pontos (quanto maior, maior o risco de churn)
+				VAR _Score = SWITCH(
+					TRUE(),
+					_DiasSemCompra > 120, 50,
+					_DiasSemCompra > 90, 30,
+					_DiasSemCompra > 60, 15,
+					0
+				) + SWITCH(
+					TRUE(),
+					_ComprasUltimos90d = 0, 30,
+					_ComprasUltimos90d = 1, 15,
+					_ComprasUltimos90d >= 3, -10,
+					0
+				) //+ //SWITCH( // TRUE(), // _TicketMedioCliente < _TicketMedioGeral * 0.7, 20, // _TicketMedioCliente < _TicketMedioGeral, 10, // 0 //)
+				RETURN
+					_UlitmaCompra
+		formatString: General Date
+		lineageTag: c36cda8d-8966-43e7-bb8e-7a5b9d82701b
+
+	measure 'Churn Heatmap Color' = ```
+			
+			VAR s = [ChurnScore]
+			RETURN
+			SWITCH ( TRUE(),
+			    s >= 70, "#b71c1c",
+			    s >= 50, "#e53935",
+			    s >= 30, "#fb8c00",
+			    s >= 15, "#fdd835",
+			    "#43a047"
+			)
+			
+			```
+		lineageTag: 8cd10947-80ca-486b-b9d8-276e9c416632
 
 	partition _Medidas-c7ec2d81-136a-4e9a-9d32-cc63cc526ef7 = m
 		mode: import

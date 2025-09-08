@@ -352,11 +352,6 @@ relationship AutoDetected_7a9a2a89-749b-4453-b903-5e6b3ca504ca
 	fromColumn: fVendaAssistencia.DIM_ITEM_ID
 	toColumn: dItem.DIM_ITEM_ID
 
-relationship e8f9c624-30a5-4fd1-b6c0-eb5ee7d5a618
-	crossFilteringBehavior: bothDirections
-	fromColumn: dSyncron.ID_CodEmpresa_ItemCode
-	toColumn: xItemDemandType.ID_CodEmpresa_ItemCode
-
 relationship 1312ffc8-7738-44ef-8a46-69fa8c178634
 	crossFilteringBehavior: bothDirections
 	fromColumn: fPedido.ID_CodEmpresa_ItemCode

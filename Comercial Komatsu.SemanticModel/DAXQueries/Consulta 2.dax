@@ -1,0 +1,57 @@
+EVALUATE
+	VAR _DataHoje = TODAY()
+	VAR _UlitmaCompra = CALCULATE(
+		MAX(fVenda[DT_EMIS]),
+		ALLEXCEPT(
+			fVenda,
+			fVenda[DIM_CLIENTE_ID]
+		)
+	)
+	VAR _DiasSemCompra = DATEDIFF(
+		_UlitmaCompra,
+		_DataHoje,
+		DAY
+	)
+	VAR _ComprasUltimos90d = CALCULATE(
+		COUNTROWS(fVenda),
+		DATESINPERIOD(
+			dCalendario[Date],
+			_DataHoje,
+			-90,
+			DAY
+		),
+		dCliente[DIM_CLIENTE_ID] = MAX(dCliente[DIM_CLIENTE_ID])
+	)
+	VAR _TicketMedioCliente = DIVIDE(
+		CALCULATE(
+			SUM(fVenda[VALOR_LIQUIDO]),
+			dCliente[DIM_CLIENTE_ID]
+		) = MAX(dCliente[DIM_CLIENTE_ID]),
+		CALCULATE(
+			COUNTROWS(fVenda),
+			dCliente[DIM_CLIENTE_ID]
+		) = MAX(dCliente[DIM_CLIENTE_ID])
+	)
+	VAR _TicketMedioGeral = CALCULATE(AVERAGEX(
+		VALUES(dCliente[DIM_CLIENTE_ID]),
+		DIVIDE(
+			SUM(fVenda[VALOR_LIQUIDO]),
+			COUNTROWS(fVenda)
+		)
+	))
+	-- Score baseado em pontos (quanto maior, maior o risco de churn)
+	VAR _Score = SWITCH(
+		TRUE(),
+		_DiasSemCompra > 120, 50,
+		_DiasSemCompra > 90, 30,
+		_DiasSemCompra > 60, 15,
+		0
+	) + SWITCH(
+		TRUE(),
+		_ComprasUltimos90d = 0, 30,
+		_ComprasUltimos90d = 1, 15,
+		_ComprasUltimos90d >= 3, -10,
+		0
+	) //+ //SWITCH( // TRUE(), // _TicketMedioCliente < _TicketMedioGeral * 0.7, 20, // _TicketMedioCliente < _TicketMedioGeral, 10, // 0 //)
+	RETURN
+		_Score
