@@ -65,6 +65,8 @@ expression Parâmetro1 = #"Arquivo de Amostra" meta [IsParameterQuery=true, Bina
 
 	annotation PBI_ResultType = Binary
 
+	annotation PBI_NavigationStepName = Navegação
+
 expression 'Transformar o Arquivo de Exemplo' =
 		let
 		    Fonte = Excel.Workbook(Parâmetro1, null, true),

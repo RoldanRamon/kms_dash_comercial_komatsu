@@ -1,0 +1,367 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY17SU12",
+      "reportVersionAtImport": {
+        "visual": "1.8.26",
+        "report": "2.0.26",
+        "page": "1.3.26"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom5053231836244862.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.60",
+        "report": "2.0.60",
+        "page": "1.3.60"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter9d043d8cc06898699f3e",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dDivisaoVendas"
+              }
+            },
+            "Property": "COD_DIVISAO_VENDA"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dDivisaoVendas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "d"
+                              }
+                            },
+                            "Property": "COD_DIVISAO_VENDA"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'105'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'104'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Filter7237999b9918c0e407d0",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dDivisaoVendas"
+              }
+            },
+            "Property": "DESC_AGRUP_DIVISAO_VENDA"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dDivisaoVendas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "d"
+                              }
+                            },
+                            "Property": "DESC_AGRUP_DIVISAO_VENDA"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'Logmax'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "databarKPIB8060E2B144244C5A38807466893C9F5",
+    "PBI_CV_25997FEB_F466_44FA_B562_AC4063283C4C",
+    "powerKPIMatrixEB2381CC88A8425FBEB1B07FF57784E6",
+    "PulseChart1459209850231"
+  ],
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "6fb78d4a0e5f451db3d58baefe9b207618829509803087.png",
+          "path": "6fb78d4a0e5f451db3d58baefe9b207618829509803087.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG-Pagina-SemBarra6977558565581445.svg",
+          "path": "BG-Pagina-SemBarra6977558565581445.svg",
+          "type": "Image"
+        },
+        {
+          "name": "BG-Pagina-SemBarra747496331112927.svg",
+          "path": "BG-Pagina-SemBarra747496331112927.svg",
+          "type": "Image"
+        },
+        {
+          "name": "BG-Pagina-SemBarra8551341625912341.svg",
+          "path": "BG-Pagina-SemBarra8551341625912341.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Back-Resumo2565978763969017.svg",
+          "path": "Back-Resumo2565978763969017.svg",
+          "type": "Image"
+        },
+        {
+          "name": "BackgroundsPowerBI-Secundario7787928545663998.png",
+          "path": "BackgroundsPowerBI-Secundario7787928545663998.png",
+          "type": "Image"
+        },
+        {
+          "name": "Comercial_Komatsu4302718343238203.png",
+          "path": "Comercial_Komatsu4302718343238203.png",
+          "type": "Image"
+        },
+        {
+          "name": "Custom5053231836244862.json",
+          "path": "Custom5053231836244862.json",
+          "type": "Image"
+        },
+        {
+          "name": "PaginaInicialComercial07906260252079922.svg",
+          "path": "PaginaInicialComercial07906260252079922.svg",
+          "type": "Image"
+        },
+        {
+          "name": "PaginaSecundariaComercial21688392383787813.svg",
+          "path": "PaginaSecundariaComercial21688392383787813.svg",
+          "type": "Image"
+        },
+        {
+          "name": "PaginaSecundariaComercial22642133132617248.svg",
+          "path": "PaginaSecundariaComercial22642133132617248.svg",
+          "type": "Image"
+        },
+        {
+          "name": "PaginaSecundariaComercial851733168207516.svg",
+          "path": "PaginaSecundariaComercial851733168207516.svg",
+          "type": "Image"
+        },
+        {
+          "name": "logo-komatsu-20213215306848928563.png",
+          "path": "logo-komatsu-20213215306848928563.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY17SU12",
+          "path": "BaseThemes/CY17SU12.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "cartography6439711748644562B5895D8406A5421D",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "cartography6439711748644562B5895D8406A5421D.pbiviz.json",
+          "path": "cartography6439711748644562B5895D8406A5421D.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "choropleth4C77906D867C4C09AFE83BA5E2AA106A",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "choropleth4C77906D867C4C09AFE83BA5E2AA106A.pbiviz.json",
+          "path": "choropleth4C77906D867C4C09AFE83BA5E2AA106A.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "heatmapF244EA9EE1F34E828A80CF19B41976F8",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "heatmapF244EA9EE1F34E828A80CF19B41976F8.pbiviz.json",
+          "path": "heatmapF244EA9EE1F34E828A80CF19B41976F8.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "PBI_CV_EB3A4088_75C5_4746_9D8B_255A7B7ECD6C",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "PBI_CV_EB3A4088_75C5_4746_9D8B_255A7B7ECD6C.pbiviz.json",
+          "path": "PBI_CV_EB3A4088_75C5_4746_9D8B_255A7B7ECD6C.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    },
+    {
+      "name": "Tachometer1474636471549",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "Tachometer1474636471549.pbiviz.json",
+          "path": "Tachometer1474636471549.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "isPersistentUserStateDisabled": true,
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultFilterActionIsDataFilter": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

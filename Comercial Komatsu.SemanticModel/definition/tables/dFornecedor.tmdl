@@ -91,5 +91,5 @@ table dFornecedor
 				in
 				    dbo_DIM_FORNECEDOR_BI
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

@@ -14,7 +14,7 @@ table fLancamentoGerenciais
 
 	column Data
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 907c88b9-ea2a-4464-a416-ad90b8604ec6
 		summarizeBy: none
 		sourceColumn: Data
@@ -58,4 +58,6 @@ table fLancamentoGerenciais
 				     #"Colunas Renomeadas"
 
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 

@@ -72,10 +72,11 @@ table dRepresentante
 			        TRUE(),
 			        dRepresentante[COD_REPRESENTANTE] = "5", "ANDERSON OLIVEIRA/DIEGO ALMEIDA",
 			        dRepresentante[COD_REPRESENTANTE] = "44", "EDSON SOUZA",
-			        dRepresentante[COD_REPRESENTANTE] = "12", "JEFFERSON MARÇAL/APARECIDO SOUZA",
+			        dRepresentante[COD_REPRESENTANTE] = "12", "JEFFERSON MARÇAL",
 			        dRepresentante[COD_REPRESENTANTE] = "20", "GABRIEL SIQUEIRA",
 			        dRepresentante[COD_REPRESENTANTE] = "4", "NIVALDO",
 			        dRepresentante[COD_REPRESENTANTE] = "51", "NIVALDO",
+			        dRepresentante[COD_REPRESENTANTE] = "30", "APARECIDO SOUZA/ALAN NASCIMENTO",
 			        dRepresentante[NOME])
 		lineageTag: 875df6a6-6557-415e-9d51-ea19c9a7499b
 		summarizeBy: none

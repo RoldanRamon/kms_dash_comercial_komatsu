@@ -1,0 +1,334 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+  "items": [
+    {
+      "name": "Bookmark71e6ebebf50359767c33"
+    },
+    {
+      "name": "Bookmarkc4e66d4d31a0309c0b11"
+    },
+    {
+      "name": "Bookmark65d99308739cd10d6195"
+    },
+    {
+      "name": "Bookmarkef570a646c4f3efa266f"
+    },
+    {
+      "name": "Bookmark4db46828baa42b858dfa"
+    },
+    {
+      "name": "Bookmarkfc57d249fe03e1c53f13"
+    },
+    {
+      "name": "Bookmark02cda1fdf05e41b282c1"
+    },
+    {
+      "name": "Bookmark6a2f89ea217d7c654c72"
+    },
+    {
+      "name": "Bookmarkcb003befe39aa3a0678f"
+    },
+    {
+      "name": "Bookmarkc6f3dfb4f93e2d391461"
+    },
+    {
+      "name": "Bookmark81e4739df5a139170bac"
+    },
+    {
+      "name": "Bookmarkc409f8aa5f7cc01f622d"
+    },
+    {
+      "name": "Bookmarke4a9b7ba2545172c797f"
+    },
+    {
+      "name": "Bookmarkd9648cfdb7cdd54d7a0c"
+    },
+    {
+      "name": "Bookmark9ba1475ebe8132c43cb5"
+    },
+    {
+      "name": "Bookmarka7256beff86ba92ba364"
+    },
+    {
+      "name": "Bookmark83920977d6ee929d0d65"
+    },
+    {
+      "name": "Bookmark544ed71c7a658fb38945"
+    },
+    {
+      "name": "Bookmarkd726605dab5b9410ac6d"
+    },
+    {
+      "name": "19b860264d1ea44dc0b5",
+      "displayName": "Faturamento Comparativo",
+      "children": [
+        "f055250763d76e70410c",
+        "589a147f57a167d473c2",
+        "47808ce76dd417412b62",
+        "7b1383f03d2108c7b180"
+      ]
+    },
+    {
+      "name": "Bookmark19bf1feebf8f549817b8"
+    },
+    {
+      "name": "Bookmark5b9a42bdb033752b2319"
+    },
+    {
+      "name": "Bookmark059d2ec820c9840d3724"
+    },
+    {
+      "name": "Bookmark79ea968b760b9099ead7"
+    },
+    {
+      "name": "Bookmark87ca1b306f84349b4f8e"
+    },
+    {
+      "name": "Bookmark35adb8653c14c405b375"
+    },
+    {
+      "name": "Bookmarkcfcd738146ecda793ca7"
+    },
+    {
+      "name": "Bookmark152fa3ef4fde385db5fe"
+    },
+    {
+      "name": "Bookmark442538119621d2ac0e93"
+    },
+    {
+      "name": "Bookmark533440377f3ae6c49a08"
+    },
+    {
+      "name": "Bookmarkbf34279a3af7eef51d61"
+    },
+    {
+      "name": "Bookmark427dc9fdf1d3bbdc42d8"
+    },
+    {
+      "name": "Bookmark7bca435a39385916975b"
+    },
+    {
+      "name": "Bookmark7aedb128f1e296a4225f"
+    },
+    {
+      "name": "Bookmark3f4de8fa0f69f878d2a9"
+    },
+    {
+      "name": "Bookmark0a516e561f3241a975f8"
+    },
+    {
+      "name": "Bookmark0e14436608af61ef8a36"
+    },
+    {
+      "name": "Bookmark53e627d16feaf041412a"
+    },
+    {
+      "name": "Bookmark3b0a9d59d1deeaa2aba6"
+    },
+    {
+      "name": "Bookmark85a6e5b1e01ec2073cef"
+    },
+    {
+      "name": "Bookmark1978625d55fc1871b304"
+    },
+    {
+      "name": "Bookmark1f408620e3cae7d848d4"
+    },
+    {
+      "name": "Bookmark9ca62a2eedc34e1e8c88"
+    },
+    {
+      "name": "Bookmark6db02ab7211b075fd02a"
+    },
+    {
+      "name": "Bookmarkc18ea75ea481a8025452"
+    },
+    {
+      "name": "Bookmark88ac75418f45e19ec1f5"
+    },
+    {
+      "name": "Bookmark8d551e70a42b2bfa6440"
+    },
+    {
+      "name": "Bookmark225457a8af32c642beec"
+    },
+    {
+      "name": "Bookmark3de1d71e8b414cae614b"
+    },
+    {
+      "name": "Bookmarkddcae70f5ae2c78149a9"
+    },
+    {
+      "name": "Bookmark21b4a93b5177587677ad"
+    },
+    {
+      "name": "Bookmark8fea2e2f0075c1138a2d"
+    },
+    {
+      "name": "Bookmark565f81d0bd92808c2489"
+    },
+    {
+      "name": "Bookmark4926e7bc04b44befe1b3"
+    },
+    {
+      "name": "Bookmark002143487ed1a1024d80"
+    },
+    {
+      "name": "Bookmarkedfae12896c9d35109ba"
+    },
+    {
+      "name": "Bookmarkddfaba00201036ee3710"
+    },
+    {
+      "name": "Bookmark0d0179677b28971db774"
+    },
+    {
+      "name": "Bookmark988734b5482268e0d0b4"
+    },
+    {
+      "name": "Bookmark2881f9b9ce0220c7aec1"
+    },
+    {
+      "name": "Bookmark0b5e898db87c00db90d8"
+    },
+    {
+      "name": "Bookmark4e73d52e0c085431c3d6"
+    },
+    {
+      "name": "Bookmarkf08687e04567ed096a19"
+    },
+    {
+      "name": "Bookmark7e1998c0a52b70dba523"
+    },
+    {
+      "name": "Bookmarkb4d2e96dd953920a0854"
+    },
+    {
+      "name": "Bookmark51e5ecd5c62e8164664e"
+    },
+    {
+      "name": "Bookmark9dfad942206692647010"
+    },
+    {
+      "name": "Bookmarkbcd3233de01586db0912"
+    },
+    {
+      "name": "Bookmark23d9ec2b80d7115025f3"
+    },
+    {
+      "name": "Bookmarkeee2ad464e2d6f375e76"
+    },
+    {
+      "name": "Bookmarkc42445d0ef36963f2f99"
+    },
+    {
+      "name": "Bookmark0751f34712bea9d052ad"
+    },
+    {
+      "name": "Bookmark1f8fe3a88deb6782879d"
+    },
+    {
+      "name": "Bookmark2103a1250a2ead489260"
+    },
+    {
+      "name": "Bookmark118233c24d07b2996a02"
+    },
+    {
+      "name": "Bookmarkfba10e7dc0d25b2e58cd"
+    },
+    {
+      "name": "Bookmark8787d1487241c24d46cc"
+    },
+    {
+      "name": "Bookmark1a92ccba91e4f576a1af"
+    },
+    {
+      "name": "Bookmark4664ca5342c66621b562"
+    },
+    {
+      "name": "Bookmark6c181334f2b41d16bf31"
+    },
+    {
+      "name": "Bookmarkd962548fdba202a4ac6e"
+    },
+    {
+      "name": "Bookmark4cbdaceb271bb506b298"
+    },
+    {
+      "name": "Bookmark7cb44910e5c943edfc30"
+    },
+    {
+      "name": "Bookmark09d196a9e028406d9113"
+    },
+    {
+      "name": "Bookmarkde5571fd15a374a6855e"
+    },
+    {
+      "name": "Bookmark322902ae6ede2d6e4355"
+    },
+    {
+      "name": "Bookmark9fa4b671a7976141dbb2"
+    },
+    {
+      "name": "Bookmarkad59924141fd2fde3b5e"
+    },
+    {
+      "name": "Bookmark6a59594fc28e61a1ee53"
+    },
+    {
+      "name": "Bookmark24020d04de778e03fabe"
+    },
+    {
+      "name": "Bookmarkf8674382dad6a8cf90a3"
+    },
+    {
+      "name": "Bookmarkbf57b846707c6ee90798"
+    },
+    {
+      "name": "Bookmark3472ffe69ddd19280c77"
+    },
+    {
+      "name": "Bookmark515a2cb35c5c5636d5e6"
+    },
+    {
+      "name": "Bookmark91b7e636e19ac0ef0ed1"
+    },
+    {
+      "name": "Bookmark1ae46132fbc1427f03b8"
+    },
+    {
+      "name": "Bookmark42d358c86e291177e948"
+    },
+    {
+      "name": "Bookmark426d0aa8b2fa95a7022c"
+    },
+    {
+      "name": "Bookmarkbe32a1007bf625bea822"
+    },
+    {
+      "name": "Bookmark52d4a8da4108c724234d",
+      "displayName": "Pag5",
+      "children": [
+        "Bookmark815d717e2a7e50d72c38",
+        "Bookmarkc34434ac6c7590701717",
+        "Bookmark7c4bdf851962eaca23ed",
+        "Bookmarkb6202b29047e0849a076"
+      ]
+    },
+    {
+      "name": "Bookmarked24db937bbe21007873"
+    },
+    {
+      "name": "Bookmark6af7c9e34287a2a2d62a"
+    },
+    {
+      "name": "Bookmarka3c4f61673c1ff3eefe0"
+    },
+    {
+      "name": "Bookmark806f18ab41bc09a5bebc"
+    },
+    {
+      "name": "Bookmark6c9b6677804a6933c10c"
+    }
+  ]
+}

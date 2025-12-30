@@ -1,0 +1,109 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "c740c4566b7503c111ec",
+  "displayName": "Faturamento Comparativos ",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter9f3e19cd01ec2044d381",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dDivisaoVendas"
+              }
+            },
+            "Property": "DESC_DIVISAO_VENDA"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 0,
+                    "Percent": 0
+                  }
+                }
+              }
+            }
+          },
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'PaginaSecundariaComercial.svg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "PaginaSecundariaComercial21688392383787813.svg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "334L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "7619a99d14e02eb0575c",
+      "target": "ea6c38f1931072a64011",
+      "type": "DataFilter"
+    },
+    {
+      "source": "7619a99d14e02eb0575c",
+      "target": "abc76dcd14b0a1094bb0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ea6c38f1931072a64011",
+      "target": "abc76dcd14b0a1094bb0",
+      "type": "DataFilter"
+    },
+    {
+      "source": "ea6c38f1931072a64011",
+      "target": "15d4c52c0055001e824c",
+      "type": "NoFilter"
+    }
+  ]
+}

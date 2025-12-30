@@ -1,0 +1,274 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "ReportSection3686ffe9dea38eea1856",
+  "displayName": "Parts - OTIF ",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filterd2d25252a05a7eea9c1f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fPedido"
+              }
+            },
+            "Property": "POS_PDV"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "p",
+              "Entity": "fPedido",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "p"
+                          }
+                        },
+                        "Property": "POS_PDV"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Atendido Total'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "Filter28e14486367e6829cba3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dDivisaoVendas"
+              }
+            },
+            "Property": "TP_DIVISAO_VENDA"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dDivisaoVendas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "TP_DIVISAO_VENDA"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Peças'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Vendas Ativas'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Peças KDB'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "Filterf8c152e0974225e8a21d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCliente"
+              }
+            },
+            "Property": "CLIENTE"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'BackgroundsPowerBI-Secundario.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "BackgroundsPowerBI-Secundario7787928545663998.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "215L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "8956fa7cc8ec4d356b7b",
+      "target": "40824c0f786609816889",
+      "type": "DataFilter"
+    },
+    {
+      "source": "8956fa7cc8ec4d356b7b",
+      "target": "be84bd85e924e8f51aa3",
+      "type": "NoFilter"
+    },
+    {
+      "source": "8956fa7cc8ec4d356b7b",
+      "target": "7bd0ab3f1253db09a9c1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "8956fa7cc8ec4d356b7b",
+      "target": "226bd0bc571685356fb1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "226bd0bc571685356fb1",
+      "target": "8956fa7cc8ec4d356b7b",
+      "type": "NoFilter"
+    },
+    {
+      "source": "226bd0bc571685356fb1",
+      "target": "7bd0ab3f1253db09a9c1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "be84bd85e924e8f51aa3",
+      "target": "8956fa7cc8ec4d356b7b",
+      "type": "DataFilter"
+    },
+    {
+      "source": "be84bd85e924e8f51aa3",
+      "target": "226bd0bc571685356fb1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "7bd0ab3f1253db09a9c1",
+      "target": "226bd0bc571685356fb1",
+      "type": "DataFilter"
+    },
+    {
+      "source": "7bd0ab3f1253db09a9c1",
+      "target": "be84bd85e924e8f51aa3",
+      "type": "DataFilter"
+    },
+    {
+      "source": "7bd0ab3f1253db09a9c1",
+      "target": "8956fa7cc8ec4d356b7b",
+      "type": "DataFilter"
+    },
+    {
+      "source": "226bd0bc571685356fb1",
+      "target": "be84bd85e924e8f51aa3",
+      "type": "NoFilter"
+    }
+  ]
+}

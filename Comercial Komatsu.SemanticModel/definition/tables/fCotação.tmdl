@@ -181,14 +181,6 @@ table fCotação
 
 		annotation SummarizationSetBy = Automatic
 
-	column DESC-CANCELAMENTO
-		dataType: string
-		lineageTag: f2721a20-2be4-48c0-a39e-8389938b129b
-		summarizeBy: none
-		sourceColumn: DESC-CANCELAMENTO
-
-		annotation SummarizationSetBy = Automatic
-
 	column VLR_IPI
 		dataType: double
 		lineageTag: 55725fe3-9729-4fa7-bfe8-7e51e125c07e
@@ -257,6 +249,14 @@ table fCotação
 		lineageTag: ae81b074-8bd7-4bba-9f5b-8292d51db4a9
 		summarizeBy: none
 		sourceColumn: LOG_COTACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_CANCELAMENTO
+		dataType: string
+		lineageTag: 6a992064-81ea-4877-9f85-0809efa2c4f0
+		summarizeBy: none
+		sourceColumn: DESC_CANCELAMENTO
 
 		annotation SummarizationSetBy = Automatic
 

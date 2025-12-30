@@ -1072,6 +1072,14 @@ table fPedido
 
 		annotation SummarizationSetBy = Automatic
 
+	column FL_REQ_CONTRATO
+		dataType: string
+		lineageTag: d5069377-f006-4882-b6b0-ce17be8aec49
+		summarizeBy: none
+		sourceColumn: FL_REQ_CONTRATO
+
+		annotation SummarizationSetBy = Automatic
+
 	hierarchy 'ORDEM_CPR Hierarquia'
 		lineageTag: 84c2b0ad-3432-4d24-8285-29c4662622dc
 

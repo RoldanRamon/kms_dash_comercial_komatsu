@@ -390,3 +390,7 @@ relationship 511f8d19-1023-7d14-1311-5d600aa72d45
 	fromColumn: fOrdemManutencao.DIM_EMITENTE_ID
 	toColumn: dCliente.DIM_CLIENTE_ID
 
+relationship 4aacd503-075f-e012-b6f2-d9a5bd682273
+	fromColumn: fLancamentoGerenciais.Data
+	toColumn: dCalendario.Date
+
