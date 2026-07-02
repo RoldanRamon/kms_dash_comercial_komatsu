@@ -143,6 +143,36 @@ table fVendasDevolucao
 
 		annotation SummarizationSetBy = Automatic
 
+	column VLR_BASE_ICMS
+		dataType: double
+		lineageTag: 1cbe4d1f-d9f3-49a4-98e3-99571cac2106
+		summarizeBy: sum
+		sourceColumn: VLR_BASE_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_LIQ_NOVO
+		dataType: double
+		lineageTag: c3295070-e957-441f-8fc4-3d5688f999ea
+		summarizeBy: sum
+		sourceColumn: VLR_LIQ_NOVO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_ICMS
+		dataType: double
+		lineageTag: 930c98a2-8948-48f1-9556-d8fd6dbe24ae
+		summarizeBy: sum
+		sourceColumn: VLR_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition fVendasDevolucao-237f5887-8909-4283-a41b-4f7f8109dfef = m
 		mode: import
 		queryGroup: FATO
@@ -155,11 +185,13 @@ table fVendasDevolucao
 				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado1", "NFE_TXT", each Text.PadStart([NUM_NFE],7,"0")),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"NUM_NFS", type text}}),
 				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado", "NFS_TXT", each Text.PadStart([NUM_NFS],7,"0")),
-				    #"Removed Columns" = Table.RemoveColumns(#"Personalização Adicionada1",{"FATO_VENDA_DEV_ID"})
-				,
-				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Removed Columns",{"PRECO_UNIT","NFE_TXT","NFS_TXT","VLR_BRUTO","VLR_ICMS","VLR_COFINS","VLR_IPI","VLR_PIS","DT_EMIS_NFS","DT_DEVOLUCAO","DT_EMIS_NFE","QTDE_SAIDA","TP_FRETE_NFE","DIM_MOT_DEV_ID","DIM_MASCARA_ID","TP_FRETE_NFS","column37","VLR_DESC","VLR_FRETE_PESO","PESO_LIQ","PESO_BRT","PERC_COMIS","VLR_FRETE"})
+				    #"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Personalização Adicionada1",{"FATO_VENDA_DEV_ID",
+				"PRECO_UNIT","NFE_TXT","NFS_TXT","VLR_BRUTO","VLR_COFINS","VLR_IPI","VLR_PIS","DT_EMIS_NFS","DT_DEVOLUCAO","DT_EMIS_NFE","QTDE_SAIDA","TP_FRETE_NFE","DIM_MOT_DEV_ID","DIM_MASCARA_ID","TP_FRETE_NFS","column37","VLR_DESC","VLR_FRETE_PESO","PESO_LIQ","PESO_BRT","PERC_COMIS","VLR_FRETE"}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Columns removed by Measure Killer",null,0,Replacer.ReplaceValue,{"VLR_BASE_ICMS"}),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Valor Substituído", "VLR_LIQ_NOVO", each if [VLR_BASE_ICMS] > 0 then [VLR_LIQ] else [VLR_LIQ] + [VLR_ICMS]),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"VLR_LIQ_NOVO", type number}})
 				in
-				#"Columns removed by Measure Killer"
+				    #"Tipo Alterado2"
 
 	annotation PBI_ResultType = Table
 

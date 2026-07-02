@@ -19,6 +19,15 @@ table fOrdemManutencao
 
 		annotation SummarizationSetBy = Automatic
 
+	column TEMPO_DE_ESPERA
+		dataType: int64
+		formatString: 0
+		lineageTag: 11bb45a5-7395-4697-a83a-8edb49facb29
+		summarizeBy: sum
+		sourceColumn: TEMPO_DE_ESPERA
+
+		annotation SummarizationSetBy = Automatic
+
 	partition fOrdemManutencao-4c0bcd0c-1b21-4360-a14d-2f69613db11b = m
 		mode: import
 		queryGroup: FATO

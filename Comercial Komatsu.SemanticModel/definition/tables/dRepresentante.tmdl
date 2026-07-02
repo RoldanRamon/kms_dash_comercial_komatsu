@@ -105,6 +105,14 @@ table dRepresentante
 
 		annotation SummarizationSetBy = Automatic
 
+	column REGIAO_E_EST
+		dataType: string
+		lineageTag: d6dd45d9-1309-44cf-bd3c-4323d60acad3
+		summarizeBy: none
+		sourceColumn: REGIAO_E_EST
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dRepresentante-a855ae1a-a845-4d0b-8f0d-0940f1e3a8a8 = m
 		mode: import
 		queryGroup: DIM
@@ -119,7 +127,7 @@ table dRepresentante
 				,
 				#"Columns removed by Measure Killer"= Table.RemoveColumns(    #"Colunas Renomeadas1",{"SUPERIOR"})
 				in
-				#"Columns removed by Measure Killer"
+				    #"Columns removed by Measure Killer"
 
 	annotation PBI_ResultType = Table
 

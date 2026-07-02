@@ -625,10 +625,18 @@ table fVenda
 
 		annotation SummarizationSetBy = Automatic
 
+	column DIM_EMPRESA_NOVO
+		dataType: string
+		lineageTag: 17fd3028-c884-44f1-8a83-259f77117660
+		summarizeBy: none
+		sourceColumn: DIM_EMPRESA_NOVO
+
+		annotation SummarizationSetBy = Automatic
+
 	partition fVenda-10823e43-3f76-471f-a4ac-e396ee955b81 = m
 		mode: import
 		queryGroup: FATO
-		source =
+		source = ```
 				let
 				   Fonte = Sql.Database("10.105.40.196\powerbi", "idba_komatsu"),
 				    dbo_FATO_VENDA_BI = Fonte{[Schema="dbo",Item="FATO_VENDA_BI"]}[Data],
@@ -657,9 +665,29 @@ table fVenda
 				    #"Linhas Filtradas" = Table.SelectRows(#"Coluna Mesclada Inserida", each not Text.Contains([DIM_CLIENTE_ID], "2316")),
 				    #"Coluna Mesclada Inserida1" = Table.AddColumn(#"Linhas Filtradas", "ID_PEDIDO", each Text.Combine({[PEDIDO], Text.From([SEQUENCIA_PEDIDO], "pt-BR")}, ""), type text),
 				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Coluna Mesclada Inserida1", "REPRESENTANTE_ESTAB", each if [DIM_EMPRESA_ID] = "119" then 34 else if [DIM_EMPRESA_ID] = "120" then 34 else if [DIM_EMPRESA_ID] = "123" then 52 else if [DIM_EMPRESA_ID] = "110" then 33 else if [DIM_EMPRESA_ID] = "115" then 12 else if [DIM_EMPRESA_ID] = "113" then 42 else if [DIM_EMPRESA_ID] = "133" then 33 else if [DIM_EMPRESA_ID] = "134" then 42 else null),
-				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"REPRESENTANTE_ESTAB", type text}})
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada",{{"REPRESENTANTE_ESTAB", type text}}),
+				    //Mudanca feito a pedido do gestor Thiago no dia 25.06.2026 para que o pedido da familia de material de corte aparecesse no 115 ao inves de 101
+				    #"Coluna Condicional Adicionada1" = Table.AddColumn(#"Tipo Alterado2", "DIM_EMPRESA_NOVO", each 
+				    if [NOTA] = "0232477" then 119 
+				    else if List.Contains({
+				        "0232477", "0233005", "0233006", "0233007", "0233444", "0234026", "0234032", "0234036", 
+				        "0234038", "0234039", "0234040", "0234043", "0234049", "0234052", "0234053", "0234055", 
+				        "0234056", "0234057", "0234060", "0234062", "0234065", "0234067", "0234182", "0234183", 
+				        "0234184", "0234185", "0234186", "0234187", "0234189", "0234449", "0234450", "0234452", 
+				        "0234453", "0234474", "0234475", "0234481", "0234485", "0234518", "0234519", "0234865", 
+				        "0234866", "0234868", "0234869", "0234870", "0234871", "0234978", "0235127", "0235144", 
+				        "0235145", "0235146", "0235217", "0235218", "0235219", "0235289", "0235290", "0235291", 
+				        "0235292", "0235363", "0235371", "0235372", "0235375", "0235376", "0235901", "0236304", 
+				        "0236385", "0236386", "0236387", "0236389", "0236460", "0236462", "0236463", "0236479", 
+				        "0236545", "0236645"
+				    }, [NOTA]) then 115 
+				    else [DIM_EMPRESA_ID]
+				),
+				
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada1",{{"DIM_EMPRESA_NOVO", type text}})
 				in
-				    #"Tipo Alterado2"
+				    #"Tipo Alterado3"
+				```
 
 	annotation PBI_ResultType = Table
 

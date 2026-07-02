@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "29bf7f1d801020101a40",
   "position": {
-    "x": 14.972477064220183,
-    "y": 468.55045871559628,
+    "x": 15.407407407407407,
+    "y": 469.33333333333331,
     "z": 6000,
-    "height": 237.79816513761466,
-    "width": 849.90825688073392,
-    "tabOrder": 5000
+    "height": 237.03703703703704,
+    "width": 893.62962962962968,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -865,6 +865,20 @@
         },
         "type": "Categorical",
         "howCreated": "User"
+      },
+      {
+        "name": "248d276574e943f6422f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "CONTAGEM NOTAS"
+          }
+        },
+        "type": "Advanced"
       }
     ],
     "filterSortOrder": "Custom"

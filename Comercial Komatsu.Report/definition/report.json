@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
   "themeCollection": {
     "baseTheme": {
       "name": "CY17SU12",
@@ -187,7 +187,7 @@
           "expanded": {
             "expr": {
               "Literal": {
-                "Value": "false"
+                "Value": "true"
               }
             }
           },
@@ -220,6 +220,16 @@
           "type": "Image"
         },
         {
+          "name": "Back-Resumo2565978763969017.svg",
+          "path": "Back-Resumo2565978763969017.svg",
+          "type": "Image"
+        },
+        {
+          "name": "BackgroundsPowerBI-Secundario7787928545663998.png",
+          "path": "BackgroundsPowerBI-Secundario7787928545663998.png",
+          "type": "Image"
+        },
+        {
           "name": "BG-Pagina-SemBarra6977558565581445.svg",
           "path": "BG-Pagina-SemBarra6977558565581445.svg",
           "type": "Image"
@@ -235,16 +245,6 @@
           "type": "Image"
         },
         {
-          "name": "Back-Resumo2565978763969017.svg",
-          "path": "Back-Resumo2565978763969017.svg",
-          "type": "Image"
-        },
-        {
-          "name": "BackgroundsPowerBI-Secundario7787928545663998.png",
-          "path": "BackgroundsPowerBI-Secundario7787928545663998.png",
-          "type": "Image"
-        },
-        {
           "name": "Comercial_Komatsu4302718343238203.png",
           "path": "Comercial_Komatsu4302718343238203.png",
           "type": "Image"
@@ -252,6 +252,11 @@
         {
           "name": "Custom5053231836244862.json",
           "path": "Custom5053231836244862.json",
+          "type": "Image"
+        },
+        {
+          "name": "logo-komatsu-20213215306848928563.png",
+          "path": "logo-komatsu-20213215306848928563.png",
           "type": "Image"
         },
         {
@@ -272,11 +277,6 @@
         {
           "name": "PaginaSecundariaComercial851733168207516.svg",
           "path": "PaginaSecundariaComercial851733168207516.svg",
-          "type": "Image"
-        },
-        {
-          "name": "logo-komatsu-20213215306848928563.png",
-          "path": "logo-komatsu-20213215306848928563.png",
           "type": "Image"
         }
       ]

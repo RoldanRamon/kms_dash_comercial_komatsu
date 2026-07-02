@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "5eab9382d3bd116ac020",
   "position": {
     "x": 10.644490644490643,
@@ -7,7 +7,7 @@
     "z": 14000,
     "height": 260.79002079002078,
     "width": 1269.3555093555094,
-    "tabOrder": 12000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "lineClusteredColumnComboChart",

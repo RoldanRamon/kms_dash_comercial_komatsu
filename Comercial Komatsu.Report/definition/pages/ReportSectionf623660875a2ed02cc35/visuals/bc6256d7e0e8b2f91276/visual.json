@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "bc6256d7e0e8b2f91276",
   "position": {
-    "x": 15.853211009174311,
-    "y": 450.05504587155963,
-    "z": 11001,
-    "height": 259.81651376146789,
-    "width": 1023.4128440366972,
-    "tabOrder": 19001
+    "x": 15.844660194174756,
+    "y": 445.51456310679606,
+    "z": 10000,
+    "height": 264.69902912621359,
+    "width": 1023.3786407766989,
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -618,7 +618,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "102.11111111111111D"
+                  "Value": "111.42151674158534D"
                 }
               }
             }

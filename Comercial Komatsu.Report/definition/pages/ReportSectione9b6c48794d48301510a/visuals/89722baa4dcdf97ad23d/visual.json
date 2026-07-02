@@ -1,0 +1,101 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "89722baa4dcdf97ad23d",
+  "position": {
+    "x": 769,
+    "y": 476.4444444444444,
+    "z": 10000,
+    "height": 229.5555555555556,
+    "width": 295,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fVendasDevolucao"
+                    }
+                  },
+                  "Property": "NUM_NFE"
+                }
+              },
+              "queryRef": "fVendasDevolucao.NUM_NFE",
+              "nativeQueryRef": "NUM_NFE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "TOTAL VLR DEVOLUCOES LIQ"
+                }
+              },
+              "queryRef": "_Medidas.TOTAL VLR DEVOLUCOES LIQ",
+              "nativeQueryRef": "TOTAL VLR DEVOLUCOES LIQ"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "TOTAL VLR DEVOLUCOES LIQ"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "93257ab176232010190c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fVendasDevolucao"
+              }
+            },
+            "Property": "NUM_NFE"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "072374acfead72370434",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "TOTAL VLR DEVOLUCOES LIQ"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

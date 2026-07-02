@@ -19,17 +19,9 @@ queryGroup 'Budget Machines'
 
 	annotation PBI_QueryGroupOrder = 1
 
-queryGroup 'DIM\Transformar Arquivo de dTipoDeContaCliente'
-
-	annotation PBI_QueryGroupOrder = 0
-
-queryGroup 'DIM\Transformar Arquivo de dTipoDeContaCliente\Consultas Auxiliares'
-
-	annotation PBI_QueryGroupOrder = 0
-
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dSyncron","dMoeda","Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","dMotivoCancelamento"]
+annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dSyncron","dMoeda","dMotivoCancelamento"]
 
 annotation __TEdtr = 1
 

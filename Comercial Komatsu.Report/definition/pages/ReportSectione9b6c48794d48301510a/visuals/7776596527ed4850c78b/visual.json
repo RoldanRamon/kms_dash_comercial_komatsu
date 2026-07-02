@@ -1,12 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "7776596527ed4850c78b",
   "position": {
     "x": 15.407407407407407,
     "y": 109.03703703703704,
     "z": 1000,
     "height": 348.44444444444446,
-    "width": 1250.3703703703704
+    "width": 1250.3703703703704,
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -2036,40 +2037,6 @@
           }
         },
         "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "m",
-              "Entity": "_Medidas",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 1,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "m"
-                        }
-                      },
-                      "Property": "TOTAL VLR VENDAS LIQ"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "0L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
         "howCreated": "User"
       },
       {
@@ -2119,8 +2086,57 @@
         "type": "Advanced"
       },
       {
-        "name": "Filterb7836b553882b40cd691",
+        "name": "c9c70b40a8b6c4a167c6",
         "ordinal": 6,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "vlr Meta estabelecimento Total"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "_",
+              "Entity": "_Medidas",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 1,
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "_"
+                        }
+                      },
+                      "Property": "vlr Meta estabelecimento Total"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "0L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "Filterb7836b553882b40cd691",
+        "ordinal": 7,
         "field": {
           "Measure": {
             "Expression": {
@@ -2136,7 +2152,7 @@
       },
       {
         "name": "Filter321f908c9ca090d719e9",
-        "ordinal": 7,
+        "ordinal": 8,
         "field": {
           "Measure": {
             "Expression": {
@@ -2152,7 +2168,7 @@
       },
       {
         "name": "Filter5dcfef916638eb8469a9",
-        "ordinal": 8,
+        "ordinal": 9,
         "field": {
           "Column": {
             "Expression": {
@@ -2167,7 +2183,7 @@
       },
       {
         "name": "Filterd1523a959de85035e053",
-        "ordinal": 9,
+        "ordinal": 10,
         "field": {
           "Measure": {
             "Expression": {
@@ -2178,11 +2194,12 @@
             "Property": "vlr Meta estabelecimento Total"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "Filter989ed98d14a440983d72",
-        "ordinal": 10,
+        "ordinal": 11,
         "field": {
           "Measure": {
             "Expression": {
@@ -2198,7 +2215,7 @@
       },
       {
         "name": "Filterc3fdf00912f9219e4437",
-        "ordinal": 11,
+        "ordinal": 12,
         "field": {
           "Measure": {
             "Expression": {
@@ -2214,7 +2231,7 @@
       },
       {
         "name": "Filterbddb1649558a5b874d48",
-        "ordinal": 12,
+        "ordinal": 13,
         "field": {
           "Measure": {
             "Expression": {
@@ -2229,7 +2246,7 @@
       },
       {
         "name": "Filter35fad3e4d2b6aff28999",
-        "ordinal": 13,
+        "ordinal": 14,
         "field": {
           "Measure": {
             "Expression": {
@@ -2245,7 +2262,7 @@
       },
       {
         "name": "Filter395788dc0bb342c9f212",
-        "ordinal": 14,
+        "ordinal": 15,
         "field": {
           "Measure": {
             "Expression": {
@@ -2261,7 +2278,7 @@
       },
       {
         "name": "Filtera4aa23679986779087c2",
-        "ordinal": 15,
+        "ordinal": 16,
         "field": {
           "Measure": {
             "Expression": {
@@ -2277,7 +2294,7 @@
       },
       {
         "name": "Filter28067db3d3b7231d35d4",
-        "ordinal": 16,
+        "ordinal": 17,
         "field": {
           "Measure": {
             "Expression": {
@@ -2293,7 +2310,7 @@
       },
       {
         "name": "Filterb41a3e6e35a015ba4e14",
-        "ordinal": 17,
+        "ordinal": 18,
         "field": {
           "Measure": {
             "Expression": {
@@ -2302,6 +2319,126 @@
               }
             },
             "Property": "Dif Meta Projetada Estab"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a5c02a00376cd4a3ca9d",
+        "ordinal": 19,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Faturamento Liquido KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9b176829e81e7e77860a",
+        "ordinal": 20,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "vlr Meta estabelecimento KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9c3f6f6b09046a0c5051",
+        "ordinal": 21,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Meta Est. KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "56cafdda880a0b347581",
+        "ordinal": 22,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Faturamento Liquido RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9b4f22d3752caa9bcec1",
+        "ordinal": 23,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "vlr Meta estabelecimento RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ea0c47523e89aba9791a",
+        "ordinal": 24,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Meta Est. RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "abaff2a06560e998e524",
+        "ordinal": 25,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Custo Total Venda"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "519f731cb37b43e7a025",
+        "ordinal": 26,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Dias Uteis Meta Atual"
           }
         },
         "type": "Advanced"

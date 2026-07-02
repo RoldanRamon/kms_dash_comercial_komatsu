@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "226bd0bc571685356fb1",
   "position": {
     "x": 23.703703703703702,
@@ -7,7 +7,7 @@
     "z": 16000,
     "height": 202.66666666666666,
     "width": 706.37037037037032,
-    "tabOrder": 6000
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "hundredPercentStackedColumnChart",

@@ -55,6 +55,22 @@ table FMetas
 
 		annotation SummarizationSetBy = Automatic
 
+	column Column7
+		dataType: string
+		lineageTag: f17f88be-cdf1-4b64-babb-ba4b2ae29c52
+		summarizeBy: none
+		sourceColumn: Column7
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column8
+		dataType: string
+		lineageTag: eeb664c4-98ed-4ae6-ba6a-65bb001e3fdc
+		summarizeBy: none
+		sourceColumn: Column8
+
+		annotation SummarizationSetBy = Automatic
+
 	partition FMetas-11ce28fd-65a4-46fa-931b-aebcbb36c7f7 = m
 		mode: import
 		queryGroup: FATO

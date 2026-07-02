@@ -748,8 +748,248 @@
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
       "tablesLocked": false
+    },
+    {
+      "ordinal": 2,
+      "scrollPosition": {
+        "x": 0,
+        "y": 38
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 334.19569535958146,
+            "y": 599.09073081390909
+          },
+          "nodeIndex": "dRepresentante",
+          "nodeLineageTag": "c2926df9-4514-48ea-97b1-66c2505132e8",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1111.735943438103,
+            "y": 858.41797578533465
+          },
+          "nodeIndex": "dEmpresa",
+          "nodeLineageTag": "65afbc5c-b7b5-47d4-bf20-ec7588a0bf0c",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 641.20732278242008,
+            "y": 158.12710945791991
+          },
+          "nodeIndex": "dCliente",
+          "nodeLineageTag": "959c086f-c05a-40a4-9b78-8d177ea2b7fa",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 356.96445755689717,
+            "y": -50
+          },
+          "nodeIndex": "FMetas",
+          "nodeLineageTag": "5a6b8cfc-5b3b-4f8b-a4cb-2c1627e88cad",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 847.102364854211
+          },
+          "nodeIndex": "xfMachinesControl",
+          "nodeLineageTag": "a2758ce0-acab-491b-b8cc-c01a8ed317d6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 618.38112569043756,
+            "y": 822.59474595797155
+          },
+          "nodeIndex": "fVendasDevolucao",
+          "nodeLineageTag": "2cf49cee-0dbb-4495-97b8-0de7b2208b8b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 902.46965598235954,
+            "y": 508.23789913468261
+          },
+          "nodeIndex": "fVenda",
+          "nodeLineageTag": "d086cc38-1258-4cc8-bd75-25247c5973ff",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 72.771900359053291,
+            "y": 188.8267890928546
+          },
+          "nodeIndex": "fForecastVendedor",
+          "nodeLineageTag": "30a21a26-0619-4303-aed4-450de40ef9bd",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 1",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 3,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 122,
+            "y": 94
+          },
+          "nodeIndex": "dRepresentante",
+          "nodeLineageTag": "c2926df9-4514-48ea-97b1-66c2505132e8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 862,
+            "y": 94
+          },
+          "nodeIndex": "FMetas",
+          "nodeLineageTag": "5a6b8cfc-5b3b-4f8b-a4cb-2c1627e88cad",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 3",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 4,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 193
+          },
+          "nodeIndex": "dEmpresa",
+          "nodeLineageTag": "65afbc5c-b7b5-47d4-bf20-ec7588a0bf0c",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 339,
+            "y": 0
+          },
+          "nodeIndex": "fVenda",
+          "nodeLineageTag": "d086cc38-1258-4cc8-bd75-25247c5973ff",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 345,
+            "y": 549
+          },
+          "nodeIndex": "fVendasDevolucao",
+          "nodeLineageTag": "2cf49cee-0dbb-4495-97b8-0de7b2208b8b",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 981,
+            "y": 173
+          },
+          "nodeIndex": "fNFVendaDev",
+          "nodeLineageTag": "a0fcb36d-502c-4837-83f4-21f6634c5079",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 503,
+            "y": 291
+          },
+          "nodeIndex": "dCalendario",
+          "nodeLineageTag": "31ec10c3-71d3-4390-92e4-0f73ca3417e7",
+          "size": {
+            "height": 145,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Layout 4",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
     }
   ],
-  "selectedDiagram": "Layout 2",
+  "selectedDiagram": "Layout 4",
   "defaultDiagram": "All tables"
 }

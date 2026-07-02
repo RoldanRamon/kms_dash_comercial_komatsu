@@ -42,10 +42,6 @@ relationship f173c349-fcd1-4fa0-9ea2-c705b24c72ad
 	fromColumn: fVenda.DIM_COND_PAGTO_ID
 	toColumn: dCondicaoPagamento.DIM_COND_PAGTO_ID
 
-relationship a59322cd-cec7-4cec-b4c1-24eb26bcf0dc
-	fromColumn: fVenda.DIM_EMPRESA_ID
-	toColumn: dEmpresa.DIM_EMPRESA_ID
-
 relationship 655525e7-a32a-42da-8dd1-8a9a8f0efb54
 	fromColumn: fVenda.DIM_TIPO_NOTA_ID
 	toColumn: dTipoNota.DIM_TIPO_NOTA_ID
@@ -393,4 +389,8 @@ relationship 511f8d19-1023-7d14-1311-5d600aa72d45
 relationship 4aacd503-075f-e012-b6f2-d9a5bd682273
 	fromColumn: fLancamentoGerenciais.Data
 	toColumn: dCalendario.Date
+
+relationship b5e795ee-6ec3-a426-2bbb-932c95e9d252
+	fromColumn: fVenda.DIM_EMPRESA_NOVO
+	toColumn: dEmpresa.DIM_EMPRESA_ID
 

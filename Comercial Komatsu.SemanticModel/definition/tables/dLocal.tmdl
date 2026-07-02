@@ -73,3 +73,5 @@ table dLocal
 
 	annotation PBI_ResultType = Table
 
+	annotation PBI_NavigationStepName = Navegação
+

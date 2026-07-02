@@ -1135,7 +1135,7 @@ table _Medidas
 		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	/// SUMX('fVendasDevolucao', 'fVendasDevolucao'[VLR_LIQ])
-	measure 'TOTAL VLR DEVOLUCOES LIQ' = SUMX('fVendasDevolucao', 'fVendasDevolucao'[VLR_LIQ])
+	measure 'TOTAL VLR DEVOLUCOES LIQ' = SUMX('fVendasDevolucao', 'fVendasDevolucao'[VLR_LIQ_NOVO])
 		formatString: "R$"#,0.00;("R$"#,0.00);"R$"#,0.00
 		lineageTag: a4f63931-c1b3-48e9-8f95-ca0977caada6
 

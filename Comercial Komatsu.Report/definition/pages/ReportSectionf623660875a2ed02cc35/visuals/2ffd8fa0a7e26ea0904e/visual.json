@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "2ffd8fa0a7e26ea0904e",
   "position": {
-    "x": 15.652173913043478,
-    "y": 84.521739130434781,
-    "z": 7000,
-    "height": 351.65217391304344,
-    "width": 1249.0434782608695,
-    "tabOrder": 7000
+    "x": 15.844660194174756,
+    "y": 84.815533980582515,
+    "z": 6000,
+    "height": 393.32038834951453,
+    "width": 1248.9320388349513,
+    "tabOrder": 5000
   },
   "visual": {
     "visualType": "tableEx",
@@ -38,11 +38,11 @@
                       "Entity": "dRepresentante"
                     }
                   },
-                  "Property": "Estabelecimento Consolidado"
+                  "Property": "REGIAO_E_EST"
                 }
               },
-              "queryRef": "REPRESENTANTE.Estabelecimento Consolidado",
-              "displayName": "Est"
+              "queryRef": "dRepresentante.REGIAO_E_EST",
+              "nativeQueryRef": "REGIAO_E_EST"
             },
             {
               "field": {
@@ -1595,7 +1595,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "94.96035127891157D"
+                  "Value": "108.94782993571295D"
                 }
               }
             }
@@ -1690,7 +1690,31 @@
             "totals": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
             }
