@@ -1,0 +1,52 @@
+DEFINE
+    VAR _FiltroPeriodo =
+        TREATAS({"Mês Atual"}, 'dCalendario'[Mês e Ano])
+
+    VAR _FiltroTipoDivisao =
+        TREATAS(
+            {"Peças", "Vendas Ativas", "Peças KDB"},
+            'dDivisaoVendas'[TP_DIVISAO_VENDA]
+        )
+
+    VAR _FiltroAgrupDivisao =
+        FILTER(
+            KEEPFILTERS(VALUES('dDivisaoVendas'[DESC_AGRUP_DIVISAO_VENDA])),
+            'dDivisaoVendas'[DESC_AGRUP_DIVISAO_VENDA] IN {"Komatsu"}
+                && NOT('dDivisaoVendas'[DESC_AGRUP_DIVISAO_VENDA] IN {"Logmax"})
+        )
+
+    VAR _FiltroCodDivisao =
+        FILTER(
+            KEEPFILTERS(VALUES('dDivisaoVendas'[COD_DIVISAO_VENDA])),
+            NOT('dDivisaoVendas'[COD_DIVISAO_VENDA] IN {"105", "104"})
+        )
+
+    VAR _FiltroMetaVisual =
+        FILTER(
+            KEEPFILTERS(
+                SUMMARIZECOLUMNS(
+                    'dEmpresa'[Estabelecimento],
+                    _FiltroPeriodo,
+                    _FiltroTipoDivisao,
+                    _FiltroAgrupDivisao,
+                    _FiltroCodDivisao,
+                    "vlr_Meta_estabelecimento_Total", '_Medidas'[vlr Meta estabelecimento Total]
+                )
+            ),
+            [vlr_Meta_estabelecimento_Total] > 0
+        )
+
+EVALUATE
+SUMMARIZECOLUMNS(
+    'dEmpresa'[Estabelecimento],
+    _FiltroPeriodo,
+    _FiltroTipoDivisao,
+    _FiltroAgrupDivisao,
+    _FiltroCodDivisao,
+    _FiltroMetaVisual,
+    "VendaAntes", '_Medidas'[Faturamento Liquido Total],
+    "Meta", '_Medidas'[vlr Meta estabelecimento Total]
+)
+
+ORDER BY
+    'dEmpresa'[Estabelecimento]
