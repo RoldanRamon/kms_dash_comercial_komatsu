@@ -25,7 +25,7 @@ annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCo
 
 annotation __TEdtr = 1
 
-annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop","TMDLView_Desktop","TMDL-Extension"]
+annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop","TMDLView_Desktop","TMDL-Extension","MCP-PBIModeling"]
 
 ref table dCliente
 ref table dCondicaoPagamento
@@ -86,4 +86,3 @@ ref table dMotivoCancelamento
 
 ref cultureInfo es-BR
 ref cultureInfo en-US
-
