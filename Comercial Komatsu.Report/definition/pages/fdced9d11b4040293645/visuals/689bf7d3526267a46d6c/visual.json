@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "689bf7d3526267a46d6c",
   "position": {
-    "x": 32,
-    "y": 227.55555555555554,
+    "x": 20,
+    "y": 120,
     "z": 0,
-    "height": 492.44444444444446,
-    "width": 1248,
-    "tabOrder": 4000
+    "height": 580,
+    "width": 1240,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "pivotTable",
@@ -39,14 +39,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fVenda"
+                      "Entity": "dCliente"
                     }
                   },
-                  "Property": "DIM_CLIENTE_ID"
+                  "Property": "COD DESC"
                 }
               },
-              "queryRef": "fVenda.DIM_CLIENTE_ID",
-              "nativeQueryRef": "DIM_CLIENTE_ID",
+              "queryRef": "dCliente.COD DESC",
+              "nativeQueryRef": "COD DESC",
               "active": true
             }
           ]
@@ -88,23 +88,6 @@
         ]
       }
     },
-    "expansionStates": [
-      {
-        "roles": [
-          "Rows"
-        ],
-        "levels": [
-          {
-            "queryRefs": [
-              "fVenda.DIM_CLIENTE_ID"
-            ],
-            "isCollapsed": true,
-            "isPinned": true
-          }
-        ],
-        "root": {}
-      }
-    ],
     "objects": {
       "values": [
         {
@@ -160,5 +143,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "19a257528a25db15e018",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fVenda"
+              }
+            },
+            "Property": "Mês e Ano"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "251e4682f919c7eae5a2",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "ChurnScore"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5321ef0a5bcae155bc7e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCliente"
+              }
+            },
+            "Property": "COD DESC"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

@@ -622,8 +622,14 @@ table fVenda
 	column 'Mês e Ano' = MONTH(fVenda[DT_EMIS]) & "/" & YEAR(fVenda[DT_EMIS])
 		lineageTag: 6617ed7d-6070-4fcd-bb5f-7f8ddf25dea1
 		summarizeBy: none
+		sortByColumn: 'Mês e Ano Ord'
 
 		annotation SummarizationSetBy = Automatic
+
+	column 'Mês e Ano Ord' = YEAR(fVenda[DT_EMIS]) * 100 + MONTH(fVenda[DT_EMIS])
+		dataType: int64
+		lineageTag: 8f678f95-d629-45dc-ae1f-61a2c8a4f758
+		summarizeBy: none
 
 	partition fVenda-10823e43-3f76-471f-a4ac-e396ee955b81 = m
 		mode: import
