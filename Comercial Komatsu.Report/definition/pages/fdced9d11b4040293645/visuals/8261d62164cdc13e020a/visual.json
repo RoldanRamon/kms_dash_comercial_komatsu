@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "8261d62164cdc13e020a",
   "position": {
-    "x": 400,
-    "y": 12,
+    "x": 192,
+    "y": 99.555555555555557,
     "z": 4000,
-    "height": 45,
-    "width": 200,
-    "tabOrder": 3000
+    "height": 58.074074074074076,
+    "width": 183.7037037037037,
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "slicer",
@@ -255,23 +255,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "a39895f6b8ce4ec01f58",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dEmpresa"
-              }
-            },
-            "Property": "REGIONAL"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

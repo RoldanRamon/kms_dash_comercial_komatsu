@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "2992e3ad343a1c1201b0",
   "position": {
-    "x": 20,
-    "y": 12,
+    "x": 0,
+    "y": 0,
     "z": 6000,
-    "height": 45,
-    "width": 160,
-    "tabOrder": 1000
+    "height": 56,
+    "width": 128,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "slicer",
@@ -294,20 +294,6 @@
         },
         "type": "Advanced",
         "howCreated": "User"
-      },
-      {
-        "name": "60d925328b0e7b7ae98f",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fVenda"
-              }
-            },
-            "Property": "Mês e Ano"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }

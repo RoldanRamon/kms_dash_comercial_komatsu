@@ -6,7 +6,6 @@ table xfMachinesControlConsol
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: xfMachinesControl[ID_NOTA]
-		columnOrigin: xfMachinesControl.ID_NOTA
 
 		annotation SummarizationSetBy = Automatic
 

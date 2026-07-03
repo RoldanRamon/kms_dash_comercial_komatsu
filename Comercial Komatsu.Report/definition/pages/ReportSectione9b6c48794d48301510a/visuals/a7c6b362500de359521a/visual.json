@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "a7c6b362500de359521a",
   "position": {
     "x": 909.03703703703707,
@@ -381,62 +381,6 @@
         },
         "type": "Categorical",
         "howCreated": "User"
-      },
-      {
-        "name": "30f91334d2eb34d1d424",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "vlr Meta estabelecimento Total"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "23d56e1ec4e192ec6bc7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dCalendario"
-              }
-            },
-            "Property": "DIA UTIL SOMA"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ce9893df585711e2dfae",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "% Meta Est. Total"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "b3b7ed85a2fbf0930a9d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Faturamento Liquido Total"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

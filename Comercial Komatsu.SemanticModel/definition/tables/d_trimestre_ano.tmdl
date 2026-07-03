@@ -6,7 +6,6 @@ table d_trimestre_ano
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dCalendario[Trimestre/Ano]
-		columnOrigin: dCalendario.Trimestre/Ano
 
 		annotation SummarizationSetBy = Automatic
 

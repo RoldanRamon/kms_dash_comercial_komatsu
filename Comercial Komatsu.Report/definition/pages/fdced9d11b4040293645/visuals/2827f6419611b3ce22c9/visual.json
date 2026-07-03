@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "2827f6419611b3ce22c9",
   "position": {
-    "x": 20,
-    "y": 65,
+    "x": 367.11111111111109,
+    "y": 100.44444444444444,
     "z": 3000,
-    "height": 45,
-    "width": 1240,
-    "tabOrder": 5000
+    "height": 75.555555555555557,
+    "width": 840,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "slicer",
@@ -329,20 +329,6 @@
         },
         "howCreated": "User",
         "isLockedInViewMode": true
-      },
-      {
-        "name": "f4e188190672d5755a78",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dRepresentante"
-              }
-            },
-            "Property": "NOME AGRUPADO"
-          }
-        },
-        "type": "Categorical"
       }
     ],
     "filterSortOrder": "Custom"
