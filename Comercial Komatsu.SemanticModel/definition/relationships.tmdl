@@ -390,7 +390,7 @@ relationship 4aacd503-075f-e012-b6f2-d9a5bd682273
 	fromColumn: fLancamentoGerenciais.Data
 	toColumn: dCalendario.Date
 
-relationship b5e795ee-6ec3-a426-2bbb-932c95e9d252
-	fromColumn: fVenda.DIM_EMPRESA_NOVO
+relationship 2697dad2-d51b-04d6-cb19-e7c996d443d8
+	fromColumn: fVenda.DIM_EMPRESA_ID
 	toColumn: dEmpresa.DIM_EMPRESA_ID
 

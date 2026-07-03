@@ -16,6 +16,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[PEDIDO]
+		columnOrigin: fVenda.PEDIDO
 
 		annotation SummarizationSetBy = Automatic
 
@@ -24,6 +25,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[DIM_DIVISAO_VENDA_ID]
+		columnOrigin: fVenda.DIM_DIVISAO_VENDA_ID
 
 		annotation SummarizationSetBy = Automatic
 
@@ -33,6 +35,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dCalendario[DT_DATA]
+		columnOrigin: dCalendario.DT_DATA
 
 		annotation SummarizationSetBy = Automatic
 
@@ -45,6 +48,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dDivisaoVendas[TP_DIVISAO_VENDA]
+		columnOrigin: dDivisaoVendas.TP_DIVISAO_VENDA
 
 		annotation SummarizationSetBy = Automatic
 
@@ -54,6 +58,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[DATA_PEDIDO]
+		columnOrigin: fVenda.DATA_PEDIDO
 
 		annotation SummarizationSetBy = Automatic
 
@@ -90,6 +95,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dCliente[COD_CLIENTE]
+		columnOrigin: dCliente.COD_CLIENTE
 
 		annotation SummarizationSetBy = Automatic
 
@@ -108,6 +114,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[COD_ITEM]
+		columnOrigin: fVenda.COD_ITEM
 
 		annotation SummarizationSetBy = Automatic
 
@@ -116,6 +123,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[ID_PEDIDO]
+		columnOrigin: fVenda.ID_PEDIDO
 
 		annotation SummarizationSetBy = Automatic
 
@@ -124,6 +132,7 @@ table fVendasPedidoMes
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: fVenda[STATUS PEDIDO]
+		columnOrigin: fVenda.'STATUS PEDIDO'
 
 		annotation SummarizationSetBy = Automatic
 

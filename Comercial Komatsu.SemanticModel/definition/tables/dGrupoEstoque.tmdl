@@ -12,6 +12,7 @@ table dGrupoEstoque
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dItem[COD_C4]
+		columnOrigin: dItem.COD_C4
 
 		annotation SummarizationSetBy = Automatic
 
@@ -20,6 +21,7 @@ table dGrupoEstoque
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: dItem[DESC_C4]
+		columnOrigin: dItem.DESC_C4
 
 		annotation SummarizationSetBy = Automatic
 
