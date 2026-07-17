@@ -1,0 +1,17 @@
+table fPedidosNrPed
+	lineageTag: 740b8870-e4fb-403d-b301-3820c04f5cfe
+
+	column NR_PEDIDO
+		lineageTag: 060db7ea-49a4-4c98-a2a2-78ced2e65f54
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fPedido[NR_PEDIDO]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fPedidosNrPed-8aa10e6c-2c63-4695-b6ee-30f163fe82cd = calculated
+		mode: import
+		source = SUMMARIZE(fPedido,fPedido[NR_PEDIDO])
+
+	annotation PBI_Id = cbedb7ecd3224f16abc3172294686ce9
+
