@@ -1,0 +1,10 @@
+{
+    "name": "PowerBI-Agent-Context",
+    "version": "1.0.0",
+    "skills": [
+        "caverman",
+        "pbi-requirements-gathering",
+        "pbi-theme-ux",
+        "pbir-report-builder"
+    ]
+}
