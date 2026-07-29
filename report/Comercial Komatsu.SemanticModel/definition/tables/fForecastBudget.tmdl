@@ -53,7 +53,7 @@ table fForecastBudget
 
 	column Data
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 5160fc51-e75f-4b56-ba3f-8be8f9e4fc32
 		summarizeBy: none
 		sourceColumn: Data

@@ -30,7 +30,7 @@ table fApontamentoOrdem
 
 	column dt-despesa
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 97ff863f-681e-4dbe-9b67-c57e638734cb
 		summarizeBy: none
 		sourceColumn: dt-despesa
@@ -142,7 +142,7 @@ table fApontamentoOrdem
 
 	column 'Início do Mês'
 		dataType: dateTime
-		formatString: Long Date
+		formatString: Short Date
 		lineageTag: 8e0f60c2-eac5-4453-8305-e498494974e5
 		summarizeBy: none
 		sourceColumn: Início do Mês
@@ -164,7 +164,7 @@ table fApontamentoOrdem
 				in
 				    #"Erros Substituídos"
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 
 	annotation PBI_NavigationStepName = Navegação
 

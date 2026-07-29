@@ -21,7 +21,7 @@ queryGroup 'Budget Machines'
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dSyncron","dMoeda","dMotivoCancelamento"]
+annotation PBI_QueryOrder = ["dCliente","dItem","dDivisaoVendas","dEmpresa","dCondicaoPagamento","dLocal","dRepresentante","dCalendario","dTipoNota","dTransportadora","dUltimaAtualizacao","dUnidadeDeNegocio","dModeloItem","dItemFornecedor","dTabelaPreco","dFornecedor","dClienteModulo","fRecebimento","fPedido","fVenda","fSaldoEstoque","_Medidas","fVendasDevolucao","FMetas","fMetasEstab","fNFVendaDev","fForecastQty","fForecastBudget","fForecastMYO","fForecastVendedor","fLancamentoGerenciais","fPedidoItemMaq","RemoveAcento","fMetasServicos","fPedidoHistorico","dMargemFamilia","xfMachinesControl","dCalendarioForecast","fOrdemManutencao","fApontamentoOrdem","fPedidoOrdemManutencao","fApontamentoOrdemTecnico","fVendaAssistencia","fCotação","dSyncron","dMoeda","dMotivoCancelamento","dEmitente"]
 
 annotation __TEdtr = 1
 
@@ -83,6 +83,8 @@ ref table xItemDemandType
 ref table dMoeda
 ref table fCotação
 ref table dMotivoCancelamento
+ref table dEmitente
+ref table fPedidosNrPed
 
 ref cultureInfo es-BR
 ref cultureInfo en-US
