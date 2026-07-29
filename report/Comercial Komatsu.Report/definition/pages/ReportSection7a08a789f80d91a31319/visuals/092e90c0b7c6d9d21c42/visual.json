@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "092e90c0b7c6d9d21c42",
   "position": {
     "x": 320.95522388059703,
@@ -87,14 +87,14 @@
                           [
                             {
                               "Literal": {
-                                "Value": "2024L"
+                                "Value": "2025L"
                               }
                             }
                           ],
                           [
                             {
                               "Literal": {
-                                "Value": "2025L"
+                                "Value": "2026L"
                               }
                             }
                           ]
@@ -262,6 +262,20 @@
           ]
         },
         "howCreated": "User"
+      },
+      {
+        "name": "54677406db560b19e307",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dCalendario"
+              }
+            },
+            "Property": "Ano Fiscal"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
