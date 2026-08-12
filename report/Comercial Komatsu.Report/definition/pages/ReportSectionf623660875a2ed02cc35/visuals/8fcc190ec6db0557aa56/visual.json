@@ -1,37 +1,18 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "bc6256d7e0e8b2f91276",
+  "name": "8fcc190ec6db0557aa56",
   "position": {
-    "x": 15.844660194174756,
-    "y": 445.51456310679606,
-    "z": 10000,
-    "height": 264.69902912621359,
-    "width": 1023.3786407766989,
-    "tabOrder": 9000
+    "x": 15.407407407407407,
+    "y": 469.33333333333331,
+    "z": 9000,
+    "height": 237.03703703703704,
+    "width": 893.62962962962968,
+    "tabOrder": 10001
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Columns": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "dCliente"
-                    }
-                  },
-                  "Property": "TIPO DE CONTA"
-                }
-              },
-              "queryRef": "dCliente.TIPO DE CONTA",
-              "nativeQueryRef": "TIPO DE CONTA",
-              "active": true
-            }
-          ]
-        },
         "Rows": {
           "projections": [
             {
@@ -54,20 +35,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dEmpresa"
-                    }
-                  },
-                  "Property": "Estabelecimento"
-                }
-              },
-              "queryRef": "EMPRESA.Estabelecimento",
-              "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "dRepresentante"
                     }
                   },
@@ -75,7 +42,7 @@
                 }
               },
               "queryRef": "REPRESENTANTE.REPRESENTANTE",
-              "active": true
+              "active": false
             },
             {
               "field": {
@@ -89,7 +56,7 @@
                 }
               },
               "queryRef": "CLIENTE.COD DESC END",
-              "active": true
+              "active": false
             },
             {
               "field": {
@@ -103,7 +70,7 @@
                 }
               },
               "queryRef": "NF VENDA DEV.NUM_NFE",
-              "active": true
+              "active": false
             }
           ]
         },
@@ -117,12 +84,54 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Net Sales Vendedor"
+                  "Property": "TOTAL VLR VENDAS LIQ"
                 }
               },
-              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ VENDEDOR1",
-              "nativeQueryRef": "TOTAL VLR VENDAS LIQ VENDEDOR",
-              "displayName": "Net Sales"
+              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ",
+              "displayName": "Net Incomes"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "TOTAL VLR DEVOLUCOES LIQ"
+                }
+              },
+              "queryRef": "_Medidas.TOTAL VLR DEVOLUCOES LIQ",
+              "displayName": "Net Returns"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "TOTAL VLR VENDAS ACUM"
+                }
+              },
+              "queryRef": "_Medidas.TOTAL VLR VENDAS ACUM",
+              "displayName": "Accumulated Income"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "CONTAGEM NOTAS"
+                }
+              },
+              "queryRef": "_Medidas.CONTAGEM NOTAS",
+              "nativeQueryRef": "Invoices",
+              "displayName": "Invoices"
             }
           ]
         }
@@ -140,59 +149,7 @@
                 "Property": "DT_DATA"
               }
             },
-            "direction": "Descending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dEmpresa"
-                  }
-                },
-                "Property": "Estabelecimento"
-              }
-            },
-            "direction": "Descending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dRepresentante"
-                  }
-                },
-                "Property": "REPRESENTANTE"
-              }
-            },
-            "direction": "Descending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dCliente"
-                  }
-                },
-                "Property": "COD DESC END"
-              }
-            },
-            "direction": "Descending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "fNFVendaDev"
-                  }
-                },
-                "Property": "NUM_NFE"
-              }
-            },
-            "direction": "Descending"
+            "direction": "Ascending"
           }
         ]
       }
@@ -224,25 +181,6 @@
           },
           {
             "queryRefs": [
-              "EMPRESA.Estabelecimento"
-            ],
-            "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "dEmpresa"
-                    }
-                  },
-                  "Property": "Estabelecimento"
-                }
-              }
-            ],
-            "isPinned": true
-          },
-          {
-            "queryRefs": [
               "REPRESENTANTE.REPRESENTANTE"
             ],
             "isCollapsed": true,
@@ -265,38 +203,13 @@
               "CLIENTE.COD DESC END"
             ],
             "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "dCliente"
-                    }
-                  },
-                  "Property": "COD DESC END"
-                }
-              }
-            ],
             "isPinned": true
           },
           {
             "queryRefs": [
               "NF VENDA DEV.NUM_NFE"
             ],
-            "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fNFVendaDev"
-                    }
-                  },
-                  "Property": "NUM_NFE"
-                }
-              }
-            ],
-            "isPinned": true
+            "isCollapsed": true
           }
         ],
         "root": {
@@ -305,165 +218,20 @@
               "identityValues": [
                 {
                   "Literal": {
-                    "Value": "datetime'2022-11-07T00:00:00'"
-                  }
-                }
-              ],
-              "isToggled": true,
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'123 - CURVELO'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "datetime'2022-11-17T00:00:00'"
-                  }
-                }
-              ],
-              "isToggled": true,
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'123 - CURVELO'"
-                      }
-                    }
-                  ],
-                  "isToggled": true
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
                     "Value": "datetime'2025-08-01T00:00:00'"
                   }
                 }
               ],
-              "isToggled": true,
               "children": [
                 {
                   "identityValues": [
                     {
                       "Literal": {
-                        "Value": "'132 - RIBAS DO RIO PARDO'"
+                        "Value": "'JEFFERSON DE SOUZA MARCAL'"
                       }
                     }
                   ],
-                  "isToggled": true,
-                  "children": [
-                    {
-                      "identityValues": [
-                        {
-                          "Literal": {
-                            "Value": "'GABRIEL MARTINS SIQUEIRA'"
-                          }
-                        }
-                      ],
-                      "isToggled": true,
-                      "children": [
-                        {
-                          "identityValues": [
-                            {
-                              "Literal": {
-                                "Value": "'11248 - SUZANO SA 28 Ribas Do Rio Pardo, Ms, Br'"
-                              }
-                            }
-                          ],
-                          "isToggled": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "datetime'2025-09-08T00:00:00'"
-                  }
-                }
-              ],
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'119 - ACAILANDIA'"
-                      }
-                    }
-                  ],
-                  "children": [
-                    {
-                      "identityValues": [
-                        {
-                          "Literal": {
-                            "Value": "'GENILDO VIEIRA DA SILVA'"
-                          }
-                        }
-                      ],
-                      "isToggled": true,
-                      "children": [
-                        {
-                          "identityValues": [
-                            {
-                              "Literal": {
-                                "Value": "'12574 - SUZANO MA207 Sitio Novo, Ma, Br'"
-                              }
-                            }
-                          ],
-                          "isToggled": true
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "identityValues": [
-                {
-                  "Literal": {
-                    "Value": "datetime'2025-10-27T00:00:00'"
-                  }
-                }
-              ],
-              "children": [
-                {
-                  "identityValues": [
-                    {
-                      "Literal": {
-                        "Value": "'113 - BAURU'"
-                      }
-                    }
-                  ],
-                  "children": [
-                    {
-                      "identityValues": [
-                        {
-                          "Literal": {
-                            "Value": "'NIVALDO LUIS BORBA'"
-                          }
-                        }
-                      ],
-                      "isToggled": true
-                    }
-                  ]
+                  "isToggled": true
                 }
               ]
             }
@@ -590,7 +358,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "187.0116677016532D"
+                  "Value": "226.30304117656644D"
                 }
               }
             }
@@ -618,36 +386,27 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "111.42151674158534D"
+                  "Value": "151.3215859030837D"
                 }
               }
             }
           },
           "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dCliente"
-                          }
-                        },
-                        "Property": "TIPO DE CONTA"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'KA'"
-                      }
-                    }
-                  }
+            "metadata": "_Medidas.TOTAL VLR VENDAS LIQ"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "142.11013215859032D"
                 }
               }
-            ]
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.TOTAL VLR DEVOLUCOES LIQ"
           }
         }
       ],
@@ -673,6 +432,120 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#16C7FD'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#FD625E'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#FFFFFF'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.TOTAL VLR VENDAS LIQ"
+          }
+        },
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#FFC82F'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#FD625E'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'#FFFFFF'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.TOTAL VLR DEVOLUCOES LIQ"
           }
         }
       ],
@@ -903,7 +776,15 @@
         "objects": {
           "general": [
             {
-              "properties": {}
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
             }
           ]
         }
@@ -921,8 +802,7 @@
             "Property": "TOTAL VLR VENDAS LIQ"
           }
         },
-        "type": "Advanced",
-        "howCreated": "User"
+        "type": "Advanced"
       },
       {
         "name": "Filter8c5c379cd2c3d53a7a92",
@@ -937,8 +817,7 @@
             "Property": "TOTAL VLR DEVOLUCOES LIQ"
           }
         },
-        "type": "Advanced",
-        "howCreated": "User"
+        "type": "Advanced"
       },
       {
         "name": "Filter499198dd68f8e1368b58",
@@ -969,8 +848,7 @@
             "Property": "TOTAL VLR VENDAS ACUM"
           }
         },
-        "type": "Advanced",
-        "howCreated": "User"
+        "type": "Advanced"
       },
       {
         "name": "Filter3950171171375e208556",
@@ -989,8 +867,7 @@
         "howCreated": "User"
       },
       {
-        "name": "Filter5bc1135040db80ea3e79",
-        "ordinal": 9,
+        "name": "c17432cb6b035e36032c",
         "field": {
           "Measure": {
             "Expression": {
@@ -998,88 +875,10 @@
                 "Entity": "_Medidas"
               }
             },
-            "Property": "vlr Meta vendedor TOTAL"
-          }
-        },
-        "type": "Advanced",
-        "howCreated": "User"
-      },
-      {
-        "name": "Filtercb594975283c0050cfe6",
-        "ordinal": 10,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "TOTAL VLR VENDAS LIQ VENDEDOR + DEV TOTAL"
-          }
-        },
-        "type": "Advanced",
-        "howCreated": "User"
-      },
-      {
-        "name": "Filter033140097a52ea03a8a5",
-        "ordinal": 11,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Net Sales Vendedor"
+            "Property": "CONTAGEM NOTAS"
           }
         },
         "type": "Advanced"
-      },
-      {
-        "name": "Filter89f130b83ac3e2cd9d02",
-        "ordinal": 12,
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dEmpresa"
-              }
-            },
-            "Property": "Estabelecimento"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "Filterb9681ab45ea7a407eff4",
-        "ordinal": 13,
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dRepresentante"
-              }
-            },
-            "Property": "NOME"
-          }
-        },
-        "type": "Categorical",
-        "howCreated": "User",
-        "objects": {
-          "general": [
-            {
-              "properties": {
-                "isInvertedSelectionMode": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "true"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
       }
     ],
     "filterSortOrder": "Custom"
