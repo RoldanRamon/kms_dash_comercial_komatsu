@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "2ffd8fa0a7e26ea0904e",
   "position": {
     "x": 15.844660194174756,
@@ -27,7 +27,7 @@
                 }
               },
               "queryRef": "REPRESENTANTE.NOME AGRUPADO",
-              "nativeQueryRef": "NOME AGRUPADO",
+              "nativeQueryRef": "Sellers",
               "displayName": "Sellers"
             },
             {
@@ -52,12 +52,11 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Net Sales Vendedor"
+                  "Property": "vlr Meta vendedor TOTAL"
                 }
               },
-              "queryRef": "_Medidas.Net Sales Vendedor",
-              "nativeQueryRef": "Net Sales",
-              "displayName": "Net Sales"
+              "queryRef": "_Medidas.vlr Meta vendedor",
+              "displayName": "Net Target Total"
             },
             {
               "field": {
@@ -67,11 +66,12 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "vlr Meta vendedor TOTAL"
+                  "Property": "Net Sales Vendedor"
                 }
               },
-              "queryRef": "_Medidas.vlr Meta vendedor",
-              "displayName": "Net Target Total"
+              "queryRef": "_Medidas.Net Sales Vendedor",
+              "nativeQueryRef": "Net Sales",
+              "displayName": "Net Sales"
             },
             {
               "field": {
@@ -95,12 +95,39 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Net Sales Vendedor KA"
+                  "Property": "DMC Vendedor"
                 }
               },
-              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ VENDEDOR + DEV KA",
-              "nativeQueryRef": "Net Sales KA",
-              "displayName": "Net Sales KA"
+              "queryRef": "_Medidas.DMC Vendedor",
+              "displayName": "DMC Total"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Margem Vendedor"
+                }
+              },
+              "queryRef": "_Medidas.Margem Vendedor",
+              "displayName": "Margem Total"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "% Margem Vendedor"
+                }
+              },
+              "queryRef": "_Medidas.% Margem Vendedor",
+              "displayName": "% Margem Total"
             },
             {
               "field": {
@@ -125,6 +152,21 @@
                       "Entity": "_Medidas"
                     }
                   },
+                  "Property": "Net Sales Vendedor KA"
+                }
+              },
+              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ VENDEDOR + DEV KA",
+              "nativeQueryRef": "Net Sales KA",
+              "displayName": "Net Sales KA"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
                   "Property": "% Meta KA"
                 }
               },
@@ -140,12 +182,39 @@
                       "Entity": "_Medidas"
                     }
                   },
-                  "Property": "Net Sales Vendedor RETAIL"
+                  "Property": "DMC Vendedor KA"
                 }
               },
-              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ VENDEDOR + DEV RETAIL",
-              "nativeQueryRef": "Net Sales RETAIL",
-              "displayName": "Net Sales RETAIL"
+              "queryRef": "_Medidas.DMC Vendedor KA",
+              "displayName": "DMC KA"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Margem Vendedor KA"
+                }
+              },
+              "queryRef": "_Medidas.Margem Vendedor KA",
+              "displayName": "Margem KA"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "% Margem Vendedor KA"
+                }
+              },
+              "queryRef": "_Medidas.% Margem Vendedor KA",
+              "displayName": "% Margem KA"
             },
             {
               "field": {
@@ -170,12 +239,69 @@
                       "Entity": "_Medidas"
                     }
                   },
+                  "Property": "Net Sales Vendedor RETAIL"
+                }
+              },
+              "queryRef": "_Medidas.TOTAL VLR VENDAS LIQ VENDEDOR + DEV RETAIL",
+              "nativeQueryRef": "Net Sales RETAIL",
+              "displayName": "Net Sales RETAIL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
                   "Property": "% Meta RETAIL"
                 }
               },
               "queryRef": "_Medidas.% Meta RETAIL",
               "nativeQueryRef": "% Target RETAIL",
               "displayName": "% Target RETAIL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "DMC Vendedor RETAIL"
+                }
+              },
+              "queryRef": "_Medidas.DMC Vendedor RETAIL",
+              "displayName": "DMC RETAIL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Margem Vendedor RETAIL"
+                }
+              },
+              "queryRef": "_Medidas.Margem Vendedor RETAIL",
+              "displayName": "Margem RETAIL"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "% Margem Vendedor RETAIL"
+                }
+              },
+              "queryRef": "_Medidas.% Margem Vendedor RETAIL",
+              "displayName": "% Margem RETAIL"
             }
           ]
         }
@@ -1581,7 +1707,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "224.3782420543098D"
+                  "Value": "127.58268155078508D"
                 }
               }
             }
@@ -1908,6 +2034,7 @@
             }
           ]
         },
+        "howCreated": "User",
         "isLockedInViewMode": true
       },
       {

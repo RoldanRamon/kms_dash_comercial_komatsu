@@ -1836,6 +1836,42 @@ table _Medidas
 			```
 		lineageTag: 8cd10947-80ca-486b-b9d8-276e9c416632
 
+	measure 'DMC Vendedor' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: e82156b8-d7b1-47dc-9c0c-5e4026b6255f
+
+	measure 'Margem Vendedor' = [Net Sales Vendedor] - [DMC Vendedor]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: e927477d-b841-434d-ac30-2166fdb6b42c
+
+	measure '% Margem Vendedor' = DIVIDE([Margem Vendedor], [Net Sales Vendedor], 0)
+		formatString: 0.00%
+		lineageTag: 012e8637-009c-4b06-b6cf-3556dcd13fd5
+
+	measure 'DMC Vendedor KA' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 08a93e7f-a458-48f0-be41-4cc4d33d4090
+
+	measure 'Margem Vendedor KA' = [Net Sales Vendedor KA] - [DMC Vendedor KA]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: c11e64bf-c1ed-4008-8557-edae066e7893
+
+	measure '% Margem Vendedor KA' = DIVIDE([Margem Vendedor KA], [Net Sales Vendedor KA], 0)
+		formatString: 0.00%
+		lineageTag: f880b5e1-dbf8-4a88-bf47-d989cc176b1b
+
+	measure 'DMC Vendedor RETAIL' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 7e791b55-8792-4604-b9d7-4fbeac299eb2
+
+	measure 'Margem Vendedor RETAIL' = [Net Sales Vendedor RETAIL] - [DMC Vendedor RETAIL]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: da26e466-308a-4540-8d9f-a2c71183e186
+
+	measure '% Margem Vendedor RETAIL' = DIVIDE([Margem Vendedor RETAIL], [Net Sales Vendedor RETAIL], 0)
+		formatString: 0.00%
+		lineageTag: d8e19b2d-c34c-430e-a4ee-4f0cbed52cbc
+
 	partition _Medidas-c7ec2d81-136a-4e9a-9d32-cc63cc526ef7 = m
 		mode: import
 		source =

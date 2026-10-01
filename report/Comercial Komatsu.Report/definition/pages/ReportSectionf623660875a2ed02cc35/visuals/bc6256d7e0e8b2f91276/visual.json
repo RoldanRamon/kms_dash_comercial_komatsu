@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "bc6256d7e0e8b2f91276",
   "position": {
-    "x": 15.844660194174756,
-    "y": 445.51456310679606,
+    "x": 16.159600997506235,
+    "y": 477.60598503740647,
     "z": 10000,
-    "height": 264.69902912621359,
-    "width": 1023.3786407766989,
+    "height": 225.33665835411472,
+    "width": 1023.4413965087282,
     "tabOrder": 9000
   },
   "visual": {
@@ -462,6 +462,52 @@
                         }
                       ],
                       "isToggled": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "datetime'2026-08-13T00:00:00'"
+                  }
+                }
+              ],
+              "isToggled": true,
+              "children": [
+                {
+                  "identityValues": [
+                    {
+                      "Literal": {
+                        "Value": "'115 - TRES LAGOAS'"
+                      }
+                    }
+                  ],
+                  "isToggled": true,
+                  "children": [
+                    {
+                      "identityValues": [
+                        {
+                          "Literal": {
+                            "Value": "'JEFFERSON DE SOUZA MARCAL'"
+                          }
+                        }
+                      ],
+                      "isToggled": true,
+                      "children": [
+                        {
+                          "identityValues": [
+                            {
+                              "Literal": {
+                                "Value": "'11219 - COMBER TL-MS Tres Lagoas, Ms, Br'"
+                              }
+                            }
+                          ],
+                          "isToggled": true
+                        }
+                      ]
                     }
                   ]
                 }
