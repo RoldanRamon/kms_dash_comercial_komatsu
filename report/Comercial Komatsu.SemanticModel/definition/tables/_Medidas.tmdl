@@ -1872,6 +1872,56 @@ table _Medidas
 		formatString: 0.00%
 		lineageTag: d8e19b2d-c34c-430e-a4ee-4f0cbed52cbc
 
+	measure 'DMC Estabelecimento' =
+			VAR _DMC_Padrao = SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE])
+			RETURN
+			    IF(
+			        SELECTEDVALUE(dEmpresa[DIM_EMPRESA_ID]) = "INTERCOMPANY",
+			        CALCULATE(
+			            SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
+			            REMOVEFILTERS(dEmpresa),
+			            FILTER(
+			                dCliente,
+			                dCliente[TIPO DE CONTA] IN {"AB", "COL", "IND", "KDB", "UY"}
+			            )
+			        ),
+			        _DMC_Padrao
+			    )
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: f4ff3163-9dd6-47fb-b89a-b311862521ee
+
+	measure 'Margem Estabelecimento' = [Faturamento Liquido Total] - [DMC Estabelecimento]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 8dadb41b-6db4-468d-a83e-677e5b7f498c
+
+	measure '% Margem Estabelecimento' = DIVIDE([Margem Estabelecimento], [Faturamento Liquido Total], 0)
+		formatString: 0.00%
+		lineageTag: 5a2d94e1-01be-4465-9773-08ec52a68481
+
+	measure 'DMC Estabelecimento KA' = CALCULATE([DMC Estabelecimento], dCliente[TIPO DE CONTA] = "KA")
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: b8e5b032-0684-40ee-964e-edb112e67e48
+
+	measure 'Margem Estabelecimento KA' = [Faturamento Liquido KA] - [DMC Estabelecimento KA]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: c45842fe-ff29-41a1-b8d2-2b389c598c38
+
+	measure '% Margem Estabelecimento KA' = DIVIDE([Margem Estabelecimento KA], [Faturamento Liquido KA], 0)
+		formatString: 0.00%
+		lineageTag: 0509a369-2859-47bd-9c8e-54868228ead7
+
+	measure 'DMC Estabelecimento RETAIL' = CALCULATE([DMC Estabelecimento], dCliente[TIPO DE CONTA] = "RETAIL")
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 82135618-301c-48b4-8132-7bf1b50876a4
+
+	measure 'Margem Estabelecimento RETAIL' = [Faturamento Liquido RETAIL] - [DMC Estabelecimento RETAIL]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: c5923e0f-18d6-4463-a745-afaee4e88385
+
+	measure '% Margem Estabelecimento RETAIL' = DIVIDE([Margem Estabelecimento RETAIL], [Faturamento Liquido RETAIL], 0)
+		formatString: 0.00%
+		lineageTag: fa152dc0-860f-410e-8181-c135301104ba
+
 	partition _Medidas-c7ec2d81-136a-4e9a-9d32-cc63cc526ef7 = m
 		mode: import
 		source =
