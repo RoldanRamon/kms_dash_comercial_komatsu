@@ -173,6 +173,26 @@ table fVendasDevolucao
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column CUSTO_MEDIO_MES
+		dataType: double
+		lineageTag: 6f5f6ec7-65f1-473c-a485-c1848d240419
+		summarizeBy: sum
+		sourceColumn: CUSTO_MEDIO_MES
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTO_MEDIO
+		dataType: double
+		lineageTag: 5a644fde-a4fa-49e6-baaa-e1bb56179e35
+		summarizeBy: sum
+		sourceColumn: CUSTO_MEDIO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition fVendasDevolucao-237f5887-8909-4283-a41b-4f7f8109dfef = m
 		mode: import
 		queryGroup: FATO

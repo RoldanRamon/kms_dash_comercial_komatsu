@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "7776596527ed4850c78b",
   "position": {
     "x": 15.407407407407407,
@@ -3333,6 +3333,132 @@
               }
             },
             "Property": "Dias Uteis Meta Atual"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3665c4ad67033028be10",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "DMC Estabelecimento"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e5677d70515265bb3b23",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Margem Estabelecimento"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "62b660424c4e972831be",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Margem Estabelecimento"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "0351c8484ae0a2bce330",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "DMC Estabelecimento KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b932de70c3a8431980c8",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Margem Estabelecimento KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "7d48672e5203d250c7cc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Margem Estabelecimento KA"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "57ecdd2b18a30a5b0bb7",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "DMC Estabelecimento RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "14f1ea9fd0c6b3a00316",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Margem Estabelecimento RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "2801023e9d59586108d8",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "% Margem Estabelecimento RETAIL"
           }
         },
         "type": "Advanced"

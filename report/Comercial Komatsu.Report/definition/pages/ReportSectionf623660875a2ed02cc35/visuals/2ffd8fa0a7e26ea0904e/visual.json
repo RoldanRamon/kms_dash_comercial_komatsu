@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "2ffd8fa0a7e26ea0904e",
   "position": {
     "x": 15.844660194174756,
@@ -43,6 +43,21 @@
               },
               "queryRef": "_Medidas.vlr Meta vendedor",
               "displayName": "Net Target Total"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "@teste"
+                }
+              },
+              "queryRef": "_Medidas.@teste",
+              "nativeQueryRef": "Raw Sales",
+              "displayName": "Raw Sales"
             },
             {
               "field": {
@@ -3095,40 +3110,6 @@
           }
         },
         "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "_",
-              "Entity": "_Medidas",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 1,
-                  "Left": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "_"
-                        }
-                      },
-                      "Property": "vlr Meta vendedor TOTAL"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "0L"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
         "isLockedInViewMode": true
       },
       {
@@ -3230,20 +3211,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "83d519980c58685b3789",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dRepresentante"
-              }
-            },
-            "Property": "NOME AGRUPADO"
-          }
-        },
-        "type": "Categorical"
       },
       {
         "name": "4bce6b901adc14e96e84",
@@ -3479,6 +3446,34 @@
               }
             },
             "Property": "% Margem Vendedor RETAIL"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "eec8f78367eb7cc01c21",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dRepresentante"
+              }
+            },
+            "Property": "NOME AGRUPADO"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5347611177e9d2b8e050",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "@teste"
           }
         },
         "type": "Advanced"

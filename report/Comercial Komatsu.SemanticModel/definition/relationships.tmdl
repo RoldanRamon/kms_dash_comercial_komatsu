@@ -102,17 +102,6 @@ relationship 4843b014-27c8-4994-8a63-b3aeff5fe8b3
 	fromColumn: fPedido.DT_EMISSAO
 	toColumn: dCalendario.DT_DATA
 
-relationship 67a6ab99-7bbb-4b4c-acbf-6501a2c7ddfc
-	toCardinality: many
-	fromColumn: fVenda.NOTA
-	toColumn: fNFVendaDev.NUM_NFE
-
-relationship f81bc0e8-3c16-4b06-83e6-e839f13a9cf0
-	crossFilteringBehavior: bothDirections
-	toCardinality: many
-	fromColumn: fVendasDevolucao.NUM_NFS
-	toColumn: fNFVendaDev.NUM_NFE
-
 relationship 9f3feb0d-27dc-48f4-872a-c915d4f958e5
 	fromColumn: fForecastQty.Data
 	toColumn: dCalendario.DT_DATA
@@ -393,4 +382,15 @@ relationship 4aacd503-075f-e012-b6f2-d9a5bd682273
 relationship 2697dad2-d51b-04d6-cb19-e7c996d443d8
 	fromColumn: fVenda.DIM_EMPRESA_ID
 	toColumn: dEmpresa.DIM_EMPRESA_ID
+
+relationship 67a6ab99-7bbb-4b4c-acbf-6501a2c7ddfc
+	toCardinality: many
+	fromColumn: fVenda.NOTA
+	toColumn: fNFVendaDev.NUM_NFE
+
+relationship f81bc0e8-3c16-4b06-83e6-e839f13a9cf0
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: fVendasDevolucao.NUM_NFS
+	toColumn: fNFVendaDev.NUM_NFE
 

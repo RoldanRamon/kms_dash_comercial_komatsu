@@ -1836,8 +1836,28 @@ table _Medidas
 			```
 		lineageTag: 8cd10947-80ca-486b-b9d8-276e9c416632
 
-	measure 'DMC Vendedor' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
-		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+	measure 'DMC Vendedor' = ```
+			// DMC Vendas
+			VAR _DMC_Venda = 
+			    CALCULATE(
+			        SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
+			        USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			// Estorno Custo Devoluções
+			VAR _DMC_Devolucao = 
+			    CALCULATE(
+			        SUMX(
+			            fVendasDevolucao,
+			            COALESCE(fVendasDevolucao[CUSTO_MEDIO_MES], fVendasDevolucao[CUSTO_MEDIO]) * fVendasDevolucao[QTDE_DEVOLUCAO]
+			        ),
+			        USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			RETURN
+			    _DMC_Venda - _DMC_Devolucao
+			```
+		formatString: "R$" #,0.00;-"R$" #,0.00;"R$" #,0.00
 		lineageTag: e82156b8-d7b1-47dc-9c0c-5e4026b6255f
 
 	measure 'Margem Vendedor' = [Net Sales Vendedor] - [DMC Vendedor]
@@ -1848,8 +1868,30 @@ table _Medidas
 		formatString: 0.00%
 		lineageTag: 012e8637-009c-4b06-b6cf-3556dcd13fd5
 
-	measure 'DMC Vendedor KA' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
-		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+	measure 'DMC Vendedor KA' = ```
+			// DMC Vendas KA
+			VAR _DMC_Venda = 
+			    CALCULATE(
+			        SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"),
+			        USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			// Estorno Custo Devoluções KA
+			VAR _DMC_Devolucao = 
+			    CALCULATE(
+			        SUMX(
+			            fVendasDevolucao,
+			            COALESCE(fVendasDevolucao[CUSTO_MEDIO_MES], fVendasDevolucao[CUSTO_MEDIO]) * fVendasDevolucao[QTDE_DEVOLUCAO]
+			        ),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] = "KA"),
+			        USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			RETURN
+			    _DMC_Venda - _DMC_Devolucao
+			```
+		formatString: "R$" #,0.00;-"R$" #,0.00;"R$" #,0.00
 		lineageTag: 08a93e7f-a458-48f0-be41-4cc4d33d4090
 
 	measure 'Margem Vendedor KA' = [Net Sales Vendedor KA] - [DMC Vendedor KA]
@@ -1860,8 +1902,30 @@ table _Medidas
 		formatString: 0.00%
 		lineageTag: f880b5e1-dbf8-4a88-bf47-d989cc176b1b
 
-	measure 'DMC Vendedor RETAIL' = CALCULATE(SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]), FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"), USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID]))
-		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+	measure 'DMC Vendedor RETAIL' = ```
+			// DMC Vendas RETAIL
+			VAR _DMC_Venda = 
+			    CALCULATE(
+			        SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"),
+			        USERELATIONSHIP(fVenda[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			// Estorno Custo Devoluções RETAIL
+			VAR _DMC_Devolucao = 
+			    CALCULATE(
+			        SUMX(
+			            fVendasDevolucao,
+			            COALESCE(fVendasDevolucao[CUSTO_MEDIO_MES], fVendasDevolucao[CUSTO_MEDIO]) * fVendasDevolucao[QTDE_DEVOLUCAO]
+			        ),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] = "RETAIL"),
+			        USERELATIONSHIP(fVendasDevolucao[DIM_CLIENTE_ID], dCliente[DIM_CLIENTE_ID])
+			    )
+			
+			RETURN
+			    _DMC_Venda - _DMC_Devolucao
+			```
+		formatString: "R$" #,0.00;-"R$" #,0.00;"R$" #,0.00
 		lineageTag: 7e791b55-8792-4604-b9d7-4fbeac299eb2
 
 	measure 'Margem Vendedor RETAIL' = [Net Sales Vendedor RETAIL] - [DMC Vendedor RETAIL]
@@ -1872,22 +1936,37 @@ table _Medidas
 		formatString: 0.00%
 		lineageTag: d8e19b2d-c34c-430e-a4ee-4f0cbed52cbc
 
-	measure 'DMC Estabelecimento' =
-			VAR _DMC_Padrao = SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE])
+	measure 'DMC Estabelecimento' = ```
+			VAR _DMC_Venda_Padrao = SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE])
+			VAR _DMC_Dev_Padrao = SUMX(
+			    fVendasDevolucao, 
+			    COALESCE(fVendasDevolucao[CUSTO_MEDIO_MES], fVendasDevolucao[CUSTO_MEDIO]) * fVendasDevolucao[QTDE_DEVOLUCAO]
+			)
+			
+			VAR _DMC_Venda_Intercompany = 
+			    CALCULATE(
+			        SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
+			        REMOVEFILTERS(dEmpresa),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] IN {"AB", "COL", "IND", "KDB", "UY"})
+			    )
+			VAR _DMC_Dev_Intercompany = 
+			    CALCULATE(
+			        SUMX(
+			            fVendasDevolucao, 
+			            COALESCE(fVendasDevolucao[CUSTO_MEDIO_MES], fVendasDevolucao[CUSTO_MEDIO]) * fVendasDevolucao[QTDE_DEVOLUCAO]
+			        ),
+			        REMOVEFILTERS(dEmpresa),
+			        FILTER(dCliente, dCliente[TIPO DE CONTA] IN {"AB", "COL", "IND", "KDB", "UY"})
+			    )
+			
 			RETURN
 			    IF(
 			        SELECTEDVALUE(dEmpresa[DIM_EMPRESA_ID]) = "INTERCOMPANY",
-			        CALCULATE(
-			            SUMX(fVenda, fVenda[CUSTO_MEDIO_CONSOLIDADO] * fVenda[QUANTIDADE]),
-			            REMOVEFILTERS(dEmpresa),
-			            FILTER(
-			                dCliente,
-			                dCliente[TIPO DE CONTA] IN {"AB", "COL", "IND", "KDB", "UY"}
-			            )
-			        ),
-			        _DMC_Padrao
+			        _DMC_Venda_Intercompany - _DMC_Dev_Intercompany,
+			        _DMC_Venda_Padrao - _DMC_Dev_Padrao
 			    )
-		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+			```
+		formatString: "R$" #,0.00;-"R$" #,0.00;"R$" #,0.00
 		lineageTag: f4ff3163-9dd6-47fb-b89a-b311862521ee
 
 	measure 'Margem Estabelecimento' = [Faturamento Liquido Total] - [DMC Estabelecimento]
@@ -1921,6 +2000,17 @@ table _Medidas
 	measure '% Margem Estabelecimento RETAIL' = DIVIDE([Margem Estabelecimento RETAIL], [Faturamento Liquido RETAIL], 0)
 		formatString: 0.00%
 		lineageTag: fa152dc0-860f-410e-8181-c135301104ba
+
+	measure @teste =
+			
+			//Faturamento
+			CALCULATE(
+			    SUM(fVenda[VALOR_LIQUIDO]),
+			    USERELATIONSHIP(fVenda[DIM_CLIENTE_ID],dCliente[DIM_CLIENTE_ID])
+			        )
+		lineageTag: f531e96c-f24b-4b85-a5cf-ddd49929814d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Medidas-c7ec2d81-136a-4e9a-9d32-cc63cc526ef7 = m
 		mode: import
